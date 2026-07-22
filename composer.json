@@ -1,0 +1,14 @@
+{
+    "name": "alhadiazumi/pseudonym",
+    "description": "Anonymous messaging platform inspired by Secreto and NGL.",
+    "type": "project",
+    "license": "MIT",
+
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+
+    "require": {}
+}

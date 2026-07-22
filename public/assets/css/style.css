@@ -1,0 +1,2338 @@
+/* ============================================================
+   BISIK — Modern Design System
+   Palet:
+     --primary      #CCFF00  neon lime (accent/brand)
+     --dark-bg      #0F172A  dark navy background
+     --dark-bg-2    #1A1F2E  dark card background
+     --dark-bg-3    #242C3A  dark hover background
+     --light-bg     #FFFFFF  light background
+     --light-bg-2   #F8FAFC  light secondary background
+     --light-line   #E2E8F0  light divider
+     --text-dark    #111827  text on light
+     --text-light   #FFFFFF  text on dark
+     --text-muted   #6B7280  muted text
+     --text-muted-dark #4B5563  muted dark
+     --accent-green #00D97E  success/highlight
+   Font: Poppins (display/heading), Inter (body), IBM Plex Mono (meta)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+:root {
+  --primary: #CCFF00;
+  --primary-dark: #B8E600;
+  --dark-bg: #0F172A;
+  --dark-bg-2: #1A1F2E;
+  --dark-bg-3: #242C3A;
+  --light-bg: #FFFFFF;
+  --light-bg-2: #F8FAFC;
+  --light-line: #E2E8F0;
+  --text-dark: #111827;
+  --text-light: #FFFFFF;
+  --text-muted: #6B7280;
+  --text-muted-dark: #4B5563;
+  --accent-green: #00D97E;
+  --ink: #0F172A;
+  --ink-2: #1A1F2E;
+  --ink-3: #242C3A;
+  --paper: #FFFFFF;
+  --paper-2: #F8FAFC;
+  --paper-line: #E2E8F0;
+  --wax: #CCFF00;
+  --wax-dark: #B8E600;
+  --gold: #CCFF00;
+  --ink-text: #111827;
+  --muted: #6B7280;
+  --muted-dark: #4B5563;
+  --radius: 16px;
+  --shadow: 0 20px 45px rgba(0,0,0,0.15);
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #F8FAFC 0%, #E0F2FE 50%, #F0FDFA 100%);
+  color: var(--text-dark);
+  font-family: 'Inter', -apple-system, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(circle at 20% 20%, rgba(204,255,0,0.08), transparent 44%),
+                    radial-gradient(circle at 85% 75%, rgba(59,130,246,0.06), transparent 42%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.serif-heading {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text-dark);
+  margin: 0 0 0.4em;
+}
+
+.muted { color: var(--muted); }
+
+a { color: inherit; }
+
+button, input, textarea { font-family: inherit; }
+
+/* ---------- Layout shells ---------- */
+
+.page-wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 64px 28px 96px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 28px 0;
+  position: relative;
+  z-index: 1;
+}
+
+.brand {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand a {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.brand .seal-dot {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--wax);
+  box-shadow: 0 0 0 4px rgba(124,38,48,0.22);
+}
+
+.nav-link {
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  text-decoration: none;
+  border: 1.5px solid var(--light-line);
+  padding: 10px 18px;
+  border-radius: 10px;
+  transition: border-color .2s, background .2s, color .2s;
+  font-weight: 500;
+}
+.nav-link:hover { 
+  background: var(--primary);
+  color: var(--dark-bg);
+  border-color: var(--primary);
+}
+
+/* ---------- Hero (index.php) ---------- */
+
+.hero-left {
+  padding-right: 18px;
+}
+.eyebrow {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  color: #0f1724;
+}
+
+/* Envelope-style address window for the username search */
+.envelope {
+  background: var(--paper);
+  border-radius: 24px;
+  box-shadow: 0 32px 80px rgba(17,24,39,0.08);
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+}
+.envelope::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 46px;
+  background: linear-gradient(135deg, var(--paper-2) 50%, transparent 50.5%),
+              linear-gradient(-135deg, var(--paper-2) 50%, transparent 50.5%);
+  background-size: 50% 100%;
+  background-position: left top, right top;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid var(--paper-line);
+}
+.envelope-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8A7F5F;
+  margin-bottom: 25px;
+  margin-left: 180px;
+}
+.envelope-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  position: relative;
+  margin-top: 6px;
+}
+.envelope-row input {
+  width: 100%;
+  background: var(--paper-2);
+  border: 1.5px solid var(--paper-line);
+  border-radius: 16px;
+  padding: 18px 20px;
+  font-size: 1rem;
+  color: #2B2620;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+.envelope-row input:focus { border-color: #9ca3af; box-shadow: 0 0 0 4px rgba(156,163,175,0.12); }
+
+.btn-seal {
+  background: var(--primary);
+  color: var(--dark-bg);
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background .2s, transform .08s, box-shadow .2s;
+  box-shadow: 0 4px 16px rgba(204,255,0,0.2);
+}
+.btn-seal:hover { background: var(--primary-dark); box-shadow: 0 8px 24px rgba(204,255,0,0.3); transform: translateY(-2px); }
+.btn-seal:active { transform: translateY(0); }
+.btn-seal:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.lookup-hint {
+  font-size: 0.88rem;
+  margin-top: 12px;
+  min-height: 1.2em;
+  color: var(--muted);
+}
+.lookup-hint.found { color: #4A7A5A; }
+.lookup-hint.notfound { color: #b91c1c; }
+
+.divider-word {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--muted-dark);
+  font-size: 0.8rem;
+  font-family: 'IBM Plex Mono', monospace;
+  margin: 44px 0 32px;
+}
+.divider-word::before, .divider-word::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(17,24,39,0.08);
+}
+
+.cta-row { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-outline {
+  border: 1.5px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color .2s, background .2s, color .2s;
+}
+.btn-outline:hover { background: var(--primary); color: var(--dark-bg); }
+
+/* ---------- Auth pages ---------- */
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  position: relative;
+  z-index: 1;
+}
+.paper-card {
+  background: var(--paper);
+  color: #2B2620;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 36px;
+  max-width: 440px;
+  width: 100%;
+}
+.auth-card .serif-heading { color: #241F19; }
+.auth-card .eyebrow { color: var(--wax); }
+.auth-card .muted { color: #6B6152; margin-bottom: 24px; }
+
+.stacked-form { display: flex; flex-direction: column; gap: 8px; }
+.stacked-form label {
+  font-size: 0.8rem;
+  font-family: 'IBM Plex Mono', monospace;
+  color: #6B6152;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.input-prefix {
+  display: flex;
+  align-items: center;
+  background: var(--paper-2);
+  border: 1.5px solid var(--paper-line);
+  border-radius: 10px;
+  padding: 4px 4px 4px 14px;
+  margin-bottom: 16px;
+}
+.input-prefix span { font-size: 0.82rem; color: #8A7F5F; white-space: nowrap; font-family: 'IBM Plex Mono', monospace; }
+.input-prefix input {
+  border: none; background: transparent; outline: none;
+  padding: 10px 8px; font-size: 1rem; flex: 1; color: #2B2620;
+}
+.alert-error {
+  background: rgba(124,38,48,0.08);
+  border: 1px solid rgba(124,38,48,0.3);
+  color: var(--wax);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  margin-bottom: 16px;
+}
+
+/* ---------- Profile page (u.php) ---------- */
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.avatar {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--gold);
+  background: var(--ink-3);
+}
+.avatar-fallback {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: var(--ink-3);
+  border: 2px solid var(--gold);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  color: var(--gold);
+}
+.profile-header h1 { font-size: 1.5rem; margin: 0; }
+.profile-header .handle { color: var(--muted); font-family: 'IBM Plex Mono', monospace; font-size: 0.85rem; }
+
+.compose-box textarea {
+  width: 100%;
+  background: var(--paper-2);
+  border: 1.5px solid var(--paper-line);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 0.98rem;
+  color: #2B2620;
+  resize: vertical;
+  min-height: 90px;
+  outline: none;
+  transition: border-color .2s;
+}
+.compose-box textarea:focus { border-color: var(--wax); }
+.compose-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+.char-count { font-size: 0.78rem; color: var(--muted); font-family: 'IBM Plex Mono', monospace; }
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted-dark);
+  margin: 44px 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::after { content: ''; flex: 1; height: 1px; background: rgba(17,24,39,0.08); }
+
+/* ---------- Message card + wax seal signature element ---------- */
+
+.message-list { display: flex; flex-direction: column; gap: 16px; }
+
+.message-card {
+  background: var(--light-bg-2);
+  border: 1.5px solid var(--light-line);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  position: relative;
+  transition: border-color .2s, background .2s;
+}
+.message-card:hover {
+  background: var(--light-bg);
+  border-color: var(--primary);
+}
+.message-card.unreplied { border-style: dashed; border-color: rgba(204,255,0,0.3); }
+
+.message-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.message-time {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--muted-dark);
+}
+
+/* the signature element: a wax-seal badge for replied messages,
+   a hollow ring + label for ones still waiting */
+.seal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  padding: 4px 10px 4px 6px;
+  border-radius: 999px;
+}
+.seal-badge.replied {
+  background: rgba(51,211,153,0.12);
+  color: #059669;
+}
+.seal-badge.replied .dot {
+  width: 14px; height: 14px; border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px rgba(16,185,129,0.3);
+}
+.seal-badge.waiting {
+  background: rgba(204,255,0,0.12);
+  border: 1px solid rgba(204,255,0,0.3);
+  color: #9DB600;
+}
+.seal-badge.waiting .dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  border: 1.5px solid #CCFF00;
+}
+.seal-badge.visible {
+  background: rgba(0,217,126,0.12);
+  border: 1px solid rgba(0,217,126,0.3);
+  color: #059669;
+}
+.seal-badge.visible .dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #00D97E;
+}
+.seal-badge.hidden {
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: #B91C1C;
+}
+.seal-badge.hidden .dot {
+  width: 10px; height: 10px; border-radius: 50%;
+  background: #EF4444;
+}
+
+.message-content { font-size: 0.98rem; color: var(--ink-text); white-space: pre-wrap; word-break: break-word; }
+
+.reply-block {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: rgba(201,162,39,0.06);
+  border-left: 2px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+}
+.reply-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+    color: var(--muted);
+  margin-bottom: 6px;
+}
+.reply-content { font-size: 0.92rem; white-space: pre-wrap; word-break: break-word; }
+
+.reply-form { margin-top: 14px; display: none; }
+.reply-form.open { display: block; }
+.reply-form textarea {
+  width: 100%;
+  background: var(--ink-3);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--ink-text);
+  font-size: 0.9rem;
+  resize: vertical;
+  min-height: 60px;
+  outline: none;
+}
+.reply-form textarea:focus { border-color: var(--gold); }
+.reply-toggle {
+  background: none;
+  border: none;
+  color: var(--gold);
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 4px 0;
+  margin-top: 10px;
+}
+.reply-actions { display: flex; gap: 10px; margin-top: 12px; }
+.btn-small {
+  font-size: 0.82rem;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: var(--primary);
+  color: var(--dark-bg);
+  font-weight: 600;
+  transition: background .2s, transform .1s;
+}
+.btn-small:hover { background: var(--primary-dark); transform: translateY(-1px); }
+.btn-small.ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1.5px solid var(--light-line);
+}
+.btn-small.ghost:hover { background: var(--light-bg-2); color: var(--text-dark); }
+.btn-small.visibility-toggle {
+  background: transparent;
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+}
+.btn-small.visibility-toggle:hover { background: rgba(204,255,0,0.1); }
+.btn-small.visibility-toggle.active {
+  background: var(--accent-green);
+  color: var(--light-bg);
+  border-color: var(--accent-green);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--muted);
+  border: 1px dashed rgba(255,255,255,0.12);
+  border-radius: var(--radius);
+  font-size: 0.92rem;
+}
+
+/* ---------- Dashboard ---------- */
+
+.stats-row { display: flex; gap: 14px; margin-bottom: 8px; margin-top: 24px; }
+.stat-box {
+  flex: 1;
+  background: var(--light-bg);
+  border-radius: 12px;
+  padding: 16px 18px;
+  border: 1.5px solid var(--light-line);
+  transition: border-color .2s, background .2s;
+}
+.stat-box:hover {
+  border-color: var(--primary);
+  background: var(--light-bg-2);
+}
+.stat-box .num { font-family: 'Poppins', sans-serif; font-size: 1.8rem; color: var(--primary); font-weight: 700; }
+.stat-box .label { font-size: 0.75rem; color: var(--text-muted-dark); text-transform: uppercase; letter-spacing: 0.06em; font-family: 'IBM Plex Mono', monospace; }
+
+.share-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--ink-2);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin: 20px 0 8px;
+}
+.share-box.share-box--clean {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 24px 0 0;
+  gap: 12px;
+}
+.share-box input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: var(--ink-text);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+}
+.share-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 6px 0;
+  color: var(--ink-text);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+}
+.copy-btn {
+  background: var(--primary);
+  color: var(--dark-bg);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  cursor: pointer;
+  white-space: nowrap;
+  font-weight: 600;
+  transition: background .2s;
+}
+.copy-btn:hover { background: var(--primary-dark); }
+
+@media (max-width: 560px) {
+  .hero h1 { font-size: 2.05rem; }
+  .envelope-row { flex-direction: column; }
+  .stats-row { flex-direction: column; }
+}
+
+/* ---------- New layout sections to resemble the wireframe ---------- */
+.hero {
+  display: grid;
+  grid-template-columns: 1fr 420px;
+  gap: 48px;
+  align-items: center;
+  min-height: 620px;
+}
+.hero-left { padding-right: 18px; }
+.hero .serif-heading {
+  font-size: 3.4rem;
+  line-height: 1.02;
+  max-width: 58ch;
+}
+.hero p.lede {
+  color: var(--muted);
+  max-width: 62ch;
+  margin-top: 18px;
+  margin-bottom: 42px;
+}
+.hero-visual {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: flex-end;
+  position: relative;
+}
+.hero-visual::before {
+  content: '';
+  position: absolute;
+  top: 24px;
+  left: -16px;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  background: rgba(59,130,246,0.12);
+  z-index: 0;
+}
+.hero-visual .big {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 340px;
+  height: 260px;
+  background: linear-gradient(180deg,#f7f7ff,#ffffff);
+  border-radius: 24px;
+  box-shadow: 0 28px 72px rgba(17,24,39,0.10);
+}
+.hero-visual .big::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  right: -16px;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(59,130,246,0.14);
+}
+.hero-visual .stack {
+  display: flex;
+  gap: 16px;
+  width: 100%;
+  justify-content: flex-end;
+}
+.hero-visual .small {
+  position: relative;
+  width: 150px;
+  height: 120px;
+  background: linear-gradient(180deg,#ffffff,#eef2ff);
+  border-radius: 20px;
+  box-shadow: 0 18px 36px rgba(17,24,39,0.06);
+}
+.hero-visual .small:nth-child(1) { transform: translateX(12px); }
+.hero-visual .small:nth-child(2) { transform: translateX(-10px) translateY(12px); }
+
+.top-destinations {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-top: 56px;
+}
+.dest-card {
+  background: var(--paper-2);
+  color: #2B2620;
+  border-radius: 20px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 240px;
+}
+.dest-card .thumb {
+  height: 140px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--paper-line);
+  background: linear-gradient(180deg,#fff,#f3f5ff);
+  color: #9aa4b2;
+  font-size: 0.95rem;
+}
+.dest-card .title { font-size: 0.95rem; font-weight: 700; color: #0f1724; }
+.dest-card .meta { font-size: 0.82rem; color: var(--muted); }
+
+.latest-stories {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 28px;
+  margin-top: 48px;
+}
+.story-main {
+  background: var(--paper);
+  color: #2B2620;
+  border-radius: 24px;
+  padding: 28px;
+  min-height: 280px;
+}
+.story-main h2 { margin-top: 0; margin-bottom: 14px; }
+.story-main p { margin-bottom: 24px; }
+.story-preview {
+  border-radius: 22px;
+  background: linear-gradient(180deg,#eef2ff,#ffffff);
+  height: 160px;
+}
+.story-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.story-item {
+  background: var(--paper-2);
+  color: #2B2620;
+  padding: 18px;
+  border-radius: 18px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  min-height: 110px;
+}
+.story-item .thumb {
+  width: 120px;
+  height: 86px;
+  border-radius: 14px;
+  background: rgba(0,0,0,0.04);
+}
+
+.highlights {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.highlight-card {
+  background: var(--paper);
+  border-radius: 24px;
+  padding: 24px;
+  min-height: 140px;
+  box-shadow: 0 22px 40px rgba(17,24,39,0.06);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.highlight-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0f1724;
+}
+.highlight-desc {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.site-footer {
+  margin-top: 64px;
+  background: rgba(249,250,251,0.95);
+  padding: 32px 24px;
+  border-radius: 20px;
+  color: #4b5563;
+}
+.site-footer a { color: inherit; text-decoration: none; }
+.footer-grid {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  max-width: 980px;
+  margin: 0 auto;
+}
+.footer-grid > div {
+  min-width: 200px;
+}
+.share-box.share-box--clean {
+  background: transparent;
+  border: none;
+  padding: 0;
+}
+.story-details {
+  margin-top: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+.story-title {
+  font-weight: 600;
+  color: #241F19;
+}
+.story-meta { font-size: 0.82rem; color: #6B6152; }
+
+@media (max-width: 980px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+  .top-destinations { grid-template-columns: repeat(2,1fr); }
+  .latest-stories { grid-template-columns: 1fr; }
+  .highlights { grid-template-columns: 1fr; }
+}
+
+/* ============================================================
+   SOCIAL SHARE BUTTONS
+   ============================================================ */
+
+.social-share-buttons {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-size: 0.75rem;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all .2s;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.share-btn.twitter {
+  background: rgba(29, 161, 242, 0.12);
+  color: #1DA1F2;
+  border: 1px solid rgba(29, 161, 242, 0.3);
+}
+.share-btn.twitter:hover {
+  background: rgba(29, 161, 242, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(29, 161, 242, 0.2);
+}
+
+.share-btn.facebook {
+  background: rgba(59, 89, 152, 0.12);
+  color: #3B5998;
+  border: 1px solid rgba(59, 89, 152, 0.3);
+}
+.share-btn.facebook:hover {
+  background: rgba(59, 89, 152, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 89, 152, 0.2);
+}
+
+.share-btn.whatsapp {
+  background: rgba(37, 211, 102, 0.12);
+  color: #25D366;
+  border: 1px solid rgba(37, 211, 102, 0.3);
+}
+.share-btn.whatsapp:hover {
+  background: rgba(37, 211, 102, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.2);
+}
+
+.share-btn.copy-link {
+  background: var(--primary);
+  color: var(--dark-bg);
+  border: none;
+}
+.share-btn.copy-link:hover {
+  background: var(--primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(204, 255, 0, 0.3);
+}
+
+.share-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+  padding: 20px;
+}
+
+.share-modal.active {
+  display: flex;
+}
+
+.share-modal-content {
+  background: white;
+  border-radius: 16px;
+  padding: 28px;
+  max-width: 500px;
+  width: 100%;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.share-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.share-modal-header h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  font-family: 'Poppins', sans-serif;
+}
+
+.share-modal-close {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color .2s;
+}
+
+.share-modal-close:hover {
+  color: var(--text-dark);
+}
+
+.share-preview {
+  background: var(--light-bg-2);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 20px;
+}
+
+.share-preview-text {
+  font-size: 0.9rem;
+  color: var(--text-dark);
+  line-height: 1.6;
+  margin-bottom: 12px;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.share-preview-link {
+  font-size: 0.85rem;
+  color: #0EA5E9;
+  word-break: break-all;
+  font-family: 'IBM Plex Mono', monospace;
+}
+  .highlights { grid-template-columns: 1fr; }
+
+
+@media (max-width: 720px) {
+  .page-wrap { padding: 40px 18px 80px; }
+  .topbar { padding: 24px 18px 0; }
+}
+
+@media (max-width: 560px) {
+  .top-destinations { grid-template-columns: 1fr; }
+  .hero .serif-heading { font-size: 1.95rem; }
+  .page-wrap { padding: 28px 16px 72px; }
+  .hero-left { padding-right: 0; }
+  .envelope-row { display: grid; grid-template-columns: 1fr; }
+  .hero-visual { display: none; }
+}
+
+/* Profile / aside tweaks */
+.hero aside {
+  background: var(--paper);
+  padding: 18px;
+  border-radius: 12px;
+  color: #2B2620;
+  box-shadow: var(--shadow);
+}
+.hero > div { /* main column */
+  color: var(--ink-text);
+}
+
+.message-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.message-card {
+  background: var(--paper);
+  color: #241F19;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 8px 18px rgba(15,15,15,0.06);
+}
+.message-card.unreplied { border-left: 4px solid var(--gold); }
+.message-meta { color: #6B6152; display:flex; gap:8px; align-items:center; }
+.message-time { color: #8A7F5F; }
+.message-content { color: #241F19; }
+
+.reply-block { background: #FBF7ED; border-left: 3px solid var(--gold); color:#241F19 }
+
+.reply-form textarea { background: #fff; color: #241F19; }
+
+/* Footer tweaks */
+
+@media (max-width: 980px) {
+  .hero aside { order: 2; }
+  .hero > div { order: 1; }
+}
+#share-url {
+    color: #ffffff; /* Mengubah teks link menjadi putih */
+}
+
+/* =========================================
+   GAMBAR UNTUK HERO VISUAL & LATEST STORIES
+   ========================================= */
+
+/* 1. Gambar Hero Utama (Besar) */
+.hero-visual .big {
+    background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80') !important;
+    background-size: cover !important;
+    background-position: center !important;
+}
+/* 2. Gambar Hero Kecil (Atas) */
+.hero-visual .stack .small:nth-child(1) {
+    background-image: url('https://images.unsplash.com/photo-1611606063065-ee7946f0787a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');
+    background-size: cover;
+    background-position: center;
+}
+
+/* 3. Gambar Hero Kecil (Bawah) */
+.hero-visual .stack .small:nth-child(2) {
+    background-image: url('https://images.unsplash.com/photo-1586769852044-692d6e3703f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');
+    background-size: cover;
+    background-position: center;
+}
+
+/* 4. Gambar Story Preview */
+.story-preview {
+    background-image: url('https://images.unsplash.com/photo-1455390582262-044cdead27d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+    background-size: cover;
+    background-position: center;
+}
+
+/* 5. Gambar Thumbnail 1 */
+.story-list .story-item:nth-child(1) .thumb {
+    background-image: url('https://images.unsplash.com/photo-1497032205916-ac775f0649ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80');
+    background-size: cover;
+    background-position: center;
+}
+
+/* 6. Gambar Thumbnail 2 */
+.story-list .story-item:nth-child(2) .thumb {
+    background-image: url('https://images.unsplash.com/photo-1516383274235-5f42d6c6426d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80');
+    background-size: cover;
+    background-position: center;
+}
+/* =========================================
+   TATA LETAK HALAMAN PROFIL (MOBILE)
+   ========================================= */
+
+/* =========================================
+   PERBAIKAN TATA LETAK (DESKTOP & MOBILE)
+   ========================================= */
+
+/* 1. Ubah grid profil menjadi 1 kolom penuh di tengah */
+.profile-grid {
+    display: flex !important;
+    flex-direction: column !important;
+    max-width: 760px !important; /* Melebarkan ukuran kolom secara keseluruhan */
+    margin: 0 auto !important; /* Menengahkannya di layar desktop/mobile */
+    width: 100% !important;
+    padding: 0 16px !important; /* Memberi jarak aman kiri-kanan agar tidak mentok layar */
+}
+
+/* 2. Pastikan Kotak Kirim Pesan selalu di atas */
+.compose-col {
+    order: -1 !important; /* Paksa kotak pesan ke urutan pertama (paling atas) */
+    width: 100% !important;
+    position: static !important; /* Matikan sticky di desktop agar scroll natural */
+    margin-bottom: -70px !important;
+}
+
+/* Mengurangi jarak atas pada label "Semua Pesan" */
+.section-label {
+    margin-top: 16px !important; 
+}
+
+/* 3. Daftar Pesan di urutan bawah */
+.profile-grid > div:not(.compose-col) {
+    order: 1 !important;
+    width: 100% !important;
+}
+
+/* 4. Hapus styling bawaan 'aside' yang bikin padding tumpang tindih */
+.hero aside {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+/* 5. Rapikan Kotak Tulis Pesan */
+.envelope, .compose-box {
+    width: 100% !important;
+    height: auto !important;
+    min-height: unset !important;
+    padding: 24px !important; /* Memberikan padding yang proporsional */
+    border-radius: 20px !important;
+    background: var(--paper) !important;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.06) !important;
+    overflow: hidden !important;
+}
+
+/* 6. Hilangkan ornamen amplop atas yang menabrak textarea */
+.envelope::before {
+    display: none !important;
+}
+
+/* 7. Tengahin Profil Header sekalian biar lebih rapi dan estetik */
+.profile-header {
+    justify-content: center !important;
+    text-align: center !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    margin-bottom: 30px !important;
+}
+
+/* =========================================
+   NAVBAR SCROLL EFFECT (NGL STYLE)
+   ========================================= */
+
+/* =========================================
+   NAVBAR SLIDE-DOWN EFFECT (NGL STYLE)
+   ========================================= */
+
+/* 1. Pengaturan dasar Navbar */
+.topbar {
+    position: fixed !important;
+    top: 38px !important; /* Berada tepat di bawah teks berjalan */
+    left: 12px !important; /* Menyesuaikan margin kiri container */
+    right: 12px !important; /* Menyesuaikan margin kanan container */
+    width: auto !important; /* Lebar otomatis mengikuti left & right */
+    max-width: none !important; /* Batalkan max-width:1100px bawaan biar bisa full-width pas discroll */
+    margin: 0 !important; /* Batalkan margin:0 auto bawaan (penyebab navbar "nge-center" & ada celah di samping) */
+    padding: 24px 5% !important;
+    z-index: 9999 !important;
+    background-color: transparent !important;
+    border-radius: 40px 40px 0 0 !important; /* Melengkung menyesuaikan container */
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important; /* Disamain sama kurva ::before biar gak ada jeda/celah putih */
+}
+
+/* 2. Ukuran logo buatanmu */
+.brand-logo {
+    height: 60px !important; 
+    width: auto !important;
+    display: block !important;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1)) !important;
+}
+
+/* 3. Ini adalah 'Latar Hitam Melengkung' yang bersiap di atas layar */
+.topbar::before {
+    content: '';
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background-color: #000000;
+    border-radius: inherit; /* Melengkung atau lurus mengikuti .topbar */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    z-index: -1;
+    transform: translateY(-120%); /* Sembunyi jauh di atas */
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* 4. Saat di-scroll, tarik latar hitamnya turun (muncul dari atas) */
+.topbar.scrolled::before {
+    transform: translateY(0);
+}
+/* 5. Mengecilkan tinggi Navbar (jarak atas bawah) saat di-scroll */
+.topbar.scrolled {
+    top: 0 !important; /* Marquee sudah disembunyikan, jadi aman naik ke paling atas */
+    left: 0 !important; /* Melebar penuh ke ujung kiri */
+    right: 0 !important; /* Melebar penuh ke ujung kanan */
+    border-radius: 0 0 20px 20px !important; /* Sedikit melengkung di bagian bawah, bukan kotak lurus total */
+    padding: 16px 5% !important; /* Mengecil agar lebih rapi */
+}
+/* 6. Mengubah warna tombol (Masuk/Kotak Masuk) menjadi terang saat navbar hitam */
+.topbar.scrolled .nav-link {
+    color: #ffffff !important;
+    border-color: rgba(255, 255, 255, 0.4) !important;
+}
+.topbar.scrolled .nav-link:hover {
+    background: var(--primary) !important;
+    color: #000000 !important;
+    border-color: var(--primary) !important;
+}
+
+/* 7. Mendorong konten ke bawah agar tidak tertutup navbar yang melayang */
+.page-wrap {
+    padding-top: 100px !important; 
+}
+
+/* Container Overlay */
+#intro-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(0, 0, 0, 0.7); /* Latar gelap sedikit */
+    backdrop-filter: blur(15px);     /* Ini yang bikin konten index.php jadi blur */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1s ease;
+}
+
+#intro-overlay.hidden {
+    opacity: 0;
+    pointer-events: none; /* Biar overlay hilang dan bisa klik konten di bawahnya */
+}
+
+/* Container & Animasi (dibuat lebih lambat) */
+.intro-container { position: relative; width: 300px; height: 300px; display: flex; justify-content: center; align-items: center; }
+
+.logo-question {
+    position: absolute; width: 150px;
+    /* Durasi total 2 detik */
+    animation: fadeInOut 2s ease-in-out forwards, pulse 1s infinite alternate ease-in-out;
+}
+
+.logo-text {
+    position: absolute; width: 250px; opacity: 0;
+    /* Mulai muncul setelah 1.5 detik, durasi 2 detik */
+    animation: revealText 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.5s forwards;
+}
+
+@keyframes fadeInOut {
+    0% { opacity: 0; transform: scale(0.5); }
+    20% { opacity: 1; transform: scale(1); }
+    80% { opacity: 1; }
+    100% { opacity: 0; transform: scale(0.5); }
+}
+
+@keyframes revealText {
+    0% { opacity: 0; transform: scale(0.8); filter: blur(10px); }
+    100% { opacity: 1; transform: scale(1); filter: blur(0px); }
+}
+
+/* =========================================
+   NGL STYLE: MARQUEE & CURVED CONTAINER
+   ========================================= */
+
+/* 1. Timpa Background Body Jadi Hitam Pekat */
+body { background: #000000 !important; }
+body::before { display: none !important; }
+
+/* 2. Teks Berjalan (Marquee) - Diperbaiki agar tidak putus */
+.marquee-container {
+    position: fixed; top: 0; left: 0; width: 100%;
+    background-color: #000000; color: #ffffff;
+    padding: 10px 0; z-index: 10000;
+    overflow: hidden; font-family: 'Poppins', sans-serif;
+    font-size: 0.75rem; font-weight: 600;
+    letter-spacing: 2px; text-transform: uppercase;
+    transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+/* Hilang begitu navbar jadi solid pas discroll */
+.marquee-container.hide {
+    transform: translateY(-100%);
+    opacity: 0;
+    pointer-events: none;
+}
+.marquee-content {
+    display: flex;
+    width: max-content;
+    animation: marqueeScroll 25s linear infinite;
+}
+.marquee-content span { padding-right: 30px; }
+
+@keyframes marqueeScroll {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); } /* Loop mulus karena ada 4 bentang teks */
+}
+
+/* 3. Kontainer Utama (Melengkung & Mengambang) */
+.main-curved-box {
+    background: linear-gradient(135deg, #F8FAFC 0%, #E0F2FE 50%, #F0FDFA 100%);
+    position: relative;
+    z-index: 1;
+    /* Margin untuk membuat kontainer mengambang dari tepi layar */
+    margin: 48px 12px 12px 12px; 
+    border-radius: 40px; /* Lengkungan atas dan bawah */
+    min-height: calc(100vh - 60px);
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+}
+
+.main-curved-box::before {
+    content: ''; position: absolute; inset: 0;
+    background-image: radial-gradient(circle at 20% 20%, rgba(204,255,0,0.08), transparent 44%),
+                      radial-gradient(circle at 85% 75%, rgba(59,130,246,0.06), transparent 42%);
+    pointer-events: none; z-index: 0;
+}
+
+/* 4. Posisi Navbar Baru (Tengah & Warna Putih) */
+.nav-center {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    align-items: center;
+}
+.nav-text-link {
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    font-size: 0.95rem;
+    color: var(--text-dark); /* Hitam saat belum discroll (di atas background terang) */
+    text-shadow: none;
+    position: relative; /* buat naruh titik indikator halaman aktif */
+    transition: color 0.3s ease, opacity 0.2s, transform 0.2s;
+}
+.nav-text-link:hover {
+    opacity: 0.8;
+    transform: translateY(-2px);
+}
+
+/* Titik penanda halaman aktif (ala NGL), warnanya ngikutin warna teks di sebelahnya */
+.nav-text-link.active::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: navDotIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.3s backwards;
+}
+
+@keyframes navDotIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) scale(0);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) scale(1);
+    }
+}
+
+/* Titik penanda di menu mobile juga */
+.mobile-menu-link.active {
+    position: relative;
+}
+.mobile-menu-link.active::after {
+    content: '';
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+    margin-left: 8px;
+    vertical-align: middle;
+}
+
+/* Saat navbar sudah discroll & background hitam muncul, teks jadi putih (ala NGL) */
+.topbar.scrolled .nav-text-link {
+    color: #ffffff;
+    text-shadow: 0px 2px 5px rgba(0,0,0,0.6);
+}
+
+/* 5. Efek Liquid Glass (Glassmorphism Trend) */
+.glass-btn {
+    background: rgba(255, 255, 255, 0.3) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.6) !important;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1) !important;
+    color: #111827 !important; /* Warna teks gelap */
+    text-shadow: none !important;
+    border-radius: 12px !important;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+.glass-btn:hover {
+    background: rgba(255, 255, 255, 0.5) !important;
+    border: 1px solid rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.15) !important;
+    transform: translateY(-3px) scale(1.02) !important;
+}
+
+/* 6. Footer di area hitam luar lengkungan */
+.site-footer-dark {
+    padding: 20px 24px 40px;
+    color: #6B7280; text-align: center; font-size: 0.9rem;
+}
+.site-footer-dark a { color: #9CA3AF; text-decoration: none; }
+.site-footer { display: none !important; }
+
+/* Footer bawah: sejajar kiri-kanan kayak footer web pada umumnya, jangan numpuk ke tengah */
+.site-footer-dark .footer-grid {
+    flex-wrap: nowrap !important;
+}
+.site-footer-dark .footer-grid > div {
+    min-width: 0 !important;
+    white-space: nowrap;
+}
+.site-footer-dark .footer-grid > div:first-child {
+    text-align: left !important;
+}
+.site-footer-dark .footer-grid > div:last-child {
+    text-align: right !important;
+}
+
+@media (max-width: 480px) {
+    .site-footer-dark .footer-grid {
+        font-size: 0.8rem;
+    }
+}
+
+/* =========================================
+   HAMBURGER MENU MOBILE (ala NGL)
+   ========================================= */
+
+/* Tombol hamburger: disembunyikan di desktop by default */
+.hamburger-btn {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    position: relative;
+    z-index: 10001; /* di atas navbar & marquee */
+    flex-shrink: 0;
+}
+.hamburger-btn span {
+    display: block;
+    width: 18px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--text-dark); /* hitam saat belum discroll */
+    transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+}
+.topbar.scrolled .hamburger-btn span { background: #ffffff; }
+
+/* Animasi garis 3 -> jadi X saat menu terbuka */
+.hamburger-btn.open span:nth-child(1) { transform: translateY(6px) rotate(45deg); }
+.hamburger-btn.open span:nth-child(2) { opacity: 0; }
+.hamburger-btn.open span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
+
+/* Panel dropdown mobile, nempel di bawah topbar (anak dari .topbar yang position:fixed) */
+.mobile-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 12px);
+    left: 0;
+    right: 0;
+    background: #000000;
+    border-radius: 24px;
+    flex-direction: column;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    padding: 0 24px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+    transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease, padding 0.4s ease;
+}
+.mobile-menu.open {
+    max-height: 420px;
+    opacity: 1;
+    padding: 12px 24px 20px;
+}
+.mobile-menu-link {
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-decoration: none;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+.mobile-menu-link:last-of-type { border-bottom: none; }
+.mobile-menu-cta {
+    color: var(--dark-bg) !important;
+    background: var(--primary);
+    border-radius: 12px;
+    padding: 14px 20px !important;
+    text-align: center;
+    margin-top: 8px;
+    border-bottom: none !important;
+}
+
+@media (max-width: 780px) {
+    .nav-center { display: none !important; }
+    .desktop-only-link { display: none !important; }
+    .hamburger-btn { display: flex !important; }
+    .mobile-menu { display: flex; }
+}
+
+/* FIX: Layout profile dan dashboard */
+.profile-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 340px !important;
+    gap: 40px !important;
+    max-width: 1100px !important;
+    margin: 0 auto !important;
+    padding: 0 16px !important;
+    align-items: start !important;
+}
+.compose-col {
+    position: sticky !important;
+    top: 20px !important;
+    order: unset !important;
+    margin-bottom: 0 !important;
+}
+.profile-grid > div:not(.compose-col) {
+    order: unset !important;
+}
+.profile-header {
+    justify-content: flex-start !important;
+    flex-direction: row !important;
+    text-align: left !important;
+    max-width: 1100px !important;
+    margin: 0 auto 28px !important;
+    padding: 0 16px !important;
+}
+.section-label {
+    margin-top: 0 !important;
+    margin-bottom: 20px !important;
+}
+.stats-row {
+    display: grid !important;
+    grid-template-columns: repeat(3,1fr) !important;
+    gap: 12px !important;
+    margin-bottom: 32px !important;
+}
+.message-list {
+    margin-bottom: 40px !important;
+}
+.page-wrap {
+    padding-top: 80px !important;
+    padding-bottom: 40px !important;
+}
+.site-footer-dark {
+    padding: 32px 24px 40px !important;
+    border-top: 1px solid rgba(255,255,255,0.06) !important;
+    margin-top: 20px !important;
+}
+.site-footer-dark .footer-grid {
+    max-width: 1100px !important;
+    margin: 0 auto !important;
+}
+@media (max-width: 780px) {
+    .profile-grid {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+    .compose-col {
+        position: static !important;
+        order: -1 !important;
+    }
+    .profile-header {
+        justify-content: center !important;
+        flex-direction: column !important;
+        text-align: center !important;
+    }
+}
+@media (max-width: 560px) {
+    .stats-row {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+/* =========================================
+   LIQUID GLASS MESSAGES & LAYOUT FIX
+   ========================================= */
+
+/* LAYOUT: 2 KOLOM DI DESKTOP */
+.profile-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 360px !important;
+    gap: 40px !important;
+    max-width: 1100px !important;
+    margin: 0 auto !important;
+    padding: 0 16px !important;
+    align-items: start !important;
+}
+
+/* KOLOM KIRI: DAFTAR PESAN */
+.profile-grid > div:first-child {
+    order: 0 !important;
+    width: 100% !important;
+    min-width: 0 !important;
+}
+
+/* KOLOM KANAN: FORM KIRIM (STICKY) */
+.compose-col {
+    order: 1 !important;
+    position: sticky !important;
+    top: 100px !important;
+    align-self: start !important;
+    width: 100% !important;
+    margin-bottom: 0 !important;
+}
+
+/* PROFILE HEADER - KIRI */
+.profile-header {
+    justify-content: flex-start !important;
+    flex-direction: row !important;
+    text-align: left !important;
+    max-width: 1100px !important;
+    margin: 0 auto 28px !important;
+    padding: 0 16px !important;
+}
+
+/* SECTION LABEL */
+.section-label {
+    margin-top: 0 !important;
+    margin-bottom: 20px !important;
+    font-size: 0.75rem !important;
+}
+
+/* =========================================
+   LIQUID GLASS MESSAGE CARDS
+   ========================================= */
+
+.message-card {
+    background: rgba(255, 255, 255, 0.25) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 20px !important;
+    padding: 22px 24px !important;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    margin-bottom: 16px !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* Efek glass tambahan: shimmer */
+.message-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        transparent
+    );
+    transition: left 0.6s ease;
+    pointer-events: none;
+}
+
+.message-card:hover::before {
+    left: 100%;
+}
+
+.message-card:hover {
+    background: rgba(255, 255, 255, 0.35) !important;
+    border-color: rgba(204, 255, 0, 0.3) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 
+        0 12px 48px rgba(0, 0, 0, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Card dengan border kiri neon */
+.message-card.unreplied {
+    border-left: 4px solid var(--primary) !important;
+    border-style: solid !important;
+}
+
+/* Badge status - glass style */
+.seal-badge {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    background: rgba(255, 255, 255, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    padding: 4px 12px 4px 8px !important;
+}
+
+.seal-badge.waiting {
+    background: rgba(204, 255, 0, 0.15) !important;
+    border-color: rgba(204, 255, 0, 0.3) !important;
+    color: #9DB600 !important;
+}
+
+.seal-badge.replied {
+    background: rgba(16, 185, 129, 0.15) !important;
+    border-color: rgba(16, 185, 129, 0.3) !important;
+    color: #059669 !important;
+}
+
+.seal-badge.visible {
+    background: rgba(0, 217, 126, 0.15) !important;
+    border-color: rgba(0, 217, 126, 0.3) !important;
+    color: #059669 !important;
+}
+
+.seal-badge.hidden {
+    background: rgba(239, 68, 68, 0.15) !important;
+    border-color: rgba(239, 68, 68, 0.3) !important;
+    color: #B91C1C !important;
+}
+
+/* Glass Reply Block */
+.reply-block {
+    background: rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border-left: 3px solid var(--primary) !important;
+    border-radius: 0 12px 12px 0 !important;
+    padding: 14px 18px !important;
+    margin-top: 14px !important;
+}
+
+/* Glass Compose Box */
+.envelope.compose-box {
+    background: rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    border-radius: 24px !important;
+    padding: 28px !important;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+.envelope.compose-box textarea {
+    background: rgba(255, 255, 255, 0.5) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 16px !important;
+    padding: 16px 18px !important;
+    font-size: 0.98rem !important;
+    min-height: 120px !important;
+    transition: all 0.3s ease !important;
+}
+
+.envelope.compose-box textarea:focus {
+    background: rgba(255, 255, 255, 0.7) !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 4px rgba(204, 255, 0, 0.1) !important;
+}
+
+/* Glass Share Box */
+.share-box {
+    background: rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 16px !important;
+    padding: 12px 16px !important;
+    margin-bottom: 28px !important;
+}
+
+.share-box input {
+    color: var(--text-dark) !important;
+    background: transparent !important;
+}
+
+/* Glass Stat Box */
+.stat-box {
+    background: rgba(255, 255, 255, 0.2) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important;
+    border-radius: 16px !important;
+    padding: 20px !important;
+    text-align: center !important;
+    transition: all 0.3s ease !important;
+}
+
+.stat-box:hover {
+    background: rgba(255, 255, 255, 0.35) !important;
+    transform: translateY(-2px) !important;
+    border-color: rgba(204, 255, 0, 0.3) !important;
+}
+
+.stat-box .num {
+    font-size: 2rem !important;
+}
+
+/* Glass Button */
+.btn-seal {
+    background: var(--primary) !important;
+    backdrop-filter: blur(8px) !important;
+    border: none !important;
+    border-radius: 14px !important;
+    padding: 12px 28px !important;
+    font-weight: 700 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 16px rgba(204, 255, 0, 0.25) !important;
+}
+
+.btn-seal:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 32px rgba(204, 255, 0, 0.35) !important;
+}
+
+/* Glass Reply Toggle */
+.reply-toggle {
+    background: rgba(204, 255, 0, 0.1) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    border: 1px solid rgba(204, 255, 0, 0.2) !important;
+    border-radius: 10px !important;
+    padding: 6px 16px !important;
+    color: var(--primary) !important;
+    font-size: 0.82rem !important;
+    cursor: pointer !important;
+    transition: all 0.3s ease !important;
+}
+
+.reply-toggle:hover {
+    background: rgba(204, 255, 0, 0.2) !important;
+    transform: translateY(-1px) !important;
+}
+
+/* =========================================
+   RESPONSIVE: MOBILE (1 KOLOM)
+   ========================================= */
+
+@media (max-width: 780px) {
+    .profile-grid {
+        grid-template-columns: 1fr !important;
+        gap: 24px !important;
+    }
+    
+    .compose-col {
+        position: static !important;
+        order: -1 !important;
+        margin-bottom: 0 !important;
+    }
+    
+    .profile-grid > div:first-child {
+        order: 1 !important;
+    }
+    
+    .profile-header {
+        justify-content: center !important;
+        flex-direction: column !important;
+        text-align: center !important;
+    }
+    
+    .message-card {
+        padding: 18px 20px !important;
+    }
+}
+
+@media (max-width: 560px) {
+    .stats-row {
+        grid-template-columns: 1fr !important;
+    }
+    
+    .envelope.compose-box {
+        padding: 20px !important;
+    }
+}
+
+/* =========================================
+   DASHBOARD SPECIFIC FIXES
+   ========================================= */
+
+/* Stats row untuk dashboard */
+.stats-row {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 12px !important;
+    margin-bottom: 32px !important;
+    margin-top: 0 !important;
+}
+
+/* Dashboard message list */
+.dashboard .message-list {
+    margin-bottom: 40px !important;
+}
+
+/* Page wrap padding */
+.page-wrap {
+    padding-top: 80px !important;
+    padding-bottom: 40px !important;
+}
+
+/* Footer */
+.site-footer-dark {
+    padding: 32px 24px 40px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+    margin-top: 20px !important;
+}
+
+.site-footer-dark .footer-grid {
+    max-width: 1100px !important;
+    margin: 0 auto !important;
+}
+
+/* Override envelope::before yang mengganggu */
+.envelope::before {
+    display: none !important;
+}
+
+/* Hero aside untuk compose */
+.hero aside {
+    background: transparent !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+/* =========================================
+   LIQUID GLASS - DASHBOARD SPECIFIC
+   ========================================= */
+
+/* 1. Dashboard container - glass effect */
+.dashboard .main-curved-box {
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(2px) !important;
+}
+
+/* 2. Stat Box - Liquid Glass */
+.dashboard .stat-box {
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.25) !important;
+    border-radius: 20px !important;
+    padding: 24px 20px !important;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.dashboard .stat-box:hover {
+    background: rgba(255, 255, 255, 0.25) !important;
+    transform: translateY(-3px) !important;
+    border-color: rgba(204, 255, 0, 0.3) !important;
+    box-shadow: 
+        0 12px 48px rgba(0, 0, 0, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+.dashboard .stat-box .num {
+    font-size: 2.4rem !important;
+    font-weight: 800 !important;
+}
+
+/* 3. Message Cards - Liquid Glass */
+.dashboard .message-card {
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(20px) !important;
+    -webkit-backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 20px !important;
+    padding: 24px 26px !important;
+    box-shadow: 
+        0 8px 32px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+    transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    position: relative !important;
+    overflow: hidden !important;
+}
+
+/* Shimmer effect */
+.dashboard .message-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.08),
+        transparent
+    );
+    transition: left 0.8s ease;
+    pointer-events: none;
+}
+
+.dashboard .message-card:hover::before {
+    left: 100%;
+}
+
+.dashboard .message-card:hover {
+    background: rgba(255, 255, 255, 0.2) !important;
+    border-color: rgba(204, 255, 0, 0.25) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 
+        0 16px 48px rgba(0, 0, 0, 0.10),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Card dengan border kiri neon */
+.dashboard .message-card.unreplied {
+    border-left: 4px solid var(--primary) !important;
+}
+
+/* 4. Badge - Liquid Glass */
+.dashboard .seal-badge {
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    background: rgba(255, 255, 255, 0.15) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    padding: 4px 14px 4px 10px !important;
+    border-radius: 999px !important;
+    font-weight: 500 !important;
+}
+
+.dashboard .seal-badge.visible {
+    background: rgba(0, 217, 126, 0.15) !important;
+    border-color: rgba(0, 217, 126, 0.25) !important;
+    color: #10B981 !important;
+}
+
+.dashboard .seal-badge.visible .dot {
+    background: #10B981 !important;
+    box-shadow: 0 0 12px rgba(16, 185, 129, 0.3) !important;
+}
+
+.dashboard .seal-badge.hidden {
+    background: rgba(239, 68, 68, 0.15) !important;
+    border-color: rgba(239, 68, 68, 0.25) !important;
+    color: #EF4444 !important;
+}
+
+.dashboard .seal-badge.hidden .dot {
+    background: #EF4444 !important;
+    box-shadow: 0 0 12px rgba(239, 68, 68, 0.3) !important;
+}
+
+/* 5. Reply Block - Liquid Glass */
+.dashboard .reply-block {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border-left: 3px solid var(--primary) !important;
+    border-radius: 0 12px 12px 0 !important;
+    padding: 14px 18px !important;
+    margin-top: 14px !important;
+}
+
+.dashboard .reply-label {
+    color: var(--text-muted) !important;
+    font-size: 0.65rem !important;
+}
+
+.dashboard .reply-content {
+    color: var(--text-dark) !important;
+}
+
+/* 6. Share Box - Liquid Glass */
+.dashboard .share-box {
+    background: rgba(255, 255, 255, 0.12) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 16px !important;
+    padding: 14px 18px !important;
+    box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+.dashboard .share-box input {
+    color: var(--text-dark) !important;
+    background: transparent !important;
+}
+
+.dashboard .share-box input::selection {
+    background: rgba(204, 255, 0, 0.3) !important;
+}
+
+/* 7. Copy Button - Glass */
+.dashboard .copy-btn {
+    background: var(--primary) !important;
+    backdrop-filter: blur(4px) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    padding: 8px 18px !important;
+    font-weight: 700 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 16px rgba(204, 255, 0, 0.2) !important;
+}
+
+.dashboard .copy-btn:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 8px 32px rgba(204, 255, 0, 0.3) !important;
+}
+
+/* 8. Reply Toggle - Glass */
+.dashboard .reply-toggle {
+    background: rgba(204, 255, 0, 0.08) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    border: 1px solid rgba(204, 255, 0, 0.15) !important;
+    border-radius: 10px !important;
+    padding: 6px 18px !important;
+    color: var(--primary) !important;
+    font-weight: 600 !important;
+    transition: all 0.3s ease !important;
+}
+
+.dashboard .reply-toggle:hover {
+    background: rgba(204, 255, 0, 0.15) !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 16px rgba(204, 255, 0, 0.1) !important;
+}
+
+/* 9. Reply Form - Glass */
+.dashboard .reply-form textarea {
+    background: rgba(255, 255, 255, 0.15) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: 12px !important;
+    padding: 12px 16px !important;
+    color: var(--text-dark) !important;
+    transition: all 0.3s ease !important;
+}
+
+.dashboard .reply-form textarea:focus {
+    background: rgba(255, 255, 255, 0.25) !important;
+    border-color: var(--primary) !important;
+    box-shadow: 0 0 0 4px rgba(204, 255, 0, 0.08) !important;
+}
+
+/* 10. Visibility Toggle - Glass */
+.dashboard .btn-small.visibility-toggle {
+    background: rgba(204, 255, 0, 0.08) !important;
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+    border: 1px solid rgba(204, 255, 0, 0.2) !important;
+    border-radius: 10px !important;
+    padding: 8px 16px !important;
+    color: var(--primary) !important;
+    transition: all 0.3s ease !important;
+}
+
+.dashboard .btn-small.visibility-toggle:hover {
+    background: rgba(204, 255, 0, 0.15) !important;
+    transform: translateY(-2px) !important;
+}
+
+.dashboard .btn-small.visibility-toggle.active {
+    background: rgba(16, 185, 129, 0.15) !important;
+    border-color: rgba(16, 185, 129, 0.3) !important;
+    color: #10B981 !important;
+}
+
+/* 11. Send Button - Glass */
+.dashboard .btn-seal {
+    background: var(--primary) !important;
+    backdrop-filter: blur(4px) !important;
+    border: none !important;
+    border-radius: 14px !important;
+    padding: 12px 28px !important;
+    font-weight: 700 !important;
+    transition: all 0.3s ease !important;
+    box-shadow: 0 4px 20px rgba(204, 255, 0, 0.25) !important;
+}
+
+.dashboard .btn-seal:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 40px rgba(204, 255, 0, 0.35) !important;
+}
+
+/* 12. Empty State - Glass */
+.dashboard .empty-state {
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(12px) !important;
+    -webkit-backdrop-filter: blur(12px) !important;
+    border: 1px dashed rgba(255, 255, 255, 0.2) !important;
+    border-radius: 20px !important;
+    padding: 60px 20px !important;
+}
+
+/* 13. Stats Row - Grid */
+.dashboard .stats-row {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 16px !important;
+    margin-bottom: 36px !important;
+}
+
+/* 14. Message List - spacing */
+.dashboard .message-list {
+    gap: 16px !important;
+}
+
+/* 15. Message time - glass style */
+.dashboard .message-time {
+    color: var(--text-muted) !important;
+    font-weight: 400 !important;
+}
+
+/* 16. Section Label - glass */
+.dashboard .section-label {
+    color: var(--text-muted-dark) !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.12em !important;
+}
+
+.dashboard .section-label span:first-child {
+    background: rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(4px) !important;
+    padding: 4px 16px !important;
+    border-radius: 999px !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* =========================================
+   FIX: COMPOSE BOX LAYOUT & GLASS STYLE
+   ========================================= */
+
+/* Compose box textarea - lebih rapi */
+.compose-box textarea {
+    width: 100% !important;
+    min-height: 120px !important;
+    padding: 16px 18px !important;
+    font-size: 0.98rem !important;
+    line-height: 1.6 !important;
+    resize: vertical !important;
+    outline: none !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+.compose-box textarea::placeholder {
+    color: var(--text-muted) !important;
+    opacity: 0.7 !important;
+}
+
+/* Compose footer - lebih rapi */
+.compose-footer {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    margin-top: 14px !important;
+    gap: 12px !important;
+}
+
+/* Char count dengan glass style */
+.char-count {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    font-size: 0.78rem !important;
+    color: var(--text-muted) !important;
+    font-family: 'IBM Plex Mono', monospace !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+    padding: 4px 14px !important;
+    border-radius: 999px !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    backdrop-filter: blur(4px) !important;
+}
+
+/* Button send - lebih besar dan jelas */
+.btn-seal {
+    background: var(--primary) !important;
+    color: var(--dark-bg) !important;
+    border: none !important;
+    border-radius: 14px !important;
+    padding: 12px 32px !important;
+    font-weight: 700 !important;
+    font-size: 0.95rem !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+    box-shadow: 0 4px 20px rgba(204, 255, 0, 0.25) !important;
+    white-space: nowrap !important;
+}
+
+.btn-seal:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 8px 40px rgba(204, 255, 0, 0.35) !important;
+}
+
+/* Avatar fallback - perbaiki font */
+.avatar-fallback {
+    font-family: 'Poppins', sans-serif !important;
+    font-weight: 700 !important;
+}

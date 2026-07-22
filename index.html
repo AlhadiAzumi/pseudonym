@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pseudonym Intro</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+
+        /* Container Utama Intro */
+        .intro-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Logo 1: Tanda Tanya (Mulai) */
+        .logo-question {
+            position: absolute;
+            width: 150px;
+            height: auto;
+            filter: drop-shadow(0 0 10px rgba(173, 255, 47, 0.6));
+            animation: 
+                fadeInOut 2.5s ease-in-out forwards,
+                pulse 1.5s infinite alternate ease-in-out;
+        }
+
+        /* Logo 2: Teks PSNYM (Reveal) */
+        .logo-text {
+            position: absolute;
+            width: 250px;
+            height: auto;
+            opacity: 0;
+            transform: scale(0.8);
+            filter: drop-shadow(0 0 15px rgba(173, 255, 47, 0.8));
+            animation: revealText 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2.3s forwards;
+        }
+
+        /* --- KEYFRAMES ANIMASI --- */
+
+        /* 1. Efek Muncul & Hilang Tanda Tanya */
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            15% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            80% {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+                filter: drop-shadow(0 0 10px rgba(173, 255, 47, 0.6));
+            }
+            90% {
+                /* Efek Glitch Singkat sebelum hilang */
+                opacity: 0.8;
+                transform: scale(1.1) skewX(-15deg);
+                filter: drop-shadow(0 0 25px rgba(173, 255, 47, 1)) invert(1);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) rotate(10deg);
+                display: none;
+            }
+        }
+
+        /* 2. Efek Denyut Glow pada Tanda Tanya */
+        @keyframes pulse {
+            0% {
+                filter: drop-shadow(0 0 8px rgba(173, 255, 47, 0.5));
+            }
+            100% {
+                filter: drop-shadow(0 0 20px rgba(173, 255, 47, 0.9));
+            }
+        }
+
+        /* 3. Efek Reveal Logo PSNYM */
+        @keyframes revealText {
+            0% {
+                opacity: 0;
+                transform: scale(0.8);
+                filter: blur(10px) drop-shadow(0 0 5px rgba(173, 255, 47, 0.5));
+            }
+            20% {
+                opacity: 1;
+                transform: scale(1.05);
+                filter: blur(0px) drop-shadow(0 0 25px rgba(173, 255, 47, 1));
+            }
+            40% {
+                transform: scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                filter: drop-shadow(0 0 12px rgba(173, 255, 47, 0.7));
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="intro-container">
+<img class="logo-question" src="assets/images/Pseudonym%20logo%20browser.png" alt="Question">
+<img class="logo-text" src="assets/images/Pseudonym%20logo.png" alt="PSNYM">
+    </div>
+<script>
+        // Cek apakah animasi sudah pernah dimainkan di sesi ini
+        if (sessionStorage.getItem('introPlayed')) {
+            // Kalau sudah, langsung lempar ke index.php tanpa animasi
+            window.location.href = 'index.php';
+        } else {
+            // Kalau belum, mainkan animasi lalu arahkan ke index.php
+            setTimeout(function() {
+                sessionStorage.setItem('introPlayed', 'true');
+                window.location.href = 'index.php';
+            }, 2600);
+        }
+    </script>
+</body>
+</html>
