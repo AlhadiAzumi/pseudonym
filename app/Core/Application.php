@@ -20,22 +20,28 @@ class Application
     }
 
     public function run(): void
-    {
-        $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+{
+    $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
-        $base = '/pseudonym';
+    // hapus folder project
+    $base = '/pseudonym';
 
-        if (str_starts_with($uri, $base)) {
-            $uri = substr($uri, strlen($base));
-        }
-
-        if ($uri === '' || $uri === '/index.php') {
-            $uri = '/';
-        }
-
-        $this->router->dispatch(
-            $_SERVER['REQUEST_METHOD'],
-            $uri
-        );
+    if (str_starts_with($uri, $base)) {
+        $uri = substr($uri, strlen($base));
     }
+
+    // hapus /index.php jika ada
+    if (str_starts_with($uri, '/index.php')) {
+        $uri = substr($uri, strlen('/index.php'));
+    }
+
+    if ($uri === '') {
+        $uri = '/';
+    }
+
+    $this->router->dispatch(
+        $_SERVER['REQUEST_METHOD'],
+        $uri
+    );
+}
 }
