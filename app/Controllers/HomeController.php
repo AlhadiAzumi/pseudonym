@@ -7,10 +7,9 @@ use App\Core\Controller;
 class HomeController extends Controller
 {
     public function index(): void
-{
-    $this->view('home', [
-        'title' => 'Pseudonym',
-        'username' => 'Hazumi'
-    ]);
-}
+    {
+        $this->view('home', [
+            'title' => 'Pseudonym'
+        ]);
+    }
 }

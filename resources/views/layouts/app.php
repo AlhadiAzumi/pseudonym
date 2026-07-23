@@ -1,9 +1,9 @@
-<?php
+<?php require __DIR__.'/../partials/header.php'; ?>
 
-require __DIR__ . '/../partials/header.php';
+<?php require __DIR__.'/../partials/navbar.php'; ?>
 
-require __DIR__ . '/../partials/navbar.php';
+<?php require $content; ?>
 
-require $content;
+<?php require __DIR__.'/../partials/footer.php'; ?>
 
-require __DIR__ . '/../partials/footer.php';
+<?php require __DIR__.'/../partials/scripts.php'; ?>
