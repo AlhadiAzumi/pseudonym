@@ -1,4 +1,4 @@
-# Pseudonym — Aplikasi Pesan Rahasia (Anonim)
+# Pseudonym — Aplikasi Pesan Rahasa (Anonim)
 
 Website ala Secreto/NGL: siapa pun bisa kirim pesan rahasia ke akun terdaftar tanpa perlu daftar,
 sedangkan untuk **menerima** pesan harus login pakai Google. Semua pesan + balasan pemilik bisa
