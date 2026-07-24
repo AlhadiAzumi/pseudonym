@@ -79,7 +79,7 @@ Selesai! Sekarang tombol "Masuk dengan Google" di aplikasi akan berfungsi.
 > Catatan: selama OAuth consent screen masih status **Testing**, hanya email yang kamu daftarkan
 > di "Test users" yang bisa login. Kalau mau dipakai publik nanti, submit app untuk verifikasi
 > Google (perlu domain asli, bukan localhost).
-
+<br>
 ## 3. Coba jalankan
 
 1. Buka `http://localhost/rahasia-app/` di browser.
