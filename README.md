@@ -33,7 +33,7 @@ Pseudonym/
 
 ## 1. Setup di XAMPP / Laragon
 
-1. Copy folder `rahasia-app` ke `htdocs` (XAMPP) atau `www` (Laragon).
+1. Copy folder `pseudonym` ke `htdocs` (XAMPP) atau `www` (Laragon).
 2. Nyalakan Apache & MySQL.
 3. Buka phpMyAdmin → tab **Import** → pilih file `database/schema.sql` → klik **Go**.
    (Atau lewat terminal: `mysql -u root -p < database/schema.sql`)
