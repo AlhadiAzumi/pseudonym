@@ -1,8 +1,13 @@
-RewriteEngine On
+<IfModule mod_rewrite.c>
+    RewriteEngine On
 
-RewriteBase /pseudonym/
+    # Lindungi folder sistem agar tidak bisa diakses langsung dari browser
+    RewriteRule ^(app|bootstrap|config|database|resources|storage|vendor)/ - [F,L]
 
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
+    # Lewati file dan direktori yang memang ada
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
 
-RewriteRule ^(.*)$ index.php [QSA,L]
+    # Arahkan seluruh request ke index.php
+    RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>

@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../includes/functions.php';
 
-$_SESSION = [];
-session_destroy();
+declare(strict_types=1);
 
-header('Location: ' . APP_URL . '/index.php');
+require_once dirname(__DIR__) . '/bootstrap/app.php';
+
+header('Location: ' . url('/auth/logout'));
 exit;

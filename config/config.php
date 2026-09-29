@@ -1,26 +1,31 @@
 <?php
-/**
- * Konfigurasi umum aplikasi + kredensial Google OAuth.
- *
- * PENTING: Isi GOOGLE_CLIENT_ID dan GOOGLE_CLIENT_SECRET dengan punya kamu
- * dari Google Cloud Console. Lihat README.md bagian "Setup Google OAuth"
- * untuk panduan langkah demi langkah.
- */
 
-// --- Ganti sesuai folder project kamu di htdocs/laragon ---
-// Contoh: kalau project ada di htdocs/rahasia-app, maka APP_URL = http://localhost/rahasia-app
-define('APP_URL', 'http://localhost/rahasia-app');
+declare(strict_types=1);
 
-// --- Kredensial Google OAuth (dari Google Cloud Console) ---
-define('GOOGLE_CLIENT_ID', '347057146711-p9eok1u3uo0d8fgbc9f57r6nlmelee6g.apps.googleusercontent.com');
-define('GOOGLE_CLIENT_SECRET', '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');
-define('GOOGLE_REDIRECT_URI', APP_URL . '/auth/google-callback.php');
+if (!defined('APP_URL')) {
+    define('APP_URL', full_url());
+}
 
-// Batas panjang pesan & balasan
-define('MAX_MESSAGE_LENGTH', 500);
-define('MAX_REPLY_LENGTH', 500);
+if (!defined('GOOGLE_CLIENT_ID')) {
+    define('GOOGLE_CLIENT_ID', env('GOOGLE_CLIENT_ID', '347057146711-p9eok1u3uo0d8fgbc9f57r6nlmelee6g.apps.googleusercontent.com'));
+}
 
-// Session
+if (!defined('GOOGLE_CLIENT_SECRET')) {
+    define('GOOGLE_CLIENT_SECRET', env('GOOGLE_CLIENT_SECRET', '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'));
+}
+
+if (!defined('GOOGLE_REDIRECT_URI')) {
+    define('GOOGLE_REDIRECT_URI', full_url('/auth/google-callback'));
+}
+
+if (!defined('MAX_MESSAGE_LENGTH')) {
+    define('MAX_MESSAGE_LENGTH', 500);
+}
+
+if (!defined('MAX_REPLY_LENGTH')) {
+    define('MAX_REPLY_LENGTH', 500);
+}
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }

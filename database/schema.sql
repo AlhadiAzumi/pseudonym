@@ -6,10 +6,10 @@
 --   2. Import file ini, atau jalankan: mysql -u root -p < schema.sql
 -- ============================================================
 
-CREATE DATABASE IF NOT EXISTS rahasia_app
+CREATE DATABASE IF NOT EXISTS pseudonym
   CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
-USE rahasia_app;
+USE pseudonym;
 
 -- Tabel akun (hanya dibuat lewat Login Google)
 CREATE TABLE IF NOT EXISTS users (

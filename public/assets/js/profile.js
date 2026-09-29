@@ -1,18 +1,32 @@
 // ============================================
-// PROFILE.JS - VERSION FIX
+// PROFILE.JS - PSEUDONYM MVC
 // ============================================
 
 (function () {
-  const list = document.getElementById('message-list');
-  if (!list) return;
-  
-  const isOwner = list.dataset.isOwner === '1';
-  const username = list.dataset.username;
+  const baseUrl = (window.App && window.App.baseUrl !== undefined) ? window.App.baseUrl : '';
+  const apiUrl = (window.App && window.App.apiUrl) ? window.App.apiUrl : (baseUrl + '/api');
 
+  const list = document.getElementById('message-list');
   const msgInput = document.getElementById('message-input');
   const charCount = document.getElementById('char-count');
   const sendBtn = document.getElementById('send-btn');
-  const emptyState = document.getElementById('empty-state');
+
+  function showSendSuccess() {
+    const dialog = document.createElement('dialog');
+    dialog.className = 'send-success-dialog';
+    dialog.setAttribute('aria-labelledby', 'send-success-title');
+    dialog.innerHTML = `
+      <div class="send-success-dialog__mark" aria-hidden="true">&#10003;</div>
+      <p class="send-success-dialog__eyebrow">PESAN TERKIRIM</p>
+      <h2 id="send-success-title">Rahasiamu sudah sampai.</h2>
+      <p class="send-success-dialog__copy">Pesan anonim berhasil dikirim. Terima kasih sudah berani menyampaikannya.</p>
+      <button class="btn-seal send-success-dialog__button" type="button">Kembali</button>
+    `;
+    document.body.appendChild(dialog);
+    dialog.addEventListener('close', () => location.reload(), { once: true });
+    dialog.querySelector('button').addEventListener('click', () => dialog.close());
+    dialog.showModal();
+  }
 
   // Character counter
   if (msgInput && charCount) {
@@ -21,17 +35,14 @@
     });
   }
 
-  function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
+  // ==========================================
+  // 1. SEND ANONYMOUS MESSAGE
+  // ==========================================
+  if (sendBtn && msgInput && list) {
+    const username = list.dataset.username;
 
-  // ==========================================
-  // 1. SEND MESSAGE
-  // ==========================================
-  if (sendBtn && msgInput) {
-    sendBtn.addEventListener('click', async () => {
+    sendBtn.addEventListener('click', async (e) => {
+      e.preventDefault();
       const content = msgInput.value.trim();
       if (!content) {
         alert('Silakan tulis pesan terlebih dahulu.');
@@ -43,7 +54,7 @@
       sendBtn.textContent = 'Mengirim…';
 
       try {
-        const res = await fetch('api/send-message.php', {
+        const res = await fetch(apiUrl + '/send-message', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, content }),
@@ -57,8 +68,7 @@
           return;
         }
 
-        // Reload to show new message
-        location.reload();
+        showSendSuccess();
       } catch (e) {
         alert('Terjadi kesalahan jaringan.');
         sendBtn.disabled = false;
@@ -67,7 +77,7 @@
     });
 
     // Enter key untuk submit (Shift+Enter untuk new line)
-    msgInput.addEventListener('keydown', function(e) {
+    msgInput.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
         sendBtn.click();
@@ -76,9 +86,11 @@
   }
 
   // ==========================================
-  // 2. EVENT DELEGATION (hanya untuk owner)
+  // 2. OWNER ACTIONS (Reply & Share)
   // ==========================================
-  if (isOwner) {
+  if (list && list.dataset.isOwner === '1') {
+    const username = list.dataset.username;
+
     list.addEventListener('click', async (e) => {
       const target = e.target;
       const action = target?.dataset?.action;
@@ -87,9 +99,7 @@
       const card = target.closest('.message-card');
       if (!card) return;
 
-      // ==========================================
-      // 2a. TOGGLE REPLY
-      // ==========================================
+      // Toggle Reply
       if (action === 'toggle-reply') {
         const replyForm = card.querySelector('.reply-form');
         if (replyForm) {
@@ -106,9 +116,7 @@
         return;
       }
 
-      // ==========================================
-      // 2b. CANCEL REPLY
-      // ==========================================
+      // Cancel Reply
       if (action === 'cancel-reply') {
         const replyForm = card.querySelector('.reply-form');
         const toggleBtn = card.querySelector('.reply-toggle');
@@ -123,13 +131,11 @@
         return;
       }
 
-      // ==========================================
-      // 2c. SUBMIT REPLY
-      // ==========================================
+      // Submit Reply
       if (action === 'submit-reply') {
         const replyForm = card.querySelector('.reply-form');
         if (!replyForm) return;
-        
+
         const textarea = replyForm.querySelector('textarea');
         const content = textarea.value.trim();
         if (!content) {
@@ -143,12 +149,12 @@
         btn.textContent = 'Mengirim…';
 
         try {
-          const res = await fetch('api/reply-message.php', {
+          const res = await fetch(apiUrl + '/reply-message', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ 
-              message_id: card.dataset.messageId, 
-              content: content 
+            body: JSON.stringify({
+              message_id: card.dataset.messageId,
+              content: content,
             }),
           });
           const data = await res.json();
@@ -160,7 +166,6 @@
             return;
           }
 
-          // Reload to show new reply
           location.reload();
         } catch (err) {
           alert('Terjadi kesalahan jaringan.');
@@ -170,22 +175,18 @@
         return;
       }
 
-      // ==========================================
-      // 2d. SHARE BUTTONS (hanya untuk owner)
-      // ==========================================
+      // Share Actions
       if (action === 'share') {
         const shareType = target.dataset.type;
         const messageContent = card.querySelector('.message-content')?.textContent || '';
         const replyContent = card.querySelector('.reply-content')?.textContent || '';
         const messageId = card.dataset.messageId;
-        
-        const baseUrl = window.location.origin + '/rahasia-app/u.php';
-        const shareUrl = baseUrl + '?u=' + encodeURIComponent(username) + '&m=' + messageId;
-        
+
+        const shareUrl = window.location.origin + baseUrl + '/u/' + encodeURIComponent(username) + '?m=' + messageId;
         const shareText = `"${messageContent.substring(0, 100)}${messageContent.length > 100 ? '...' : ''}" - @${username}`;
 
         if (shareType === 'copy') {
-          const copyText = `Lihat balasan di story surat ini:\n\n"${messageContent}"\n\n${replyContent ? 'Balasan: ' + replyContent + '\n\n' : ''}${shareUrl}`;
+          const copyText = `Lihat balasan pesan di kotak suratku:\n\n"${messageContent}"\n\n${replyContent ? 'Balasan: ' + replyContent + '\n\n' : ''}${shareUrl}`;
           try {
             await navigator.clipboard.writeText(copyText);
             const originalText = target.textContent;

@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>Test Share Story</title>
+<style>
+body { font-family: monospace; padding: 20px; background: #111; color: #adf; }
+button { padding: 10px 20px; margin: 8px; font-size: 1rem; cursor: pointer; }
+#log { white-space: pre-wrap; background: #000; padding: 16px; border-radius: 8px; margin-top: 16px; font-size: 0.85rem; line-height: 1.6; }
+canvas { border: 2px solid #adf; max-width: 280px; display: block; margin: 12px 0; }
+.ok { color: #7fff00; }
+.err { color: #ff6b6b; }
+.info { color: #ffd700; }
+</style>
+</head>
+<body>
+<h2>🔧 Test: Share ke Story (Debug)</h2>
+
+<button onclick="testStep1()">Step 1: Cek URL Template</button>
+<button onclick="testStep2()">Step 2: Load Gambar</button>
+<button onclick="testStep3()">Step 3: Draw ke Canvas</button>
+<button onclick="testStep4()">Step 4: toBlob & Download</button>
+<button onclick="testAll()">🚀 Test Semua Sekaligus</button>
+
+<canvas id="preview" width="280" height="497"></canvas>
+<div id="log">Klik salah satu tombol di atas...\n</div>
+
+<script>
+// Deteksi base URL otomatis
+const pathParts = window.location.pathname.split('/').filter(Boolean);
+const baseUrl = pathParts.length > 0 ? '/' + pathParts[0] : '';
+const TEMPLATE_URL = baseUrl + '/public/assets/images/template-share-story.png';
+
+function log(msg, type = 'info') {
+    const div = document.getElementById('log');
+    const cls = type === 'ok' ? 'ok' : type === 'err' ? 'err' : 'info';
+    div.innerHTML += `<span class="${cls}">${msg}</span>\n`;
+}
+
+function clearLog() {
+    document.getElementById('log').innerHTML = '';
+}
+
+async function testStep1() {
+    clearLog();
+    log('=== STEP 1: Cek URL Template ===');
+    log('window.location.href : ' + window.location.href);
+    log('baseUrl detected     : ' + baseUrl);
+    log('TEMPLATE_URL         : ' + TEMPLATE_URL);
+
+    log('\nMencoba fetch HEAD ke template...');
+    try {
+        const res = await fetch(TEMPLATE_URL, { method: 'HEAD' });
+        if (res.ok) {
+            log('✅ File template DITEMUKAN! Status: ' + res.status, 'ok');
+            log('   Content-Type: ' + res.headers.get('content-type'), 'ok');
+        } else {
+            log('❌ File template TIDAK DITEMUKAN! Status: ' + res.status, 'err');
+            log('   Pastikan file ada di: /public/assets/images/template-share-story.png', 'err');
+        }
+    } catch (e) {
+        log('❌ Fetch gagal: ' + e.message, 'err');
+    }
+}
+
+async function testStep2() {
+    clearLog();
+    log('=== STEP 2: Load Gambar ke Image element ===');
+    log('URL: ' + TEMPLATE_URL);
+
+    return new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => {
+            log('✅ Gambar berhasil di-load!', 'ok');
+            log('   naturalWidth : ' + img.naturalWidth, 'ok');
+            log('   naturalHeight: ' + img.naturalHeight, 'ok');
+            window._testImg = img;
+            resolve(img);
+        };
+        img.onerror = (e) => {
+            log('❌ Gambar GAGAL di-load!', 'err');
+            log('   Event: ' + JSON.stringify(e.type), 'err');
+            log('   Kemungkinan: file tidak ada, atau CORS block', 'err');
+            resolve(null);
+        };
+        img.src = TEMPLATE_URL + '?t=' + Date.now();
+    });
+}
+
+async function testStep3() {
+    clearLog();
+    log('=== STEP 3: Draw ke Canvas ===');
+
+    let img = window._testImg;
+    if (!img) {
+        log('⚠️ Load gambar dulu (Step 2)...', 'info');
+        img = await testStep2();
+        if (!img) return;
+    }
+
+    try {
+        const W = img.naturalWidth || 840;
+        const H = img.naturalHeight || 1920;
+        log('Ukuran asli template: ' + W + ' × ' + H + 'px');
+
+        const preview = document.getElementById('preview');
+        const scale = 280 / W;
+        preview.width  = 280;
+        preview.height = Math.round(H * scale);
+
+        const ctx = preview.getContext('2d');
+        ctx.drawImage(img, 0, 0, preview.width, preview.height);
+        log('✅ drawImage berhasil! Template terlihat di canvas.', 'ok');
+
+        // Koordinat tombol hijau (sama dengan dashboard.js)
+        const btnCenterX = preview.width  * 0.50;
+        const btnCenterY = preview.height * 0.575;
+        const btnWidth   = preview.width  * 0.560;
+
+        ctx.font         = 'bold 12px Arial';
+        ctx.fillStyle    = '#1a3d0a';
+        ctx.textAlign    = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillText('Test pesan rahasia', btnCenterX, btnCenterY);
+
+        // Username
+        ctx.font      = '10px Arial';
+        ctx.fillStyle = 'rgba(30,70,20,0.6)';
+        ctx.fillText('@alhadi', btnCenterX, preview.height * 0.755);
+
+        log('✅ Teks berhasil di-draw di dalam tombol hijau!', 'ok');
+        window._testCanvas = preview;
+    } catch (e) {
+        log('❌ Draw gagal: ' + e.name + ': ' + e.message, 'err');
+    }
+}
+
+async function testStep4() {
+    clearLog();
+    log('=== STEP 4: toBlob & Download ===');
+
+    let canvas = window._testCanvas;
+    if (!canvas) {
+        log('⚠️ Draw dulu (Step 3)...', 'info');
+        await testStep3();
+        canvas = window._testCanvas;
+        if (!canvas) return;
+    }
+
+    try {
+        log('Memanggil canvas.toBlob()...');
+        canvas.toBlob((blob) => {
+            if (!blob) {
+                log('❌ toBlob() menghasilkan null!', 'err');
+                log('   Ini terjadi saat canvas tainted oleh CORS.', 'err');
+                return;
+            }
+            log('✅ toBlob berhasil! Blob size: ' + blob.size + ' bytes', 'ok');
+
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'test-story.png';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            log('✅ Download triggered! Cek folder Download kamu.', 'ok');
+        }, 'image/png');
+    } catch (e) {
+        log('❌ toBlob() throw error: ' + e.name + ': ' + e.message, 'err');
+        if (e.name === 'SecurityError') {
+            log('   Canvas TAINTED karena gambar di-load dengan crossOrigin yang salah.', 'err');
+        }
+    }
+}
+
+async function testAll() {
+    clearLog();
+    log('=== TEST LENGKAP ===\n');
+    await testStep1();
+    log('');
+    const img = await testStep2();
+    if (!img) { log('\n⛔ BERHENTI: Gambar tidak bisa di-load.', 'err'); return; }
+    log('');
+    await testStep3();
+    log('');
+    await testStep4();
+}
+</script>
+</body>
+</html>

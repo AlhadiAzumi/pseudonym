@@ -38,7 +38,7 @@
             height: auto;
             filter: drop-shadow(0 0 10px rgba(173, 255, 47, 0.6));
             animation: 
-                fadeInOut 2.5s ease-in-out forwards,
+                fadeInOut 2.0s ease-in-out forwards,
                 pulse 1.5s infinite alternate ease-in-out;
         }
 
@@ -50,12 +50,10 @@
             opacity: 0;
             transform: scale(0.8);
             filter: drop-shadow(0 0 15px rgba(173, 255, 47, 0.8));
-            animation: revealText 2.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) 2.3s forwards;
+            animation: revealText 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.8s forwards;
         }
 
         /* --- KEYFRAMES ANIMASI --- */
-
-        /* 1. Efek Muncul & Hilang Tanda Tanya */
         @keyframes fadeInOut {
             0% {
                 opacity: 0;
@@ -65,53 +63,49 @@
                 opacity: 1;
                 transform: scale(1);
             }
-            80% {
+            75% {
                 opacity: 1;
                 transform: scale(1) rotate(0deg);
                 filter: drop-shadow(0 0 10px rgba(173, 255, 47, 0.6));
             }
-            90% {
-                /* Efek Glitch Singkat sebelum hilang */
-                opacity: 0.8;
+            88% {
+                opacity: 0.9;
                 transform: scale(1.1) skewX(-15deg);
                 filter: drop-shadow(0 0 25px rgba(173, 255, 47, 1)) invert(1);
             }
             100% {
                 opacity: 0;
-                transform: scale(0) rotate(10deg);
-                display: none;
+                transform: scale(0.3) rotate(10deg);
             }
         }
 
-        /* 2. Efek Denyut Glow pada Tanda Tanya */
         @keyframes pulse {
             0% {
                 filter: drop-shadow(0 0 8px rgba(173, 255, 47, 0.5));
             }
             100% {
-                filter: drop-shadow(0 0 20px rgba(173, 255, 47, 0.9));
+                filter: drop-shadow(0 0 22px rgba(173, 255, 47, 0.95));
             }
         }
 
-        /* 3. Efek Reveal Logo PSNYM */
         @keyframes revealText {
             0% {
                 opacity: 0;
-                transform: scale(0.8);
-                filter: blur(10px) drop-shadow(0 0 5px rgba(173, 255, 47, 0.5));
+                transform: scale(0.7);
+                filter: blur(8px) drop-shadow(0 0 5px rgba(173, 255, 47, 0.5));
             }
-            20% {
+            30% {
                 opacity: 1;
                 transform: scale(1.05);
                 filter: blur(0px) drop-shadow(0 0 25px rgba(173, 255, 47, 1));
             }
-            40% {
+            50% {
                 transform: scale(1);
             }
             100% {
                 opacity: 1;
                 transform: scale(1);
-                filter: drop-shadow(0 0 12px rgba(173, 255, 47, 0.7));
+                filter: drop-shadow(0 0 14px rgba(173, 255, 47, 0.8));
             }
         }
     </style>
@@ -119,21 +113,14 @@
 <body>
 
     <div class="intro-container">
-<img class="logo-question" src="assets/images/Pseudonym%20logo%20browser.png" alt="Question">
-<img class="logo-text" src="assets/images/Pseudonym%20logo.png" alt="PSNYM">
+        <img class="logo-question" src="public/assets/images/Pseudonym%20logo%20browser.png" alt="Question">
+        <img class="logo-text" src="public/assets/images/Pseudonym%20logo.png" alt="PSNYM">
     </div>
-<script>
-        // Cek apakah animasi sudah pernah dimainkan di sesi ini
-        if (sessionStorage.getItem('introPlayed')) {
-            // Kalau sudah, langsung lempar ke index.php tanpa animasi
+
+    <script>
+        setTimeout(function() {
             window.location.href = 'index.php';
-        } else {
-            // Kalau belum, mainkan animasi lalu arahkan ke index.php
-            setTimeout(function() {
-                sessionStorage.setItem('introPlayed', 'true');
-                window.location.href = 'index.php';
-            }, 2600);
-        }
+        }, 4000);
     </script>
 </body>
 </html>

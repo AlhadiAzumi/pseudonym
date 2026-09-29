@@ -33,7 +33,7 @@ Pseudonym/
 
 ## 1. Setup di XAMPP / Laragon
 
-1. Copy folder `rahasia-app` ke `htdocs` (XAMPP) atau `www` (Laragon).
+1. Copy folder `pseudonym` ke `htdocs` (XAMPP) atau `www` (Laragon).
 2. Nyalakan Apache & MySQL.
 3. Buka phpMyAdmin → tab **Import** → pilih file `database/schema.sql` → klik **Go**.
    (Atau lewat terminal: `mysql -u root -p < database/schema.sql`)
@@ -41,7 +41,7 @@ Pseudonym/
    Sesuaikan kalau kamu pakai password lain.
 5. Buka `config/config.php`, sesuaikan `APP_URL` dengan folder project kamu, contoh:
    ```php
-   define('APP_URL', 'http://localhost/rahasia-app');
+   define('APP_URL', 'http://localhost/pseudonym');
    ```
 
 Pastikan ekstensi PHP `pdo_mysql` dan `curl` aktif (biasanya sudah aktif default di XAMPP/Laragon).
@@ -63,9 +63,9 @@ Pastikan ekstensi PHP `pdo_mysql` dan `curl` aktif (biasanya sudah aktif default
    - Name: bebas, misalnya "Bisik Local".
    - Di **Authorized redirect URIs**, tambahkan persis:
      ```
-     http://localhost/rahasia-app/auth/google-callback.php
+     http://localhost/pseudonym/auth/google-callback.php
      ```
-     (Ganti `rahasia-app` kalau nama foldermu beda, harus sama persis dengan `APP_URL` di config.php)
+     (Pastikan nama folder dan `APP_URL` sama persis dengan project yang dipakai)
    - Klik **Create**.
 5. Akan muncul popup berisi **Client ID** dan **Client Secret**. Copy keduanya.
 6. Buka `config/config.php`, isi:
@@ -82,7 +82,7 @@ Selesai! Sekarang tombol "Masuk dengan Google" di aplikasi akan berfungsi.
 
 ## 3. Coba jalankan
 
-1. Buka `http://localhost/rahasia-app/` di browser.
+1. Buka `http://localhost/pseudonym/` di browser.
 2. Klik **"Masuk dengan Google"** → login → kamu akan diminta pilih **username** (ini jadi alamat
    kotak suratmu, misalnya `u.php?u=budi`).
 3. Salin tautan itu (ada tombol "Salin Tautan" di dashboard) dan bagikan ke orang lain / buka di

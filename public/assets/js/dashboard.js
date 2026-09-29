@@ -1,8 +1,14 @@
 // ============================================
-// DASHBOARD.JS - VERSION FIX
+// DASHBOARD.JS - PSEUDONYM MVC
 // ============================================
 
 (function () {
+  const baseUrl = (window.App && window.App.baseUrl !== undefined) ? window.App.baseUrl : '';
+  const apiUrl = (window.App && window.App.apiUrl) ? window.App.apiUrl : (baseUrl + '/api');
+
+  // ==========================================
+  // 1. COPY SHARE URL
+  // ==========================================
   const copyBtn = document.getElementById('copy-btn');
   const shareInput = document.getElementById('share-url');
 
@@ -11,96 +17,119 @@
       shareInput.select();
       try {
         await navigator.clipboard.writeText(shareInput.value);
-        copyBtn.textContent = 'Tersalin!';
+        copyBtn.textContent = '✓ Tersalin!';
       } catch (e) {
         document.execCommand('copy');
-        copyBtn.textContent = 'Tersalin!';
+        copyBtn.textContent = '✓ Tersalin!';
       }
-      setTimeout(() => (copyBtn.textContent = 'Salin Tautan'), 1800);
+      setTimeout(() => (copyBtn.textContent = 'Salin Tautan'), 2000);
     });
   }
 
   // ==========================================
-  // GENERATE STORY IMAGE (pakai template PNG)
+  // 2. GENERATE 9:16 STORY IMAGE
   // ==========================================
-  const TEMPLATE_URL = 'assets/images/template-share-story.png';
-
   function wrapCanvasText(ctx, text, maxWidth) {
-    const words = text.split(/\s+/);
     const lines = [];
-    let current = '';
-    words.forEach((word) => {
-      const test = current ? current + ' ' + word : word;
-      if (ctx.measureText(test).width > maxWidth && current) {
-        lines.push(current);
-        current = word;
-      } else {
-        current = test;
-      }
+    const paragraphs = String(text || '').split(/\r?\n/);
+
+    paragraphs.forEach((paragraph) => {
+      const words = paragraph.trim().split(/\s+/).filter(Boolean);
+      let current = '';
+
+      words.forEach((word) => {
+        let remaining = word;
+        const candidate = current ? current + ' ' + remaining : remaining;
+
+        if (ctx.measureText(candidate).width <= maxWidth) {
+          current = candidate;
+          return;
+        }
+
+        if (current) {
+          lines.push(current);
+          current = '';
+        }
+
+        while (ctx.measureText(remaining).width > maxWidth && remaining.length > 1) {
+          let splitAt = 1;
+          while (splitAt < remaining.length && ctx.measureText(remaining.slice(0, splitAt + 1)).width <= maxWidth) {
+            splitAt += 1;
+          }
+          lines.push(remaining.slice(0, splitAt));
+          remaining = remaining.slice(splitAt);
+        }
+        current = remaining;
+      });
+
+      if (current || !words.length) lines.push(current);
     });
-    if (current) lines.push(current);
+
     return lines;
   }
 
-  function loadImage(src) {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.onload = () => resolve(img);
-      img.onerror = reject;
-      img.src = src;
-    });
+  function fitStoryText(ctx, text, maxWidth, maxHeight, startSize, minSize) {
+    const lineHeightRatio = 1.18;
+
+    for (let size = startSize; size >= minSize; size -= 1) {
+      ctx.font = `700 ${size}px Arial, sans-serif`;
+      const lines = wrapCanvasText(ctx, text, maxWidth);
+      const lineHeight = size * lineHeightRatio;
+      if (lines.length * lineHeight <= maxHeight) {
+        return { size, lines, lineHeight };
+      }
+    }
+
+    ctx.font = `700 ${minSize}px Arial, sans-serif`;
+    const lines = wrapCanvasText(ctx, text, maxWidth);
+    const size = Math.max(6, Math.min(minSize, maxHeight / (lines.length * lineHeightRatio)));
+    ctx.font = `700 ${size}px Arial, sans-serif`;
+    const fittedLines = wrapCanvasText(ctx, text, maxWidth);
+
+    return { size, lines: fittedLines, lineHeight: size * lineHeightRatio };
+  }
+
+  function drawCenteredLines(ctx, lines, centerX, centerY, lineHeight) {
+    const firstY = centerY - ((lines.length - 1) * lineHeight) / 2;
+    lines.forEach((line, index) => ctx.fillText(line, centerX, firstY + index * lineHeight));
   }
 
   async function generateShareImage(messageText) {
-    const img = await loadImage(TEMPLATE_URL);
-
-    const canvas = document.createElement('canvas');
-    canvas.width = img.naturalWidth;
-    canvas.height = img.naturalHeight;
-    const ctx = canvas.getContext('2d');
-
-    // Gambar template sebagai background
-    ctx.drawImage(img, 0, 0);
-
-    // Koordinat kotak hijau kosong — diukur langsung dari file template (1080x1920)
-    const boxX = 270;
-    const boxY = 1005;
-    const boxWidth = 540;
-    const boxHeight = 150;
-
-    // Auto-shrink font biar teks panjang tetap muat
-    let fontSize = 46;
-    let lines;
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    do {
-      ctx.font = `700 ${fontSize}px Arial, sans-serif`;
-      lines = wrapCanvasText(ctx, messageText, boxWidth - 40);
-      if (lines.length * (fontSize * 1.2) <= boxHeight - 16) break;
-      fontSize -= 2;
-    } while (fontSize > 16);
-
-    const lineHeight = fontSize * 1.2;
-    const totalTextHeight = lines.length * lineHeight;
-    let ty = boxY + boxHeight / 2 - totalTextHeight / 2 + lineHeight / 2;
-
-    ctx.fillStyle = '#12330f'; // warna teks di atas kotak hijau — ganti kalau kurang kontras
-    lines.forEach((line) => {
-      ctx.fillText(line, boxX + boxWidth / 2, ty);
-      ty += lineHeight;
+    const templateUrl = baseUrl + '/public/assets/images/template-share-story.png';
+    const template = await new Promise((resolve, reject) => {
+      const image = new Image();
+      image.onload = () => resolve(image);
+      image.onerror = () => reject(new Error('Template Story tidak dapat dimuat.'));
+      image.src = templateUrl;
     });
 
-    return new Promise((resolve) => canvas.toBlob(resolve, 'image/png'));
+    const width = template.naturalWidth;
+    const height = template.naturalHeight;
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) throw new Error('Browser tidak dapat membuat kanvas Story.');
+    ctx.drawImage(template, 0, 0, width, height);
+
+    const message = fitStoryText(ctx, messageText || 'Kirim pesan anonim untuk memulai.', width * 0.45, height * 0.07, width * 0.052, 10);
+    ctx.font = `700 ${message.size}px Arial, sans-serif`;
+    ctx.fillStyle = '#171717';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    drawCenteredLines(ctx, message.lines, width / 2, height * 0.563, message.lineHeight);
+
+    return new Promise((resolve, reject) => {
+      canvas.toBlob((blob) => {
+        if (blob) resolve(blob);
+        else reject(new Error('Browser gagal menghasilkan gambar Story.'));
+      }, 'image/png');
+    });
   }
 
   const list = document.getElementById('message-list');
   if (!list) return;
-
-  function escapeHtml(str) {
-    const div = document.createElement('div');
-    div.textContent = str;
-    return div.innerHTML;
-  }
 
   list.addEventListener('click', async (e) => {
     const target = e.target;
@@ -111,7 +140,7 @@
     if (!card) return;
 
     // ==========================================
-    // 1. TOGGLE VISIBILITY
+    // TOGGLE VISIBILITY
     // ==========================================
     if (action === 'toggle-visibility') {
       const btn = target;
@@ -122,12 +151,12 @@
       btn.textContent = 'Menyimpan…';
 
       try {
-        const res = await fetch('api/toggle-message-visibility.php', {
+        const res = await fetch(apiUrl + '/toggle-visibility', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             message_id: card.dataset.messageId,
-            hidden: newHidden
+            hidden: newHidden,
           }),
         });
         const data = await res.json();
@@ -139,24 +168,17 @@
           return;
         }
 
-        // Update UI
         btn.dataset.hidden = data.hidden ? '1' : '0';
         card.dataset.hidden = data.hidden ? '1' : '0';
         btn.textContent = data.hidden ? 'Tampilkan ke publik' : 'Sembunyikan dari publik';
         btn.classList.toggle('active', data.hidden);
 
-        // Update badge
         const badgeContainer = card.querySelector('.message-meta > div:first-child');
         if (badgeContainer) {
-          const oldBadge = badgeContainer.querySelector('.seal-badge');
-          if (oldBadge) {
-            if (data.hidden) {
-              oldBadge.className = 'seal-badge hidden';
-              oldBadge.innerHTML = '<span class="dot"></span> disembunyikan';
-            } else {
-              oldBadge.className = 'seal-badge visible';
-              oldBadge.innerHTML = '<span class="dot"></span> terlihat publik';
-            }
+          if (data.hidden) {
+            badgeContainer.innerHTML = '<span class="seal-badge hidden" style="display:inline-flex; align-items:center; gap:6px; background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.3); color:#B91C1C; padding:4px 10px 4px 6px; border-radius:999px; font-size:0.7rem; font-family:\'IBM Plex Mono\',monospace;"><span class="dot" style="width:8px; height:8px; border-radius:50%; background:#EF4444;"></span> disembunyikan</span>';
+          } else {
+            badgeContainer.innerHTML = '<span class="seal-badge visible" style="display:inline-flex; align-items:center; gap:6px; background:rgba(0,217,126,0.12); border:1px solid rgba(0,217,126,0.3); color:#059669; padding:4px 10px 4px 6px; border-radius:999px; font-size:0.7rem; font-family:\'IBM Plex Mono\',monospace;"><span class="dot" style="width:8px; height:8px; border-radius:50%; background:#00D97E;"></span> terlihat publik</span>';
           }
         }
       } catch (err) {
@@ -168,7 +190,7 @@
     }
 
     // ==========================================
-    // 2. TOGGLE REPLY FORM
+    // TOGGLE REPLY FORM
     // ==========================================
     if (action === 'toggle-reply') {
       const replyForm = card.querySelector('.reply-form');
@@ -187,7 +209,7 @@
     }
 
     // ==========================================
-    // 3. CANCEL REPLY
+    // CANCEL REPLY
     // ==========================================
     if (action === 'cancel-reply') {
       const replyForm = card.querySelector('.reply-form');
@@ -204,7 +226,7 @@
     }
 
     // ==========================================
-    // 4. SUBMIT REPLY
+    // SUBMIT REPLY
     // ==========================================
     if (action === 'submit-reply') {
       const replyForm = card.querySelector('.reply-form');
@@ -223,12 +245,12 @@
       btn.textContent = 'Mengirim…';
 
       try {
-        const res = await fetch('api/reply-message.php', {
+        const res = await fetch(apiUrl + '/reply-message', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
             message_id: card.dataset.messageId,
-            content: content
+            content: content,
           }),
         });
         const data = await res.json();
@@ -240,7 +262,6 @@
           return;
         }
 
-        // Reload page to show new reply
         location.reload();
       } catch (err) {
         alert('Terjadi kesalahan jaringan.');
@@ -251,11 +272,11 @@
     }
 
     // ==========================================
-    // 4.5 SHARE AS IMAGE (Story)
+    // SHARE AS IMAGE (Story IG)
     // ==========================================
     if (action === 'share-image') {
       const btn = target;
-      const messageContent = card.querySelector('.message-content')?.textContent || '';
+      const messageContent = card.querySelector('.message-content')?.textContent?.trim() || '';
 
       const originalText = btn.textContent;
       btn.disabled = true;
@@ -266,7 +287,7 @@
         const file = new File([blob], 'pseudonym-story.png', { type: 'image/png' });
 
         if (navigator.canShare && navigator.canShare({ files: [file] })) {
-          await navigator.share({ files: [file], title: 'Pseudonym' });
+          await navigator.share({ files: [file], title: 'Pseudonym Story' });
         } else {
           const url = URL.createObjectURL(blob);
           const a = document.createElement('a');
@@ -276,11 +297,11 @@
           a.click();
           document.body.removeChild(a);
           URL.revokeObjectURL(url);
-          alert('Gambar berhasil didownload! Upload manual ke Story IG kamu.');
+          alert('Gambar story berhasil didownload! Silakan upload ke Story Instagram kamu. 📸');
         }
       } catch (err) {
         if (err.name !== 'AbortError') {
-          alert('Gagal membuat gambar: ' + err.message);
+          alert('Gagal membuat gambar story: ' + err.message);
         }
       } finally {
         btn.disabled = false;
@@ -290,22 +311,19 @@
     }
 
     // ==========================================
-    // 5. SHARE BUTTONS
+    // SOCIAL SHARE BUTTONS
     // ==========================================
     if (action === 'share') {
       const shareType = target.dataset.type;
       const username = list.dataset.username;
       const messageContent = card.querySelector('.message-content')?.textContent || '';
-
-      // Build URL with message ID
       const messageId = card.dataset.messageId;
-      const baseUrl = window.location.origin + '/rahasia-app/u.php';
-      const shareUrl = baseUrl + '?u=' + encodeURIComponent(username) + '&m=' + messageId;
 
+      const shareUrl = window.location.origin + baseUrl + '/u/' + encodeURIComponent(username) + '?m=' + messageId;
       const shareText = `"${messageContent.substring(0, 100)}${messageContent.length > 100 ? '...' : ''}" - @${username}`;
 
       if (shareType === 'copy') {
-        const copyText = `Lihat balasan di story surat ini:\n\n"${messageContent}"\n\n${shareUrl}`;
+        const copyText = `Lihat pesan dan balasan di kotak suratku:\n\n"${messageContent}"\n\n${shareUrl}`;
         try {
           await navigator.clipboard.writeText(copyText);
           const originalText = target.textContent;
@@ -314,7 +332,6 @@
             target.textContent = originalText;
           }, 2000);
         } catch (err) {
-          // Fallback
           const input = document.createElement('input');
           input.value = copyText;
           document.body.appendChild(input);
