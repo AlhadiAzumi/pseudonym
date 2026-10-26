@@ -128,11 +128,8 @@ if (!function_exists('getDB')) {
             $sslmode  = env('DB_SSLMODE', 'require');
 
             $dsn = sprintf(
-                'pgsql:host=%s;port=%s;dbname=%s;sslmode=%s',
-                $host,
-                $port,
-                $database,
-                $sslmode
+                'pgsql:host=%s;port=%s;dbname=%s;sslmode=%s;connect_timeout=5',
+                $host, $port, $database, $sslmode
             );
 
             $pdo = new PDO(
@@ -142,7 +139,7 @@ if (!function_exists('getDB')) {
                 [
                     PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                     PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    PDO::ATTR_EMULATE_PREPARES => false,
+                    PDO::ATTR_EMULATE_PREPARES => true,
                 ]
             );
         }
