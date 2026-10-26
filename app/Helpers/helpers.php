@@ -36,14 +36,19 @@ if (!function_exists('base_url')) {
         static $base = null;
 
         if ($base === null) {
-            $scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
-            if (str_ends_with($scriptName, '/api/index.php')) {
+            // Di Vercel aplikasi selalu ada di root domain
+            if (getenv('VERCEL') !== false || isset($_SERVER['VERCEL'])) {
                 $base = '';
             } else {
-                $scriptDir = dirname($scriptName);
-                $base = ($scriptDir === '/' || $scriptDir === '\\') ? '' : rtrim($scriptDir, '/');
-            }
+                $scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
+                if (str_ends_with($scriptName, '/api/index.php')) {
+                    $base = '';
+        } else {
+            $scriptDir = dirname($scriptName);
+            $base = ($scriptDir === '/' || $scriptDir === '\\') ? '' : rtrim($scriptDir, '/');
         }
+    }
+}
 
         $cleanPath = '/' . ltrim($path, '/');
         if ($cleanPath === '/') {
