@@ -5,6 +5,7 @@
     }
   },
   "routes": [
+    { "src": "/public/assets/(.*)", "dest": "/assets/$1" },
     { "handle": "filesystem" },
     { "src": "/(.*)", "dest": "/api/index.php" }
   ]
