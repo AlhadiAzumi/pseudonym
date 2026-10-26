@@ -6,7 +6,8 @@
   },
   "routes": [
     {
-      "handle": "filesystem"
+      "src": "/public/assets/(.*)",
+      "dest": "/public/assets/$1"
     },
     {
       "src": "/assets/(.*)",
