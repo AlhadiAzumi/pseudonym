@@ -36,9 +36,13 @@ if (!function_exists('base_url')) {
         static $base = null;
 
         if ($base === null) {
-            $scriptName = $_SERVER['SCRIPT_NAME'] ?? '';
-            $scriptDir = dirname($scriptName);
-            $base = ($scriptDir === '/' || $scriptDir === '\\') ? '' : rtrim(str_replace('\\', '/', $scriptDir), '/');
+            $scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
+            if (str_ends_with($scriptName, '/api/index.php')) {
+                $base = '';
+            } else {
+                $scriptDir = dirname($scriptName);
+                $base = ($scriptDir === '/' || $scriptDir === '\\') ? '' : rtrim($scriptDir, '/');
+            }
         }
 
         $cleanPath = '/' . ltrim($path, '/');
@@ -85,7 +89,10 @@ if (!function_exists('asset')) {
      */
     function asset(string $path = ''): string
     {
-        return base_url('/public/assets/' . ltrim($path, '/'));
+        $scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
+        $assetsPath = str_ends_with($scriptName, '/api/index.php') ? '/assets/' : '/public/assets/';
+
+        return base_url($assetsPath . ltrim($path, '/'));
     }
 }
 
