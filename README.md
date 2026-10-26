@@ -9,7 +9,7 @@ dibaca publik, tapi hanya pemilik akun yang bisa membalas.
 ```
 Pseudonym/
 ├── config/
-│   ├── database.php      # koneksi PDO ke MySQL
+│   ├── database.php      # koneksi PDO ke PostgreSQL / Supabase
 │   └── config.php        # APP_URL + kredensial Google OAuth
 ├── includes/
 │   └── functions.php     # helper: auth, sanitasi, response JSON
@@ -27,24 +27,29 @@ Pseudonym/
 ├── database/schema.sql
 ├── index.php              # landing page
 ├── choose-username.php    # onboarding pilih username setelah login Google pertama kali
-├── u.php?u=username       # profil publik: kirim pesan + lihat semua pesan/balasan
+├── {username}             # profil publik: kirim pesan + lihat semua pesan/balasan
 └── dashboard.php          # kotak masuk pemilik akun (butuh login)
 ```
 
-## 1. Setup di XAMPP / Laragon
+## 1. Setup Supabase dan XAMPP / Laragon
 
 1. Copy folder `pseudonym` ke `htdocs` (XAMPP) atau `www` (Laragon).
-2. Nyalakan Apache & MySQL.
-3. Buka phpMyAdmin → tab **Import** → pilih file `database/schema.sql` → klik **Go**.
-   (Atau lewat terminal: `mysql -u root -p < database/schema.sql`)
-4. Cek `config/database.php`. Default XAMPP/Laragon: user `root`, password kosong `''`.
-   Sesuaikan kalau kamu pakai password lain.
-5. Buka `config/config.php`, sesuaikan `APP_URL` dengan folder project kamu, contoh:
-   ```php
-   define('APP_URL', 'http://localhost/pseudonym');
+2. Nyalakan **Apache** di XAMPP. Database disediakan Supabase, jadi MySQL lokal tidak perlu dinyalakan.
+3. Di Supabase Dashboard, buka **SQL Editor**, jalankan isi file `database/schema.sql`.
+4. Salin `.env.example` menjadi `.env`. Dari **Project Settings → Database → Connect**, ambil detail
+   koneksi PostgreSQL (pilih **Session pooler** bila koneksi langsung tidak tersedia dari jaringan),
+   lalu isi `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, dan `DB_PASS` di `.env`.
+   `DB_SSLMODE=require` harus tetap aktif untuk koneksi TLS.
+5. Sesuaikan konfigurasi aplikasi di `.env`, contohnya:
+   ```dotenv
+   APP_URL=https://pseudonym.site
    ```
+   Agar URL profil berbentuk `https://pseudonym.site/username`, pasang aplikasi di document root
+   domain tersebut dan arahkan domain ke hosting/server aplikasi. Domain saja belum otomatis
+   menghubungkan website ke XAMPP lokal.
 
-Pastikan ekstensi PHP `pdo_mysql` dan `curl` aktif (biasanya sudah aktif default di XAMPP/Laragon).
+Pastikan ekstensi PHP `pdo_pgsql` dan `curl` aktif. Jangan unggah `.env` ke Git atau membagikan
+kredensial database. Gunakan password database Supabase, bukan anon key atau service-role key.
 
 ## 2. Setup Google OAuth (untuk fitur "Login dengan Google")
 
@@ -63,9 +68,9 @@ Pastikan ekstensi PHP `pdo_mysql` dan `curl` aktif (biasanya sudah aktif default
    - Name: bebas, misalnya "Bisik Local".
    - Di **Authorized redirect URIs**, tambahkan persis:
      ```
-     http://localhost/pseudonym/auth/google-callback.php
+     https://pseudonym.site/auth/google-callback
      ```
-     (Pastikan nama folder dan `APP_URL` sama persis dengan project yang dipakai)
+     Samakan URL ini dengan `GOOGLE_REDIRECT_URI` di `.env`.
    - Klik **Create**.
 5. Akan muncul popup berisi **Client ID** dan **Client Secret**. Copy keduanya.
 6. Buka `config/config.php`, isi:
@@ -82,9 +87,9 @@ Selesai! Sekarang tombol "Masuk dengan Google" di aplikasi akan berfungsi.
 <br>
 ## 3. Coba jalankan
 
-1. Buka `http://localhost/pseudonym/` di browser.
+1. Buka `https://pseudonym.site/` di browser setelah domain diarahkan ke hosting/server aplikasi.
 2. Klik **"Masuk dengan Google"** → login → kamu akan diminta pilih **username** (ini jadi alamat
-   kotak suratmu, misalnya `u.php?u=budi`).
+   kotak suratmu, misalnya `https://pseudonym.site/budi`).
 3. Salin tautan itu (ada tombol "Salin Tautan" di dashboard) dan bagikan ke orang lain / buka di
    tab lain / mode incognito untuk simulasi "orang lain".
 4. Di tab incognito, buka tautan tadi, tulis pesan rahasia, kirim — tanpa perlu login.

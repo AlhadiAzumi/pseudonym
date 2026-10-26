@@ -13,7 +13,7 @@ class Message
                 m.id,
                 m.content,
                 m.created_at,
-                m.is_hidden,
+                CASE WHEN m.is_hidden THEN 1 ELSE 0 END AS is_hidden,
                 r.content AS reply_content,
                 r.created_at AS reply_created_at
             FROM messages m
@@ -33,7 +33,7 @@ class Message
                     m.id,
                     m.content,
                     m.created_at,
-                    m.is_hidden,
+                    CASE WHEN m.is_hidden THEN 1 ELSE 0 END AS is_hidden,
                     r.content AS reply_content,
                     r.created_at AS reply_created_at
                 FROM messages m
@@ -41,7 +41,7 @@ class Message
                 WHERE m.receiver_id = ?';
 
         if (!$includeHidden) {
-            $sql .= ' AND m.is_hidden = 0';
+            $sql .= ' AND m.is_hidden = FALSE';
         }
 
         $sql .= ' ORDER BY m.created_at DESC';
@@ -64,23 +64,23 @@ class Message
     public static function create(int $receiverId, string $content, string $senderHash): int
     {
         $db = getDB();
-        $stmt = $db->prepare('INSERT INTO messages (receiver_id, content, sender_hash, created_at, is_hidden) VALUES (?, ?, ?, NOW(), 0)');
+        $stmt = $db->prepare('INSERT INTO messages (receiver_id, content, sender_hash) VALUES (?, ?, ?) RETURNING id');
         $stmt->execute([$receiverId, $content, $senderHash]);
 
-        return (int) $db->lastInsertId();
+        return (int) $stmt->fetchColumn();
     }
 
     public static function toggleVisibility(int $id, bool $hidden, int $receiverId): bool
     {
         $stmt = getDB()->prepare('UPDATE messages SET is_hidden = ? WHERE id = ? AND receiver_id = ?');
-        return $stmt->execute([$hidden ? 1 : 0, $id, $receiverId]);
+        return $stmt->execute([$hidden ? 'true' : 'false', $id, $receiverId]);
     }
 
     public static function countTodayBySender(int $receiverId, string $senderHash): int
     {
         $stmt = getDB()->prepare(
             'SELECT COUNT(*) as total FROM messages
-             WHERE receiver_id = ? AND sender_hash = ? AND created_at >= NOW() - INTERVAL 1 DAY'
+             WHERE receiver_id = ? AND sender_hash = ? AND created_at >= CURRENT_TIMESTAMP - INTERVAL \'1 day\''
         );
         $stmt->execute([$receiverId, $senderHash]);
         $res = $stmt->fetch();

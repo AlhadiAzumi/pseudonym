@@ -66,6 +66,11 @@ if (!function_exists('full_url')) {
      */
     function full_url(string $path = ''): string
     {
+        $appUrl = trim((string) env('APP_URL', ''));
+        if ($appUrl !== '') {
+            return rtrim($appUrl, '/') . ($path === '' ? '' : '/' . ltrim($path, '/'));
+        }
+
         $scheme = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') || 
                   (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ? 'https' : 'http';
         $host = $_SERVER['HTTP_HOST'] ?? 'localhost';
@@ -104,12 +109,19 @@ if (!function_exists('getDB')) {
 
         if ($pdo === null) {
             $host     = env('DB_HOST', 'localhost');
-            $database = env('DB_NAME', 'rahasia_app');
-            $username = env('DB_USER', 'root');
+            $port     = env('DB_PORT', '5432');
+            $database = env('DB_NAME', 'postgres');
+            $username = env('DB_USER', 'postgres');
             $password = env('DB_PASS', '');
-            $charset  = 'utf8mb4';
+            $sslmode  = env('DB_SSLMODE', 'require');
 
-            $dsn = sprintf('mysql:host=%s;dbname=%s;charset=%s', $host, $database, $charset);
+            $dsn = sprintf(
+                'pgsql:host=%s;port=%s;dbname=%s;sslmode=%s',
+                $host,
+                $port,
+                $database,
+                $sslmode
+            );
 
             $pdo = new PDO(
                 $dsn,

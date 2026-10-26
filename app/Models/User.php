@@ -47,10 +47,10 @@ class User
     public static function create(string $email, string $googleId, string $displayName, string $avatarUrl): int
     {
         $db = getDB();
-        $stmt = $db->prepare('INSERT INTO users (email, google_id, display_name, avatar_url) VALUES (?, ?, ?, ?)');
+        $stmt = $db->prepare('INSERT INTO users (email, google_id, display_name, avatar_url) VALUES (?, ?, ?, ?) RETURNING id');
         $stmt->execute([$email, $googleId, $displayName, $avatarUrl]);
 
-        return (int) $db->lastInsertId();
+        return (int) $stmt->fetchColumn();
     }
 
     public static function updateGoogleInfo(int $id, string $googleId, string $displayName, string $avatarUrl): bool

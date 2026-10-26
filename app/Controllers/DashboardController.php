@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $stats = Message::getStats((int)$user['id']);
 
         // Link profile untuk dibagikan
-        $profileUrl = full_url('/u/' . urlencode($user['username']));
+        $profileUrl = full_url('/' . rawurlencode($user['username']));
 
         // Kirim data ke view dengan layout dashboard
         $this->view('dashboard', [

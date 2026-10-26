@@ -18,9 +18,9 @@ class Reply
     public static function create(int $messageId, string $content): int
     {
         $db = getDB();
-        $stmt = $db->prepare('INSERT INTO replies (message_id, content, created_at) VALUES (?, ?, NOW())');
+        $stmt = $db->prepare('INSERT INTO replies (message_id, content) VALUES (?, ?) RETURNING id');
         $stmt->execute([$messageId, $content]);
 
-        return (int) $db->lastInsertId();
+        return (int) $stmt->fetchColumn();
     }
 }

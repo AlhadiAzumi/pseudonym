@@ -42,3 +42,6 @@ $router->post('/api/reply-message', [ApiController::class, 'replyMessage']);
 $router->post('/api/reply-message.php', [ApiController::class, 'replyMessage']);
 $router->post('/api/toggle-visibility', [ApiController::class, 'toggleVisibility']);
 $router->post('/api/toggle-message-visibility.php', [ApiController::class, 'toggleVisibility']);
+
+// Keep this last so named application routes take precedence over usernames.
+$router->get('/{username}', [ProfileController::class, 'show']);
