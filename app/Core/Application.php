@@ -26,7 +26,8 @@ class Application
         $uri = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?? '/';
 
         // Deteksi dan potong subfolder dasar secara otomatis
-        $base = base_url('');
+        $onVercel = getenv('VERCEL') !== false || isset($_SERVER['VERCEL']);
+        $base = $onVercel ? '' : base_url('');
         if ($base !== '' && str_starts_with($uri, $base)) {
             $uri = substr($uri, strlen($base));
         }
