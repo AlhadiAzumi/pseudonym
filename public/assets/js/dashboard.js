@@ -95,7 +95,7 @@
   }
 
   async function generateShareImage(messageText) {
-    const templateUrl = baseUrl + '/public/assets/images/template-share-story.png';
+    const templateUrl = baseUrl + '/assets/images/template-share-story.png';
     const template = await new Promise((resolve, reject) => {
       const image = new Image();
       image.onload = () => resolve(image);

@@ -90,7 +90,7 @@ if (!function_exists('asset')) {
     function asset(string $path = ''): string
     {
         $scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
-        $assetsPath = str_ends_with($scriptName, '/api/index.php') ? '/assets/' : '/public/assets/';
+        $assetsPath = str_ends_with($scriptName, '/api/index.php') ? '/assets/' : '/assets/';
 
         return base_url($assetsPath . ltrim($path, '/'));
     }

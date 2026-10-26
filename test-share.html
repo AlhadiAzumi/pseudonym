@@ -29,7 +29,7 @@ canvas { border: 2px solid #adf; max-width: 280px; display: block; margin: 12px 
 // Deteksi base URL otomatis
 const pathParts = window.location.pathname.split('/').filter(Boolean);
 const baseUrl = pathParts.length > 0 ? '/' + pathParts[0] : '';
-const TEMPLATE_URL = baseUrl + '/public/assets/images/template-share-story.png';
+const TEMPLATE_URL = baseUrl + '/assets/images/template-share-story.png';
 
 function log(msg, type = 'info') {
     const div = document.getElementById('log');
@@ -56,7 +56,7 @@ async function testStep1() {
             log('   Content-Type: ' + res.headers.get('content-type'), 'ok');
         } else {
             log('❌ File template TIDAK DITEMUKAN! Status: ' + res.status, 'err');
-            log('   Pastikan file ada di: /public/assets/images/template-share-story.png', 'err');
+            log('   Pastikan file ada di: /assets/images/template-share-story.png', 'err');
         }
     } catch (e) {
         log('❌ Fetch gagal: ' + e.message, 'err');
