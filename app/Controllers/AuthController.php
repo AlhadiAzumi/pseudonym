@@ -187,7 +187,6 @@ class AuthController extends Controller
         if ($response === false) {
             die('cURL error: ' . curl_error($ch));
         }
-        curl_close($ch);
         return (string) $response;
     }
 
@@ -203,7 +202,6 @@ class AuthController extends Controller
         if ($response === false) {
             die('cURL error: ' . curl_error($ch));
         }
-        curl_close($ch);
         return (string) $response;
     }
 }

@@ -4,6 +4,11 @@ declare(strict_types=1);
 
 namespace App\Core;
 
+if (getenv('VERCEL') !== false) {
+    ini_set('display_errors', '0');
+    error_reporting(E_ALL & ~E_DEPRECATED);
+}
+
 class Application
 {
     protected Router $router;
