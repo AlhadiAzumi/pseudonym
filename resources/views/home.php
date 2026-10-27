@@ -1,5 +1,5 @@
 <!-- Splash Screen Intro Overlay -->
-<div id="intro-overlay" style="position: fixed; inset: 0; z-index: 999999; background: #000000; display: flex; justify-content: center; align-items: center; transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s; contain: strict;">
+<div id="intro-overlay" style="position: fixed; inset: 0; z-index: 999999; background: #000000; display: flex; justify-content: center; align-items: center; transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.7s;">
     <div class="intro-container">
         <img class="logo-question" src="<?= asset('images/Pseudonym%20logo%20browser.png') ?>" alt="Pseudonym Icon" width="150" height="150" decoding="async">
         <img class="logo-text" src="<?= asset('images/Pseudonym%20logo.png') ?>" alt="Pseudonym Brand" width="250" height="75" decoding="async">
@@ -23,7 +23,9 @@
     width: 150px;
     height: auto;
     filter: drop-shadow(0 0 10px rgba(173, 255, 47, 0.6));
-    animation: fadeInOut 0.5s ease-in-out forwards;
+    animation:
+        fadeInOut 2.0s ease-in-out forwards,
+        pulse 1.5s infinite alternate ease-in-out;
 }
 
 .logo-text {
@@ -33,7 +35,7 @@
     opacity: 0;
     transform: scale(0.8);
     filter: drop-shadow(0 0 15px rgba(173, 255, 47, 0.8));
-    animation: revealText 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.4s forwards;
+    animation: revealText 1.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.8s forwards;
 }
 
 @keyframes fadeInOut {
@@ -235,7 +237,7 @@
         try { sessionStorage.setItem('introPlayed', 'true'); } catch (e) {}
         setTimeout(() => {
             overlay.style.display = 'none';
-        }, 350);
+        }, 700);
     }
 
     const urlParams = new URLSearchParams(window.location.search);
@@ -247,8 +249,8 @@
     if (!forceIntro && (isBotOrAudit || prefersReduced || sessionStorage.getItem('introPlayed'))) {
         overlay.style.display = 'none';
     } else {
-        // Durasi snappier untuk pengguna nyata (0.95 detik)
-        const autoTimer = setTimeout(dismissIntro, 950);
+        // Mainkan animasi selama 3.5 detik lalu fade out mulus
+        const autoTimer = setTimeout(dismissIntro, 3500);
 
         const skipBtn = document.getElementById('skip-intro');
         if (skipBtn) {
