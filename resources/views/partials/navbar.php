@@ -16,7 +16,7 @@ $currentPage = $currentPage ?? '';
     <div class="topbar" id="navbar">
         <div class="brand" style="flex:1;">
             <a href="<?= url('/') ?>">
-                <img src="<?= asset('images/Pseudonym%20logo.png') ?>" alt="Pseudonym" class="brand-logo">
+                <img src="<?= asset('images/Pseudonym%20logo.png') ?>" alt="Pseudonym" class="brand-logo" width="120" height="32" decoding="async">
             </a>
         </div>
 

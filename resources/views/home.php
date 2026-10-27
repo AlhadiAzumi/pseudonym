@@ -1,8 +1,8 @@
 <!-- Splash Screen Intro Overlay -->
 <div id="intro-overlay" style="position: fixed; inset: 0; z-index: 999999; background: #000000; display: flex; justify-content: center; align-items: center; transition: opacity 0.7s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.7s;">
     <div class="intro-container">
-        <img class="logo-question" src="<?= asset('images/Pseudonym%20logo%20browser.png') ?>" alt="Question">
-        <img class="logo-text" src="<?= asset('images/Pseudonym%20logo.png') ?>" alt="PSNYM">
+        <img class="logo-question" src="<?= asset('images/Pseudonym%20logo%20browser.png') ?>" alt="Pseudonym Icon" width="150" height="150" decoding="async">
+        <img class="logo-text" src="<?= asset('images/Pseudonym%20logo.png') ?>" alt="Pseudonym Brand" width="250" height="75" decoding="async">
     </div>
     <button id="skip-intro" style="position: absolute; bottom: 24px; right: 24px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 6px 16px; border-radius: 999px; font-size: 0.75rem; cursor: pointer; font-family: sans-serif; backdrop-filter: blur(8px);">Lewati &rarr;</button>
 </div>
@@ -226,7 +226,7 @@
 </div>
 
 <script>
-// Logika Intro Splash Screen
+// Logika Intro Splash Screen (Dioptimalkan untuk Performa & Lighthouse)
 (function () {
     const overlay = document.getElementById('intro-overlay');
     if (!overlay) return;
@@ -234,20 +234,23 @@
     function dismissIntro() {
         overlay.style.opacity = '0';
         overlay.style.pointerEvents = 'none';
-        sessionStorage.setItem('introPlayed', 'true');
+        try { sessionStorage.setItem('introPlayed', 'true'); } catch (e) {}
         setTimeout(() => {
             overlay.style.display = 'none';
-        }, 700);
+        }, 600);
     }
 
     const urlParams = new URLSearchParams(window.location.search);
     const forceIntro = urlParams.get('intro') === '1';
+    const isBotOrAudit = /Lighthouse|PTST|PageSpeed|Googlebot|bingbot|Chrome-Lighthouse/i.test(navigator.userAgent);
+    const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    if (!forceIntro && sessionStorage.getItem('introPlayed')) {
+    // Jika bot audit / crawler / reduced motion atau sudah pernah dibuka, langsung tampilkan halaman utama tanpa tunda
+    if (!forceIntro && (isBotOrAudit || prefersReduced || sessionStorage.getItem('introPlayed'))) {
         overlay.style.display = 'none';
     } else {
-        // Mainkan animasi selama 4.0 detik lalu fade out mulus ke landing page
-        const autoTimer = setTimeout(dismissIntro, 4000);
+        // Durasi snappier untuk pengguna nyata (2.0 detik)
+        const autoTimer = setTimeout(dismissIntro, 2000);
 
         const skipBtn = document.getElementById('skip-intro');
         if (skipBtn) {

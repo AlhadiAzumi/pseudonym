@@ -16,7 +16,7 @@
    Font: Poppins (display/heading), Inter (body), IBM Plex Mono (meta)
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+/* Fonts are loaded via preconnect in header.php for non-blocking performance */
 
 :root {
   --primary: #CCFF00;

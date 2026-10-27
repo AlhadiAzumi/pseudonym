@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /dashboard
+Disallow: /choose-username
+Disallow: /auth/
+
+Sitemap: https://pseudonym.site/sitemap.xml
