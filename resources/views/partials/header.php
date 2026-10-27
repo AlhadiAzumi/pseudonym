@@ -37,7 +37,14 @@ $ogImageUrl = full_url('/assets/images/Pseudonym%20logo.png');
     <!-- Font Optimization (Preconnect & Non-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&family=Space+Grotesk:wght@500;700&display=swap">
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700;800&display=swap">
+    </noscript>
+
+    <!-- Preload Critical Logo Asset -->
+    <link rel="preload" as="image" href="<?= asset('images/Pseudonym%20logo.png') ?>">
 
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="<?= asset('css/style.css') ?>">

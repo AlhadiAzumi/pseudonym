@@ -2922,6 +2922,7 @@ body::before {
 .about-title span {
   background: linear-gradient(135deg, #0F172A 0%, #2563EB 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   color: #2563EB;
 }
@@ -3274,6 +3275,7 @@ body::before {
 .safety-title span {
   background: linear-gradient(135deg, #0F172A 0%, #2563EB 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   color: #2563EB;
 }
@@ -3610,6 +3612,7 @@ body::before {
 .contact-title span {
   background: linear-gradient(135deg, #0F172A 0%, #2563EB 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   color: #2563EB;
 }

@@ -2,7 +2,7 @@
 // Navbar & hamburger logic (window.App sudah diset di <head>)
 
 document.addEventListener('DOMContentLoaded', function () {
-    // Navbar Scroll Effect
+    // Navbar Scroll Effect (Passive for optimal scrolling performance)
     window.addEventListener('scroll', function () {
         const navbar = document.getElementById('navbar');
         const marquee = document.getElementById('marquee');
@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (navbar) navbar.classList.remove('scrolled');
             if (marquee) marquee.classList.remove('hide');
         }
-    });
+    }, { passive: true });
 
     // Hamburger Mobile Menu
     const hamburgerBtn = document.getElementById('hamburger-btn');
