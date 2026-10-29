@@ -7,11 +7,11 @@ if (!defined('APP_URL')) {
 }
 
 if (!defined('GOOGLE_CLIENT_ID')) {
-    define('GOOGLE_CLIENT_ID', env('GOOGLE_CLIENT_ID', '347057146711-p9eok1u3uo0d8fgbc9f57r6nlmelee6g.apps.googleusercontent.com'));
+    define('GOOGLE_CLIENT_ID', env('GOOGLE_CLIENT_ID', ''));
 }
 
 if (!defined('GOOGLE_CLIENT_SECRET')) {
-    define('GOOGLE_CLIENT_SECRET', env('GOOGLE_CLIENT_SECRET', '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'));
+    define('GOOGLE_CLIENT_SECRET', env('GOOGLE_CLIENT_SECRET', ''));
 }
 
 if (!defined('GOOGLE_REDIRECT_URI')) {
