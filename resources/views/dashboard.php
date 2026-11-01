@@ -70,6 +70,9 @@
                         <button class="btn-small share-image-btn" data-action="share-image" style="font-size:0.82rem; padding:8px 14px; border-radius:8px; border:1.5px solid var(--paper-line); background:transparent; color:var(--text-dark); cursor:pointer; font-weight:600; transition:all .2s;">
                             🖼️ Share ke Story
                         </button>
+                        <button class="btn-small delete-message-btn" data-action="delete-message" style="font-size:0.82rem; padding:8px 14px; border-radius:8px; border:1.5px solid rgba(239,68,68,0.35); background:transparent; color:#B91C1C; cursor:pointer; font-weight:600; transition:all .2s;">
+                            Hapus pesan
+                        </button>
                     </div>
 
                     <?php if ($hasReply): ?>

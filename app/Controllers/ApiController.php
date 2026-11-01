@@ -7,6 +7,7 @@ namespace App\Controllers;
 use App\Core\Config;
 use App\Core\Controller;
 use App\Models\Message;
+use App\Models\MessageReport;
 use App\Models\Reply;
 use App\Models\User;
 use Throwable;
@@ -176,6 +177,71 @@ class ApiController extends Controller
             ]);
         } catch (Throwable $e) {
             $this->json(['success' => false, 'error' => 'Terjadi kesalahan pada server database.'], 500);
+        }
+    }
+
+    public function deleteMessage(): void
+    {
+        $user = currentUser();
+        if (!$user) {
+            $this->json(['success' => false, 'error' => 'Kamu harus login untuk menghapus pesan.'], 401);
+            return;
+        }
+
+        $input = jsonInput();
+        $messageId = (int)($input['message_id'] ?? 0);
+        if ($messageId <= 0) {
+            $this->json(['success' => false, 'error' => 'Pesan tidak valid.'], 400);
+            return;
+        }
+
+        try {
+            if (!Message::deleteById($messageId, (int)$user['id'])) {
+                $this->json(['success' => false, 'error' => 'Pesan tidak ditemukan atau bukan milikmu.'], 404);
+                return;
+            }
+
+            $this->json(['success' => true]);
+        } catch (Throwable $e) {
+            $this->json(['success' => false, 'error' => 'Terjadi kesalahan saat menghapus pesan.'], 500);
+        }
+    }
+
+    public function reportMessage(): void
+    {
+        $input = jsonInput();
+        $messageId = (int)($input['message_id'] ?? 0);
+        $reasonInput = $input['reason'] ?? '';
+        $reason = is_string($reasonInput) ? trim($reasonInput) : '';
+        $allowedReasons = ['harassment', 'hate_speech', 'personal_info', 'threat', 'spam', 'other'];
+
+        if ($messageId <= 0 || !in_array($reason, $allowedReasons, true)) {
+            $this->json(['success' => false, 'error' => 'Pilih alasan laporan yang valid.'], 400);
+            return;
+        }
+
+        try {
+            $message = Message::findById($messageId);
+            $isHidden = $message && in_array($message['is_hidden'], [true, 1, '1', 't', 'true'], true);
+            if (!$message || $isHidden) {
+                $this->json(['success' => false, 'error' => 'Pesan publik tidak ditemukan.'], 404);
+                return;
+            }
+
+            $user = currentUser();
+            if ($user && (int)$message['receiver_id'] === (int)$user['id']) {
+                $this->json(['success' => false, 'error' => 'Kamu tidak dapat melaporkan pesan di kotak masukmu sendiri.'], 403);
+                return;
+            }
+
+            if (!MessageReport::create($messageId, senderFingerprint(), $reason)) {
+                $this->json(['success' => false, 'error' => 'Kamu sudah melaporkan pesan ini.'], 409);
+                return;
+            }
+
+            $this->json(['success' => true]);
+        } catch (Throwable $e) {
+            $this->json(['success' => false, 'error' => 'Laporan belum berhasil disimpan. Coba lagi nanti.'], 500);
         }
     }
 }

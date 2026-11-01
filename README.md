@@ -97,6 +97,11 @@ Selesai! Sekarang tombol "Masuk dengan Google" di aplikasi akan berfungsi.
 5. Login lagi sebagai pemilik akun → buka **Kotak Masuk** → balas pesan yang masuk.
 6. Pesan baru hanya terlihat oleh pemilik akun. Dari dashboard, pemilik bisa membalas dan memilih
    pesan mana yang akan ditampilkan bersama balasannya di halaman profil publik.
+7. Pengunjung dapat melaporkan pesan publik melalui profil. Pemilik dapat menghapus pesan beserta
+   balasannya dari dashboard. Laporan tersimpan di tabel `message_reports` dengan status `pending`.
+
+Jika database Supabase sudah dibuat sebelumnya, jalankan ulang `database/schema.sql` di SQL Editor
+untuk membuat tabel laporan moderasi yang baru.
 
 ## Alur sesuai kebutuhan
 

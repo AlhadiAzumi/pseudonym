@@ -50,6 +50,26 @@
 
                         <div class="message-content" style="font-size:0.98rem; color:var(--text-dark); white-space:pre-wrap; word-break:break-word;"><?= h($msg['content']) ?></div>
 
+                        <?php if ($isOwner): ?>
+                            <button class="btn-small delete-message-btn" data-action="delete-message" style="font-size:0.82rem; padding:8px 14px; margin-top:12px; border-radius:8px; border:1.5px solid rgba(239,68,68,0.35); background:transparent; color:#B91C1C; cursor:pointer; font-weight:600;">Hapus pesan</button>
+                        <?php else: ?>
+                            <details class="message-report">
+                                <summary>Laporkan pesan</summary>
+                                <div class="message-report-form">
+                                    <select id="report-reason-<?= (int)$msg['id'] ?>" data-report-reason aria-label="Alasan laporan">
+                                        <option value="">Pilih alasan laporan</option>
+                                        <option value="harassment">Perundungan atau pelecehan</option>
+                                        <option value="hate_speech">Ujaran kebencian</option>
+                                        <option value="personal_info">Informasi pribadi</option>
+                                        <option value="threat">Ancaman</option>
+                                        <option value="spam">Spam atau penipuan</option>
+                                        <option value="other">Lainnya</option>
+                                    </select>
+                                    <button type="button" class="btn-small" data-action="report-message">Kirim laporan</button>
+                                </div>
+                            </details>
+                        <?php endif; ?>
+
                         <?php if ($hasReply): ?>
                             <div class="reply-block" style="margin-top:14px; padding:14px 16px; background:rgba(201,162,39,0.06); border-left:2px solid var(--primary); border-radius:0 8px 8px 0;">
                                 <div class="reply-label" style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-bottom:6px;">Balasan dari @<?= h($owner['username']) ?></div>

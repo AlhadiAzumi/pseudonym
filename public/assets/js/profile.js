@@ -85,6 +85,54 @@
     });
   }
 
+  if (list) {
+    list.addEventListener('click', async (e) => {
+      const target = e.target.closest('[data-action="report-message"]');
+      if (!target || !list.contains(target)) return;
+
+      const card = target.closest('.message-card');
+      const reasonInput = card?.querySelector('[data-report-reason]');
+      if (!card || !reasonInput?.value) {
+        alert('Pilih alasan laporan terlebih dahulu.');
+        reasonInput?.focus();
+        return;
+      }
+
+      if (!window.confirm('Kirim laporan untuk pesan ini?')) return;
+
+      target.disabled = true;
+      target.textContent = 'Mengirim…';
+
+      try {
+        const res = await fetch(apiUrl + '/report-message', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            message_id: card.dataset.messageId,
+            reason: reasonInput.value,
+          }),
+        });
+        const data = await res.json();
+
+        if (!data.success) {
+          alert(data.error || 'Laporan belum berhasil dikirim.');
+          target.disabled = false;
+          target.textContent = 'Kirim laporan';
+          return;
+        }
+
+        const details = target.closest('.message-report');
+        if (details) {
+          details.innerHTML = '<p role="status">Laporan berhasil dikirim. Terima kasih sudah membantu menjaga komunitas.</p>';
+        }
+      } catch (err) {
+        alert('Terjadi kesalahan jaringan saat mengirim laporan.');
+        target.disabled = false;
+        target.textContent = 'Kirim laporan';
+      }
+    });
+  }
+
   // ==========================================
   // 2. OWNER ACTIONS (Reply & Share)
   // ==========================================
@@ -98,6 +146,36 @@
 
       const card = target.closest('.message-card');
       if (!card) return;
+
+      if (action === 'delete-message') {
+        if (!window.confirm('Hapus pesan ini beserta balasannya? Tindakan ini tidak bisa dibatalkan.')) return;
+
+        target.disabled = true;
+        target.textContent = 'Menghapus…';
+
+        try {
+          const res = await fetch(apiUrl + '/delete-message', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message_id: card.dataset.messageId }),
+          });
+          const data = await res.json();
+
+          if (!data.success) {
+            alert(data.error || 'Gagal menghapus pesan.');
+            target.disabled = false;
+            target.textContent = 'Hapus pesan';
+            return;
+          }
+
+          location.reload();
+        } catch (err) {
+          alert('Terjadi kesalahan jaringan saat menghapus pesan.');
+          target.disabled = false;
+          target.textContent = 'Hapus pesan';
+        }
+        return;
+      }
 
       // Toggle Reply
       if (action === 'toggle-reply') {

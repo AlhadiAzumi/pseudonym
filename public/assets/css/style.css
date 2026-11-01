@@ -3381,6 +3381,36 @@ body::before {
   line-height: 1.55;
 }
 
+.message-report {
+  margin-top: 12px;
+  color: var(--text-muted-dark);
+  font-size: 0.82rem;
+}
+
+.message-report summary {
+  width: fit-content;
+  color: #B91C1C;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.message-report-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.message-report-form select {
+  min-width: 210px;
+  padding: 8px 10px;
+  border: 1px solid var(--paper-line);
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: var(--text-dark);
+  font: inherit;
+}
+
 /* GUIDELINES (DO'S & DON'TS) */
 .safety-guidelines {
   margin-bottom: 60px;

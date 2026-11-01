@@ -79,6 +79,14 @@ class Message
         return $stmt->execute([$hidden ? 'true' : 'false', $id, $receiverId]);
     }
 
+    public static function deleteById(int $id, int $receiverId): bool
+    {
+        $stmt = getDB()->prepare('DELETE FROM messages WHERE id = ? AND receiver_id = ?');
+        $stmt->execute([$id, $receiverId]);
+
+        return $stmt->rowCount() > 0;
+    }
+
     public static function countTodayBySender(int $receiverId, string $senderHash): int
     {
         $stmt = getDB()->prepare(

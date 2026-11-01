@@ -43,6 +43,8 @@ $router->post('/api/reply-message', [ApiController::class, 'replyMessage']);
 $router->post('/api/reply-message.php', [ApiController::class, 'replyMessage']);
 $router->post('/api/toggle-visibility', [ApiController::class, 'toggleVisibility']);
 $router->post('/api/toggle-message-visibility.php', [ApiController::class, 'toggleVisibility']);
+$router->post('/api/delete-message', [ApiController::class, 'deleteMessage']);
+$router->post('/api/report-message', [ApiController::class, 'reportMessage']);
 
 // --- SEO & Crawlers ---
 $router->get('/robots.txt', function (): void {

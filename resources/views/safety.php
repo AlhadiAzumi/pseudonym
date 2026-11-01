@@ -116,8 +116,8 @@
             <!-- CLOSING & REPORTING CTA -->
             <section class="safety-closing">
                 <h2>Menemukan Pelanggaran Serius?</h2>
-                <p>Jika Anda mengalami atau melihat tindakan berisiko hukum di platform kami, tim kami siap membantu.</p>
-                <a href="mailto:safety@pseudonym.com" class="btn-seal safety-cta-btn">
+                <p>Gunakan tombol Laporkan pesan pada profil publik, atau hubungi kami jika membutuhkan bantuan lebih lanjut.</p>
+                <a href="<?= url('/contact') ?>" class="btn-seal safety-cta-btn">
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                     Laporkan Penyalahgunaan
                 </a>
