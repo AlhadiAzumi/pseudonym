@@ -2,6 +2,33 @@
 // Navbar & hamburger logic (window.App sudah diset di <head>)
 
 document.addEventListener('DOMContentLoaded', function () {
+    const messageList = document.getElementById('message-list');
+    if (messageList) {
+        const username = messageList.dataset.username;
+        const baseUrl = (window.App && window.App.baseUrl !== undefined) ? window.App.baseUrl : '';
+
+        messageList.querySelectorAll('.message-card').forEach((card) => {
+            const messageId = card.dataset.messageId;
+            const messageContent = card.querySelector('.message-content')?.textContent?.trim() || '';
+            const shareUrl = new URL(
+                baseUrl + '/u/' + encodeURIComponent(username) + '?m=' + encodeURIComponent(messageId) + '#message-' + encodeURIComponent(messageId),
+                window.location.origin
+            ).toString();
+            const shareText = `"${messageContent.substring(0, 100)}${messageContent.length > 100 ? '...' : ''}" - @${username}`;
+
+            card.querySelectorAll('a[data-action="share"]').forEach((link) => {
+                const shareType = link.dataset.type;
+                if (shareType === 'twitter') {
+                    link.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`;
+                } else if (shareType === 'whatsapp') {
+                    link.href = `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`;
+                } else if (shareType === 'facebook') {
+                    link.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`;
+                }
+            });
+        });
+    }
+
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!prefersReducedMotion && 'IntersectionObserver' in window) {
         const revealSelector = [

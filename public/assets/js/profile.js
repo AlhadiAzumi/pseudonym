@@ -92,9 +92,9 @@
     const username = list.dataset.username;
 
     list.addEventListener('click', async (e) => {
-      const target = e.target;
+      const target = e.target.closest('[data-action]');
       const action = target?.dataset?.action;
-      if (!action) return;
+      if (!action || !list.contains(target)) return;
 
       const card = target.closest('.message-card');
       if (!card) return;
@@ -182,48 +182,36 @@
         const replyContent = card.querySelector('.reply-content')?.textContent || '';
         const messageId = card.dataset.messageId;
 
-        const shareUrl = window.location.origin + baseUrl + '/u/' + encodeURIComponent(username) + '?m=' + messageId;
-        const shareText = `"${messageContent.substring(0, 100)}${messageContent.length > 100 ? '...' : ''}" - @${username}`;
-
         if (shareType === 'copy') {
+          const shareUrl = window.location.origin + baseUrl + '/u/' + encodeURIComponent(username) + '?m=' + messageId + '#message-' + messageId;
           const copyText = `Lihat balasan pesan di kotak suratku:\n\n"${messageContent}"\n\n${replyContent ? 'Balasan: ' + replyContent + '\n\n' : ''}${shareUrl}`;
           try {
             await navigator.clipboard.writeText(copyText);
-            const originalText = target.textContent;
-            target.textContent = '✓ Disalin!';
-            setTimeout(() => {
-              target.textContent = originalText;
-            }, 2000);
           } catch (err) {
-            const input = document.createElement('input');
+            let copied = false;
+            const input = document.createElement('textarea');
             input.value = copyText;
+            input.style.position = 'fixed';
+            input.style.opacity = '0';
             document.body.appendChild(input);
             input.select();
-            document.execCommand('copy');
-            document.body.removeChild(input);
-            const originalText = target.textContent;
-            target.textContent = '✓ Disalin!';
-            setTimeout(() => {
-              target.textContent = originalText;
-            }, 2000);
+            try {
+              copied = document.execCommand('copy');
+            } finally {
+              document.body.removeChild(input);
+            }
+
+            if (!copied) {
+              alert('Tidak bisa menyalin tautan. Silakan salin URL halaman ini secara manual.');
+              return;
+            }
           }
-        } else if (shareType === 'twitter') {
-          window.open(
-            `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(shareUrl)}`,
-            'twitter-share',
-            'width=550,height=420'
-          );
-        } else if (shareType === 'whatsapp') {
-          window.open(
-            `https://wa.me/?text=${encodeURIComponent(shareText + ' ' + shareUrl)}`,
-            'whatsapp-share'
-          );
-        } else if (shareType === 'facebook') {
-          window.open(
-            `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}&quote=${encodeURIComponent(shareText)}`,
-            'facebook-share',
-            'width=550,height=420'
-          );
+
+          const originalText = target.textContent;
+          target.textContent = '✓ Disalin!';
+          setTimeout(() => {
+            target.textContent = originalText;
+          }, 2000);
         }
         return;
       }

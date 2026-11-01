@@ -5173,6 +5173,7 @@ body {
 
 .message-card {
   background: rgba(255, 255, 255, 0.74) !important;
+  scroll-margin-top: 100px;
 }
 
 .message-card:hover {
