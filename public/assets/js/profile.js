@@ -148,7 +148,14 @@
       if (!card) return;
 
       if (action === 'delete-message') {
-        if (!window.confirm('Hapus pesan ini beserta balasannya? Tindakan ini tidak bisa dibatalkan.')) return;
+        const dialogs = window.AppDialogs;
+        const confirmed = dialogs
+          ? await dialogs.confirm(
+            'Hapus pesan ini?',
+            'Pesan dan balasannya akan dihapus permanen. Tindakan ini tidak bisa dibatalkan.'
+          )
+          : window.confirm('Hapus pesan ini beserta balasannya? Tindakan ini tidak bisa dibatalkan.');
+        if (!confirmed) return;
 
         target.disabled = true;
         target.textContent = 'Menghapus…';
@@ -161,16 +168,22 @@
           });
           const data = await res.json();
 
-          if (!data.success) {
-            alert(data.error || 'Gagal menghapus pesan.');
+          if (!res.ok || !data.success) {
+            if (dialogs) await dialogs.notice('Pesan belum dihapus', data.error || 'Gagal menghapus pesan.', 'error');
+            else alert(data.error || 'Gagal menghapus pesan.');
             target.disabled = false;
             target.textContent = 'Hapus pesan';
             return;
           }
 
+          card.remove();
+          if (dialogs) {
+            await dialogs.notice('Pesan berhasil dihapus', 'Pesan dan balasannya sudah dihapus.', 'success');
+          }
           location.reload();
         } catch (err) {
-          alert('Terjadi kesalahan jaringan saat menghapus pesan.');
+          if (dialogs) await dialogs.notice('Terjadi kendala', 'Pesan belum berhasil dihapus. Periksa koneksi lalu coba lagi.', 'error');
+          else alert('Terjadi kesalahan jaringan saat menghapus pesan.');
           target.disabled = false;
           target.textContent = 'Hapus pesan';
         }

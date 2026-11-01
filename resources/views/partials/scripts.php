@@ -1,6 +1,93 @@
 <script>
 // Navbar & hamburger logic (window.App sudah diset di <head>)
 
+window.AppDialogs = {
+    confirm(title, message) {
+        return new Promise((resolve) => {
+            const dialog = document.createElement('dialog');
+            dialog.className = 'send-success-dialog app-dialog';
+            dialog.setAttribute('aria-labelledby', 'app-dialog-title');
+
+            const heading = document.createElement('h2');
+            heading.id = 'app-dialog-title';
+            heading.textContent = title;
+
+            const copy = document.createElement('p');
+            copy.className = 'send-success-dialog__copy';
+            copy.textContent = message;
+
+            const actions = document.createElement('div');
+            actions.className = 'app-dialog-actions';
+
+            const cancelButton = document.createElement('button');
+            cancelButton.className = 'btn-seal send-success-dialog__button app-dialog-cancel';
+            cancelButton.type = 'button';
+            cancelButton.textContent = 'Batal';
+
+            const confirmButton = document.createElement('button');
+            confirmButton.className = 'btn-seal send-success-dialog__button app-dialog-danger';
+            confirmButton.type = 'button';
+            confirmButton.textContent = 'Hapus pesan';
+
+            actions.append(cancelButton, confirmButton);
+            dialog.append(heading, copy, actions);
+            document.body.appendChild(dialog);
+
+            let confirmed = false;
+            cancelButton.addEventListener('click', () => dialog.close());
+            confirmButton.addEventListener('click', () => {
+                confirmed = true;
+                dialog.close();
+            });
+            dialog.addEventListener('close', () => {
+                dialog.remove();
+                resolve(confirmed);
+            }, { once: true });
+
+            dialog.showModal();
+            confirmButton.focus();
+        });
+    },
+
+    notice(title, message, type) {
+        return new Promise((resolve) => {
+            const dialog = document.createElement('dialog');
+            dialog.className = 'send-success-dialog app-dialog';
+            dialog.setAttribute('aria-labelledby', 'app-dialog-title');
+
+            const mark = document.createElement('div');
+            mark.className = 'send-success-dialog__mark';
+            mark.setAttribute('aria-hidden', 'true');
+            mark.textContent = type === 'success' ? '✓' : '!';
+
+            const heading = document.createElement('h2');
+            heading.id = 'app-dialog-title';
+            heading.textContent = title;
+
+            const copy = document.createElement('p');
+            copy.className = 'send-success-dialog__copy';
+            copy.textContent = message;
+
+            const closeButton = document.createElement('button');
+            closeButton.className = 'btn-seal send-success-dialog__button';
+            closeButton.type = 'button';
+            closeButton.textContent = 'Oke';
+
+            dialog.classList.toggle('app-dialog-error', type === 'error');
+            dialog.append(mark, heading, copy, closeButton);
+            document.body.appendChild(dialog);
+
+            closeButton.addEventListener('click', () => dialog.close());
+            dialog.addEventListener('close', () => {
+                dialog.remove();
+                resolve();
+            }, { once: true });
+            dialog.showModal();
+            closeButton.focus();
+        });
+    }
+};
+
 document.addEventListener('DOMContentLoaded', function () {
     const messageList = document.getElementById('message-list');
     if (messageList) {

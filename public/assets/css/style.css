@@ -4382,6 +4382,39 @@ body {
   min-width: 140px;
 }
 
+.app-dialog {
+  text-align: left;
+}
+
+.app-dialog .send-success-dialog__mark {
+  margin-left: 0;
+}
+
+.app-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.app-dialog-cancel {
+  border: 1px solid rgba(19, 19, 19, 0.14);
+  background: #FFFFFF;
+  color: var(--text-dark);
+  box-shadow: none;
+}
+
+.app-dialog-danger,
+.app-dialog-error .send-success-dialog__mark {
+  background: #DC2626;
+  color: #FFFFFF;
+  box-shadow: none;
+}
+
+.app-dialog-danger:hover {
+  background: #B91C1C;
+}
+
 @keyframes hero-arrive {
   from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
