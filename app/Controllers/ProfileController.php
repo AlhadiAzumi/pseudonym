@@ -26,7 +26,7 @@ class ProfileController extends Controller
         if (!$owner) {
             http_response_code(404);
             $this->view('profile-not-found', [
-                'title'    => 'Tidak Ditemukan — Pseudonym',
+                'title'    => 'Tidak Ditemukan | Pseudonym',
                 'username' => $username,
             ], 'app');
             return;
@@ -38,7 +38,7 @@ class ProfileController extends Controller
         $messages = Message::getPublicMessages((int)$owner['id'], (bool)$isOwner);
 
         $this->view('profile', [
-            'title'       => '@' . $owner['username'] . ' — Pseudonym',
+            'title'       => '@' . $owner['username'] . ' | Pseudonym',
             'currentPage' => 'profile',
             'owner'       => $owner,
             'viewer'      => $viewer,

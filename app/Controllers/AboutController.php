@@ -13,7 +13,7 @@ class AboutController extends Controller
         $user = currentUser();
 
         $this->view('about', [
-            'title'       => 'About — Pseudonym',
+            'title'       => 'About | Pseudonym',
             'currentPage' => 'about',
             'user'        => $user,
         ]);

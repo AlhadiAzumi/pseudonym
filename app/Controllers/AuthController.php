@@ -130,7 +130,7 @@ class AuthController extends Controller
         }
 
         $this->view('choose-username', [
-            'title' => 'Pilih Username — Pseudonym',
+            'title' => 'Pilih Username | Pseudonym',
             'user'  => $user,
             'error' => $_SESSION['flash_error'] ?? null,
         ], 'none');

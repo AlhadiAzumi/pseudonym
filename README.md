@@ -1,4 +1,4 @@
-# Pseudonym — Aplikasi Pesan Rahasia (Anonim)
+# Pseudonym: Aplikasi Pesan Rahasia (Anonim)
 
 Website ala Secreto/NGL: siapa pun bisa kirim pesan rahasia ke akun terdaftar tanpa perlu daftar,
 sedangkan untuk **menerima** pesan harus login pakai Google. Semua pesan + balasan pemilik bisa
@@ -36,6 +36,7 @@ Pseudonym/
 1. Copy folder `pseudonym` ke `htdocs` (XAMPP) atau `www` (Laragon).
 2. Nyalakan **Apache** di XAMPP. Database disediakan Supabase, jadi MySQL lokal tidak perlu dinyalakan.
 3. Di Supabase Dashboard, buka **SQL Editor**, jalankan isi file `database/schema.sql`.
+   Skema ini juga membuat tabel `contact_messages` untuk menyimpan pesan dari formulir Contact.
 4. Salin `.env.example` menjadi `.env`. Dari **Project Settings → Database → Connect**, ambil detail
    koneksi PostgreSQL (pilih **Session pooler** bila koneksi langsung tidak tersedia dari jaringan),
    lalu isi `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, dan `DB_PASS` di `.env`.
@@ -92,9 +93,9 @@ Selesai! Sekarang tombol "Masuk dengan Google" di aplikasi akan berfungsi.
    kotak suratmu, misalnya `https://pseudonym.site/budi`).
 3. Salin tautan itu (ada tombol "Salin Tautan" di dashboard) dan bagikan ke orang lain / buka di
    tab lain / mode incognito untuk simulasi "orang lain".
-4. Di tab incognito, buka tautan tadi, tulis pesan rahasia, kirim — tanpa perlu login.
+4. Di tab incognito, buka tautan tadi, tulis dan kirim pesan rahasia tanpa perlu login.
 5. Login lagi sebagai pemilik akun → buka **Kotak Masuk** → balas pesan yang masuk.
-6. Buka lagi halaman publik `u.php?u=budi` — pesan dan balasannya terlihat oleh siapa saja, tapi
+6. Buka lagi halaman publik `u.php?u=budi`. Pesan dan balasannya terlihat oleh siapa saja, tapi
    hanya pemilik akun yang punya tombol "Balas".
 
 ## Alur sesuai kebutuhan

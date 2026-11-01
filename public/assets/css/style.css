@@ -1,5 +1,5 @@
 /* ============================================================
-   BISIK — Modern Design System
+   BISIK: Modern Design System
    Palet:
      --primary      #CCFF00  neon lime (accent/brand)
      --dark-bg      #0F172A  dark navy background
@@ -3658,6 +3658,27 @@ body::before {
   gap: 20px;
 }
 
+.contact-notice {
+  margin: 0 0 20px;
+  padding: 14px 16px;
+  border: 1px solid;
+  border-radius: 12px;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.contact-notice-success {
+  color: #047857;
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.contact-notice-error {
+  color: #b91c1c;
+  background: rgba(239, 68, 68, 0.08);
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
 .form-group {
   display: flex;
   flex-direction: column;
@@ -5901,6 +5922,11 @@ body {
 .contact-info-sidebar .info-dark {
   border-color: rgba(255, 255, 255, 0.48) !important;
   background: rgba(90, 35, 232, 0.92) !important;
+}
+
+.safety-card-dark .shield-badge-icon {
+  background: rgba(210, 255, 82, 0.2) !important;
+  color: var(--lime) !important;
 }
 
 .safety-card-dark h3,

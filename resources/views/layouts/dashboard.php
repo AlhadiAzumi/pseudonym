@@ -1,5 +1,5 @@
 <?php require __DIR__ . '/../partials/header.php'; ?>
-<?php require __DIR__ . '/../partials/dashboard-navbar.php'; ?>
+<?php require __DIR__ . '/../partials/navbar.php'; ?>
 <div class="page-doodles" aria-hidden="true">
 	<span class="page-doodle page-doodle--star">✳</span>
 	<span class="page-doodle page-doodle--wave">〰</span>

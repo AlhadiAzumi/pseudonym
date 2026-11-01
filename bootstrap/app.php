@@ -66,11 +66,19 @@ final class DbSessionHandler implements SessionHandlerInterface
 }
 
 if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+    $isHttps = (
+        isset($_SERVER['HTTPS']) &&
+        strtolower((string) $_SERVER['HTTPS']) !== 'off' &&
+        $_SERVER['HTTPS'] !== ''
+    ) || strtolower((string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https'
+        || getenv('VERCEL') !== false
+        || isset($_SERVER['VERCEL']);
+
     session_set_save_handler(new DbSessionHandler(), true);
     session_set_cookie_params([
         'lifetime' => 60 * 60 * 24 * 30,
         'path'     => '/',
-        'secure'   => true,
+        'secure'   => $isHttps,
         'httponly' => true,
         'samesite' => 'Lax',
     ]);

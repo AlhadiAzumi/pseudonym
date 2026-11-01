@@ -21,30 +21,36 @@
         <!-- FORM KIRIM PESAN -->
         <div class="contact-form-card">
             <h2>Kirim Pesan</h2>
-            <form action="#" method="POST" class="contact-form">
+            <?php if (!empty($success)): ?>
+                <p class="contact-notice contact-notice-success" role="status"><?= h($success) ?></p>
+            <?php endif; ?>
+            <?php if (!empty($error)): ?>
+                <p class="contact-notice contact-notice-error" role="alert"><?= h($error) ?></p>
+            <?php endif; ?>
+            <form action="<?= url('/contact') ?>" method="POST" class="contact-form">
                 <div class="form-group">
                     <label for="name">Nama Lengkap / Username</label>
-                    <input type="text" id="name" name="name" placeholder="Masukkan nama Anda" required>
+                    <input type="text" id="name" name="name" maxlength="100" placeholder="Masukkan nama Anda" value="<?= h($oldInput['name'] ?? '') ?>" required>
                 </div>
 
                 <div class="form-group">
                     <label for="email">Alamat Email</label>
-                    <input type="email" id="email" name="email" placeholder="nama@email.com" required>
+                    <input type="email" id="email" name="email" maxlength="254" placeholder="nama@email.com" value="<?= h($oldInput['email'] ?? '') ?>" required>
                 </div>
 
                 <div class="form-group">
                     <label for="category">Kategori Pesan</label>
                     <select id="category" name="category" required>
-                        <option value="general">Pertanyaan Umum</option>
-                        <option value="bug">Laporan Masalah / Bug</option>
-                        <option value="partnership">Kerja Sama & Kemitraan</option>
-                        <option value="privacy">Privasi & Keamanan</option>
+                        <option value="general" <?= ($oldInput['category'] ?? 'general') === 'general' ? 'selected' : '' ?>>Pertanyaan Umum</option>
+                        <option value="bug" <?= ($oldInput['category'] ?? '') === 'bug' ? 'selected' : '' ?>>Laporan Masalah / Bug</option>
+                        <option value="partnership" <?= ($oldInput['category'] ?? '') === 'partnership' ? 'selected' : '' ?>>Kerja Sama & Kemitraan</option>
+                        <option value="privacy" <?= ($oldInput['category'] ?? '') === 'privacy' ? 'selected' : '' ?>>Privasi & Keamanan</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="message">Pesan Anda</label>
-                    <textarea id="message" name="message" rows="5" placeholder="Tuliskan pesan Anda secara detail di sini..." required></textarea>
+                    <textarea id="message" name="message" rows="5" maxlength="5000" placeholder="Tuliskan pesan Anda secara detail di sini..." required><?= h($oldInput['message'] ?? '') ?></textarea>
                 </div>
 
                 <button type="submit" class="btn-seal contact-submit-btn">
@@ -63,7 +69,7 @@
                 </div>
                 <h3>Email Resmi</h3>
                 <p>Untuk tanggapan langsung melalui email:</p>
-                <a href="mailto:support@pseudonym.com" class="info-link">support@pseudonym.com</a>
+                <a href="mailto:pseudonym@gmail.com" class="info-link">pseudonym@gmail.com</a>
             </div>
 
             <div class="info-card">

@@ -19,6 +19,7 @@ $router->get('/', [HomeController::class, 'index']);
 $router->get('/about', [AboutController::class, 'index']);
 $router->get('/safety', [SafetyController::class, 'index']);
 $router->get('/contact', [ContactController::class, 'index']);
+$router->post('/contact', [ContactController::class, 'submit']);
 $router->get('/dashboard', [DashboardController::class, 'index']);
 $router->get('/u/{username}', [ProfileController::class, 'show']);
 $router->get('/u', [ProfileController::class, 'show']);

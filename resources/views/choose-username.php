@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?= h($title ?? 'Pilih Username — Pseudonym') ?></title>
+    <title><?= h($title ?? 'Pilih Username | Pseudonym') ?></title>
     <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
     <link rel="icon" type="image/png" href="<?= asset('images/Pseudonym%20logo%20browser.png') ?>">
 </head>

@@ -4,6 +4,9 @@
     # Lindungi folder sistem agar tidak bisa diakses langsung dari browser
     RewriteRule ^(app|bootstrap|config|database|resources|storage|vendor)/ - [F,L]
 
+    # Aset publik disimpan di public/assets tetapi diakses melalui /assets
+    RewriteRule ^assets/(.*)$ public/assets/$1 [L]
+
     # Lewati file dan direktori yang memang ada
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteCond %{REQUEST_FILENAME} !-d

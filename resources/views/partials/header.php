@@ -1,5 +1,5 @@
 <?php
-$pageTitle = $title ?? 'Pseudonym — Kirim Pesan Rahasia Anonim';
+$pageTitle = $title ?? 'Pseudonym: Kirim Pesan Rahasia Anonim';
 $pageDescription = $metaDescription ?? 'Kirim pesan rahasia anonim ke siapa pun dengan aman di Pseudonym. Tanpa perlu daftar akun, privasi dan identitas pengirim 100% terjaga.';
 $currentUrl = full_url($_SERVER['REQUEST_URI'] ?? '/');
 $ogImageUrl = full_url('/assets/images/Pseudonym%20logo.png');
