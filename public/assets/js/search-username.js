@@ -47,7 +47,7 @@
           if (data.exists) {
             foundUsername = data.username;
             if (goBtn) goBtn.disabled = false;
-            setHint('✓ Ditemukan: @' + data.username, 'found');
+            setHint('Ditemukan: @' + data.username, 'found');
           } else {
             setHint('Tidak ada kotak surat dengan username ini.', 'notfound');
           }

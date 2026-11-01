@@ -5427,6 +5427,32 @@ body {
   color: var(--lime) !important;
 }
 
+.page-wrap > .hero:not(.profile-grid) .lookup-hint {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+.page-wrap > .hero:not(.profile-grid) .lookup-hint.found {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 11px;
+  border: 1px solid rgba(210, 255, 82, 0.4);
+  border-radius: 999px;
+  background: rgba(210, 255, 82, 0.14);
+  color: #FFFFFF;
+  font-weight: 600;
+}
+
+.page-wrap > .hero:not(.profile-grid) .lookup-hint.found::before {
+  content: '✓';
+  color: var(--lime);
+  font-weight: 700;
+}
+
+.page-wrap > .hero:not(.profile-grid) .lookup-hint.notfound {
+  color: #FFE4E6;
+}
+
 .page-doodles {
   position: absolute;
   inset: 0;
