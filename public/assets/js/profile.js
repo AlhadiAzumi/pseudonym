@@ -242,14 +242,6 @@
           return;
         }
 
-        const confirmed = await window.AppDialogs.confirm(
-          'Kirim balasan?',
-          'Balasan ini akan terlihat di profil publikmu.',
-          'Balasan hanya bisa dikirim satu kali untuk pesan ini.',
-          'Kirim balasan'
-        );
-        if (!confirmed) return;
-
         const btn = target;
         btn.disabled = true;
         btn.textContent = 'Mengirim…';
