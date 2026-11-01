@@ -2,6 +2,40 @@
 // Navbar & hamburger logic (window.App sudah diset di <head>)
 
 document.addEventListener('DOMContentLoaded', function () {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion && 'IntersectionObserver' in window) {
+        const revealSelector = [
+            '.page-wrap section',
+            '.page-wrap .bento-card',
+            '.page-wrap .home-feature-card',
+            '.page-wrap .guideline-card',
+            '.page-wrap .tip-item',
+            '.page-wrap .contact-info-sidebar .info-card'
+        ].join(', ');
+        const revealItems = document.querySelectorAll(revealSelector);
+
+        if (revealItems.length) {
+            document.documentElement.classList.add('has-scroll-reveal');
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.12,
+                rootMargin: '0px 0px -32px 0px'
+            });
+
+            revealItems.forEach((item) => {
+                item.classList.add('scroll-reveal');
+                revealObserver.observe(item);
+            });
+        }
+    }
+
     // Navbar Scroll Effect (Passive for optimal scrolling performance)
     window.addEventListener('scroll', function () {
         const navbar = document.getElementById('navbar');

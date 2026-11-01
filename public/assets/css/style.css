@@ -4478,6 +4478,27 @@ body {
   }
 }
 
+.has-scroll-reveal .scroll-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 600ms ease,
+    transform 600ms cubic-bezier(0.2, 0.75, 0.25, 1);
+}
+
+.has-scroll-reveal .scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .has-scroll-reveal .scroll-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* Site-wide electric blue and lime identity */
 :root {
   --primary: #1C46F5;
