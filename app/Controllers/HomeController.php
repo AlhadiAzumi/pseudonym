@@ -14,7 +14,7 @@ class HomeController extends Controller
         $user = currentUser();
 
         $this->view('home', [
-            'title'       => Config::get('app.name', 'Pseudonym') . ': Kirim Pesan Rahasia Anonim',
+            'title'       => Config::get('app.name', 'Pseudonym'),
             'currentPage' => 'home',
             'user'        => $user,
         ]);

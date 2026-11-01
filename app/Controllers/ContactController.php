@@ -24,7 +24,7 @@ class ContactController extends Controller
         );
 
         $this->view('contact', [
-            'title'       => 'Contact Us - Pseudonym',
+            'title'       => 'Contact us',
             'currentPage' => 'contact',
             'user'        => $user,
             'success'     => $success,

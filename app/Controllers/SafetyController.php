@@ -13,7 +13,7 @@ class SafetyController extends Controller
         $user = currentUser();
 
         return $this->view('safety', [
-            'title'       => 'Safety - Pseudonym',
+            'title'       => 'Safety',
             'currentPage' => 'safety',
             'user'        => $user
         ]);

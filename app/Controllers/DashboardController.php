@@ -22,7 +22,7 @@ class DashboardController extends Controller
 
         // Kirim data ke view dengan layout dashboard
         $this->view('dashboard', [
-            'title'       => 'Kotak Masuk | Pseudonym',
+            'title'       => 'Kotak Masuk',
             'currentPage' => 'dashboard',
             'user'        => $user,
             'messages'    => $stats['messages'],
