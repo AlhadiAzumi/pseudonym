@@ -64,7 +64,10 @@ class Message
     public static function create(int $receiverId, string $content, string $senderHash): int
     {
         $db = getDB();
-        $stmt = $db->prepare('INSERT INTO messages (receiver_id, content, sender_hash) VALUES (?, ?, ?) RETURNING id');
+        $stmt = $db->prepare(
+            'INSERT INTO messages (receiver_id, content, sender_hash, is_hidden)
+             VALUES (?, ?, ?, TRUE) RETURNING id'
+        );
         $stmt->execute([$receiverId, $content, $senderHash]);
 
         return (int) $stmt->fetchColumn();

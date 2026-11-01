@@ -17,8 +17,10 @@ CREATE TABLE IF NOT EXISTS messages (
   content     TEXT NOT NULL,
   sender_hash VARCHAR(64),
   created_at  TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  is_hidden   BOOLEAN NOT NULL DEFAULT FALSE
+  is_hidden   BOOLEAN NOT NULL DEFAULT TRUE
 );
+
+ALTER TABLE messages ALTER COLUMN is_hidden SET DEFAULT TRUE;
 
 CREATE INDEX IF NOT EXISTS idx_messages_receiver ON messages(receiver_id);
 

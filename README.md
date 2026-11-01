@@ -1,8 +1,8 @@
 # Pseudonym: Aplikasi Pesan Rahasia (Anonim)
 
 Website ala Secreto/NGL: siapa pun bisa kirim pesan rahasia ke akun terdaftar tanpa perlu daftar,
-sedangkan untuk **menerima** pesan harus login pakai Google. Semua pesan + balasan pemilik bisa
-dibaca publik, tapi hanya pemilik akun yang bisa membalas.
+sedangkan untuk **menerima** pesan harus login pakai Google. Pesan baru hanya terlihat oleh
+pemilik akun. Pemilik dapat membalas dan memilih menampilkan pesan beserta balasannya di profil publik.
 
 ## Struktur folder
 
@@ -95,8 +95,8 @@ Selesai! Sekarang tombol "Masuk dengan Google" di aplikasi akan berfungsi.
    tab lain / mode incognito untuk simulasi "orang lain".
 4. Di tab incognito, buka tautan tadi, tulis dan kirim pesan rahasia tanpa perlu login.
 5. Login lagi sebagai pemilik akun → buka **Kotak Masuk** → balas pesan yang masuk.
-6. Buka lagi halaman publik `u.php?u=budi`. Pesan dan balasannya terlihat oleh siapa saja, tapi
-   hanya pemilik akun yang punya tombol "Balas".
+6. Pesan baru hanya terlihat oleh pemilik akun. Dari dashboard, pemilik bisa membalas dan memilih
+   pesan mana yang akan ditampilkan bersama balasannya di halaman profil publik.
 
 ## Alur sesuai kebutuhan
 
@@ -104,7 +104,7 @@ Selesai! Sekarang tombol "Masuk dengan Google" di aplikasi akan berfungsi.
 |---|---|---|
 | 1 | Siapa pun kirim pesan (>1x) tanpa daftar | `u.php` form kirim → `api/send-message.php`, tidak butuh session |
 | 2 | Untuk menerima pesan harus daftar + login Google | Akun hanya dibuat via `auth/google-callback.php`, tidak ada form daftar manual |
-| 3 | Semua pesan bisa dibaca orang lain & pemilik | `u.php` menampilkan semua `messages` + `replies` untuk semua pengunjung |
+| 3 | Pesan yang dipilih pemilik bisa dibaca publik | Pesan baru privat secara default; hanya pesan yang ditampilkan pemilik muncul di profil |
 | 4 | Pesan hanya dibalas oleh pemilik akun | `api/reply-message.php` cek `receiver_id === session user_id` |
 | 5 | Orang lain cuma baca pesan+balasan, tidak bisa balas | Tombol/form balas (`.reply-toggle`) hanya dirender kalau `isOwner` true |
 

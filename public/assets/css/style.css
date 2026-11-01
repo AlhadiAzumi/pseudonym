@@ -3370,6 +3370,17 @@ body::before {
   margin: 0;
 }
 
+.message-privacy-note {
+  margin: 0 0 14px;
+  padding: 12px 14px;
+  border: 1px solid rgba(28, 70, 245, 0.16);
+  border-radius: 12px;
+  background: rgba(28, 70, 245, 0.06);
+  color: var(--text-muted-dark);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
 /* GUIDELINES (DO'S & DON'TS) */
 .safety-guidelines {
   margin-bottom: 60px;

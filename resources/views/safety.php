@@ -24,12 +24,12 @@
                     </div>
                     <h2>Anda pemegang kendali <em>penuh.</em></h2>
                     <p>
-                        Setiap pemilik kotak pesan memiliki hak mutlak atas konten yang ditampilkan. Anda dapat menyembunyikan pesan tak menyenangkan dari publik, memblokir pengirim yang mengganggu, atau menghapus pesan kapan saja.
+                        Pesan baru hanya terlihat oleh pemilik kotak pesan. Pemilik dapat memilih menampilkan pesan beserta balasannya di profil publik, atau menyembunyikannya kapan saja.
                     </p>
                     <div class="safety-tag-list">
-                        <span class="safety-tag">Sembunyikan Pesan</span>
+                        <span class="safety-tag">Privat Secara Default</span>
                         <span class="safety-tag">Kontrol Publikasi</span>
-                        <span class="safety-tag">Hapus Permanen</span>
+                        <span class="safety-tag">Sembunyikan Pesan</span>
                     </div>
                 </div>
 
@@ -107,8 +107,8 @@
 
                     <div class="tip-item">
                         <div class="tip-number">03</div>
-                        <h4>Istirahat dari Media Sosial</h4>
-                        <p>Jika merasa cemas dengan pesan yang diterima, Anda berhak menonaktifkan tautan kapan saja.</p>
+                        <h4>Periksa Sebelum Membagikan</h4>
+                        <p>Sebelum menampilkan pesan atau balasan ke publik, pastikan isinya tidak memuat informasi pribadi.</p>
                     </div>
                 </div>
             </section>
