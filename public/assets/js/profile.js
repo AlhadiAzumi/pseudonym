@@ -98,7 +98,13 @@
         return;
       }
 
-      if (!window.confirm('Kirim laporan untuk pesan ini?')) return;
+      const confirmed = await window.AppDialogs.confirm(
+        'Kirim laporan?',
+        'Laporan ini akan ditinjau oleh tim moderasi.',
+        'Laporan yang sudah dikirim tidak dapat dibatalkan.',
+        'Kirim laporan'
+      );
+      if (!confirmed) return;
 
       target.disabled = true;
       target.textContent = 'Mengirim…';
@@ -152,7 +158,8 @@
         const confirmed = dialogs
           ? await dialogs.confirm(
             'Hapus pesan ini?',
-            'Pesan dan balasannya akan dihapus permanen. Tindakan ini tidak bisa dibatalkan.'
+            'Pesan dan balasannya akan dihapus permanen.',
+            'Tindakan ini tidak bisa dibatalkan.'
           )
           : window.confirm('Hapus pesan ini beserta balasannya? Tindakan ini tidak bisa dibatalkan.');
         if (!confirmed) return;
@@ -234,6 +241,14 @@
           textarea.focus();
           return;
         }
+
+        const confirmed = await window.AppDialogs.confirm(
+          'Kirim balasan?',
+          'Balasan ini akan terlihat di profil publikmu.',
+          'Balasan hanya bisa dikirim satu kali untuk pesan ini.',
+          'Kirim balasan'
+        );
+        if (!confirmed) return;
 
         const btn = target;
         btn.disabled = true;

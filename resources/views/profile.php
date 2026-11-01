@@ -65,7 +65,7 @@
                                         <option value="spam">Spam atau penipuan</option>
                                         <option value="other">Lainnya</option>
                                     </select>
-                                    <button type="button" class="btn-small" data-action="report-message">Kirim laporan</button>
+                                    <button type="button" class="btn-small irreversible-action" data-action="report-message">Kirim laporan</button>
                                 </div>
                             </details>
                         <?php endif; ?>
@@ -89,7 +89,7 @@
                             <div class="reply-form" style="margin-top:14px; display:none;">
                                 <textarea placeholder="Tulis balasanmu…" maxlength="500" style="width:100%; background:var(--paper-2); border:1.5px solid var(--paper-line); border-radius:8px; padding:10px 12px; color:var(--text-dark); font-size:0.9rem; resize:vertical; min-height:60px; outline:none; font-family:'Inter',sans-serif;"></textarea>
                                 <div class="reply-actions" style="display:flex; gap:10px; margin-top:12px;">
-                                    <button class="btn-small" data-action="submit-reply" style="font-size:0.82rem; padding:8px 14px; border-radius:8px; border:none; cursor:pointer; background:var(--primary); color:var(--dark-bg); font-weight:600; transition:background .2s;">Kirim Balasan</button>
+                                    <button class="btn-small irreversible-action" data-action="submit-reply" style="font-size:0.82rem; padding:8px 14px; border-radius:8px; border:none; cursor:pointer; background:var(--primary); color:var(--dark-bg); font-weight:600; transition:background .2s;">Kirim Balasan</button>
                                     <button class="btn-small ghost" data-action="cancel-reply" style="font-size:0.82rem; padding:8px 14px; border-radius:8px; border:1.5px solid var(--paper-line); background:transparent; color:var(--text-muted); cursor:pointer; font-weight:600; transition:all .2s;">Batal</button>
                                 </div>
                             </div>

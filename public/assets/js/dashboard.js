@@ -194,7 +194,8 @@
       const confirmed = dialogs
         ? await dialogs.confirm(
           'Hapus pesan ini?',
-          'Pesan dan balasannya akan dihapus permanen. Tindakan ini tidak bisa dibatalkan.'
+          'Pesan dan balasannya akan dihapus permanen.',
+          'Tindakan ini tidak bisa dibatalkan.'
         )
         : window.confirm('Hapus pesan ini beserta balasannya? Tindakan ini tidak bisa dibatalkan.');
       if (!confirmed) return;
@@ -282,6 +283,14 @@
         textarea.focus();
         return;
       }
+
+      const confirmed = await window.AppDialogs.confirm(
+        'Kirim balasan?',
+        'Balasan ini akan terlihat di profil publikmu.',
+        'Balasan hanya bisa dikirim satu kali untuk pesan ini.',
+        'Kirim balasan'
+      );
+      if (!confirmed) return;
 
       const btn = target;
       btn.disabled = true;

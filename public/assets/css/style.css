@@ -4404,6 +4404,14 @@ body {
   box-shadow: none;
 }
 
+.app-dialog-warning {
+  margin: -12px 0 24px;
+  color: #B91C1C;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
 .app-dialog-danger,
 .app-dialog-error .send-success-dialog__mark {
   background: #DC2626;
@@ -4413,6 +4421,51 @@ body {
 
 .app-dialog-danger:hover {
   background: #B91C1C;
+}
+
+.app-dialog .app-dialog-cancel {
+  background: #FFFFFF !important;
+  border-color: rgba(19, 19, 19, 0.14) !important;
+  color: var(--text-dark) !important;
+  box-shadow: none !important;
+}
+
+.app-dialog .app-dialog-cancel:hover {
+  background: #F1F5F9 !important;
+  border-color: #CBD5E1 !important;
+  color: var(--text-dark) !important;
+  box-shadow: none !important;
+}
+
+.app-dialog .app-dialog-danger {
+  background: #DC2626 !important;
+  border-color: #DC2626 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 8px 20px rgba(220, 38, 38, 0.2) !important;
+}
+
+.app-dialog .app-dialog-danger:hover {
+  background: #B91C1C !important;
+  border-color: #B91C1C !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 10px 24px rgba(185, 28, 28, 0.24) !important;
+}
+
+.irreversible-action {
+  border: 1.5px solid #DC2626 !important;
+  background: transparent !important;
+  color: #B91C1C !important;
+}
+
+.irreversible-action:hover:not(:disabled) {
+  background: #FEF2F2 !important;
+  border-color: #B91C1C !important;
+  color: #991B1B !important;
+}
+
+.irreversible-action:disabled {
+  opacity: 0.65;
+  cursor: wait;
 }
 
 @keyframes hero-arrive {

@@ -2,7 +2,7 @@
 // Navbar & hamburger logic (window.App sudah diset di <head>)
 
 window.AppDialogs = {
-    confirm(title, message) {
+    confirm(title, message, warning, confirmLabel = 'Lanjutkan') {
         return new Promise((resolve) => {
             const dialog = document.createElement('dialog');
             dialog.className = 'send-success-dialog app-dialog';
@@ -16,6 +16,10 @@ window.AppDialogs = {
             copy.className = 'send-success-dialog__copy';
             copy.textContent = message;
 
+            const warningCopy = document.createElement('p');
+            warningCopy.className = 'app-dialog-warning';
+            warningCopy.textContent = warning;
+
             const actions = document.createElement('div');
             actions.className = 'app-dialog-actions';
 
@@ -27,10 +31,12 @@ window.AppDialogs = {
             const confirmButton = document.createElement('button');
             confirmButton.className = 'btn-seal send-success-dialog__button app-dialog-danger';
             confirmButton.type = 'button';
-            confirmButton.textContent = 'Hapus pesan';
+            confirmButton.textContent = confirmLabel;
 
             actions.append(cancelButton, confirmButton);
-            dialog.append(heading, copy, actions);
+            dialog.append(heading, copy);
+            if (warning) dialog.appendChild(warningCopy);
+            dialog.appendChild(actions);
             document.body.appendChild(dialog);
 
             let confirmed = false;
