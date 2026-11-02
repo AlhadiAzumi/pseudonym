@@ -5,6 +5,7 @@
 (function () {
   const baseUrl = (window.App && window.App.baseUrl !== undefined) ? window.App.baseUrl : '';
   const apiUrl = (window.App && window.App.apiUrl) ? window.App.apiUrl : (baseUrl + '/api');
+  const csrfToken = window.App?.csrfToken || '';
 
   const list = document.getElementById('message-list');
   const msgInput = document.getElementById('message-input');
@@ -56,7 +57,7 @@
       try {
         const res = await fetch(apiUrl + '/send-message', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
           body: JSON.stringify({ username, content }),
         });
         const data = await res.json();
@@ -112,7 +113,7 @@
       try {
         const res = await fetch(apiUrl + '/report-message', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
           body: JSON.stringify({
             message_id: card.dataset.messageId,
             reason: reasonInput.value,
@@ -170,7 +171,7 @@
         try {
           const res = await fetch(apiUrl + '/delete-message', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
             body: JSON.stringify({ message_id: card.dataset.messageId }),
           });
           const data = await res.json();
@@ -249,7 +250,7 @@
         try {
           const res = await fetch(apiUrl + '/reply-message', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
             body: JSON.stringify({
               message_id: card.dataset.messageId,
               content: content,

@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "clean-css": "^5.3.3"
+  },
+  "scripts": {
+    "build:css": "node scripts/build-css.cjs"
+  }
+}

@@ -1,0 +1,166 @@
+/* ---------- Hero (index.php) ---------- */
+
+.hero-left {
+  padding-right: 18px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+  color: #0f1724;
+}
+
+/* Envelope-style address window for the username search */
+.envelope {
+  background: var(--paper);
+  border-radius: 24px;
+  box-shadow: 0 32px 80px rgba(17, 24, 39, 0.08);
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.envelope::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 46px;
+  background: linear-gradient(135deg, var(--paper-2) 50%, transparent 50.5%),
+    linear-gradient(-135deg, var(--paper-2) 50%, transparent 50.5%);
+  background-size: 50% 100%;
+  background-position: left top, right top;
+  background-repeat: no-repeat;
+  border-bottom: 1px solid var(--paper-line);
+}
+
+.envelope-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #8A7F5F;
+  margin-bottom: 20px;
+  margin-left: 0;
+  /* Ubah dari 180px menjadi 0 */
+  text-align: center;
+  /* Tambahkan ini agar teks pas di tengah */
+}
+
+.envelope-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 16px;
+  position: relative;
+  margin-top: 6px;
+}
+
+.envelope-row input {
+  width: 100%;
+  background: var(--paper-2);
+  border: 1.5px solid var(--paper-line);
+  border-radius: 16px;
+  padding: 18px 20px;
+  font-size: 1rem;
+  color: #2B2620;
+  outline: none;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+.envelope-row input:focus {
+  border-color: #9ca3af;
+  box-shadow: 0 0 0 4px rgba(156, 163, 175, 0.12);
+}
+
+.btn-seal {
+  background: var(--primary);
+  color: var(--dark-bg);
+  border: none;
+  border-radius: 12px;
+  padding: 14px 24px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: background .2s, transform .08s, box-shadow .2s;
+  box-shadow: 0 4px 16px rgba(204, 255, 0, 0.2);
+}
+
+.btn-seal:hover {
+  background: var(--primary-dark);
+  box-shadow: 0 8px 24px rgba(204, 255, 0, 0.3);
+  transform: translateY(-2px);
+}
+
+.btn-seal:active {
+  transform: translateY(0);
+}
+
+.btn-seal:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.lookup-hint {
+  font-size: 0.88rem;
+  margin-top: 12px;
+  min-height: 1.2em;
+  color: var(--muted);
+}
+
+.lookup-hint.found {
+  color: #4A7A5A;
+}
+
+.lookup-hint.notfound {
+  color: #b91c1c;
+}
+
+.divider-word {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: var(--muted-dark);
+  font-size: 0.8rem;
+  font-family: 'IBM Plex Mono', monospace;
+  margin: 44px 0 32px;
+}
+
+.divider-word::before,
+.divider-word::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(17, 24, 39, 0.08);
+}
+
+.cta-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.btn-outline {
+  border: 1.5px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  padding: 12px 22px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  transition: border-color .2s, background .2s, color .2s;
+}
+
+.btn-outline:hover {
+  background: var(--primary);
+  color: var(--dark-bg);
+}

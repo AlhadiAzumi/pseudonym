@@ -13,6 +13,7 @@ $ogImageUrl = full_url('/assets/images/Pseudonym%20logo.png');
     <meta name="description" content="<?= h($pageDescription) ?>">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#0F172A">
+    <meta name="csrf-token" content="<?= h(csrfToken()) ?>">
     <link rel="canonical" href="<?= h($currentUrl) ?>">
 
     <!-- Open Graph / Facebook / WhatsApp -->
@@ -49,7 +50,8 @@ $ogImageUrl = full_url('/assets/images/Pseudonym%20logo.png');
     <script>
     window.App = {
         baseUrl: '<?= rtrim(base_url(), '/') ?>',
-        apiUrl: '<?= url('/api') ?>'
+        apiUrl: '<?= url('/api') ?>',
+        csrfToken: <?= json_encode(csrfToken(), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT) ?>
     };
     </script>
 </head>

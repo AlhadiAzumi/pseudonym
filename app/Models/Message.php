@@ -99,6 +99,42 @@ class Message
         return (int) ($res['total'] ?? 0);
     }
 
+    public static function countTodayGloballyBySender(string $senderHash): int
+    {
+        $stmt = getDB()->prepare(
+            'SELECT COUNT(*) AS total FROM messages
+             WHERE sender_hash = ? AND created_at >= CURRENT_TIMESTAMP - INTERVAL \'1 day\''
+        );
+        $stmt->execute([$senderHash]);
+        $res = $stmt->fetch();
+
+        return (int) ($res['total'] ?? 0);
+    }
+
+    public static function countSinceBySender(string $senderHash, int $hours): int
+    {
+        $stmt = getDB()->prepare(
+            'SELECT COUNT(*) AS total FROM messages
+             WHERE sender_hash = ? AND created_at >= CURRENT_TIMESTAMP - (? * INTERVAL \'1 hour\')'
+        );
+        $stmt->execute([$senderHash, $hours]);
+        $res = $stmt->fetch();
+
+        return (int) ($res['total'] ?? 0);
+    }
+
+    public static function countSinceByReceiver(int $receiverId, int $hours): int
+    {
+        $stmt = getDB()->prepare(
+            'SELECT COUNT(*) AS total FROM messages
+             WHERE receiver_id = ? AND created_at >= CURRENT_TIMESTAMP - (? * INTERVAL \'1 hour\')'
+        );
+        $stmt->execute([$receiverId, $hours]);
+        $res = $stmt->fetch();
+
+        return (int) ($res['total'] ?? 0);
+    }
+
     public static function getStats(int $userId): array
     {
         $messages = self::getInbox($userId);

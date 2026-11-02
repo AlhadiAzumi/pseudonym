@@ -96,8 +96,24 @@ if (!function_exists('asset')) {
     {
         $scriptName = str_replace('\\', '/', $_SERVER['SCRIPT_NAME'] ?? '');
         $assetsPath = str_ends_with($scriptName, '/api/index.php') ? '/assets/' : '/assets/';
+        $relativePath = rawurldecode(ltrim($path, '/'));
+        $assetRoot = realpath(dirname(__DIR__, 2) . '/public/assets');
+        $assetFile = $assetRoot === false ? false : realpath($assetRoot . DIRECTORY_SEPARATOR . $relativePath);
+        $version = '';
 
-        return base_url($assetsPath . ltrim($path, '/'));
+        if (
+            $assetRoot !== false &&
+            $assetFile !== false &&
+            str_starts_with($assetFile, $assetRoot . DIRECTORY_SEPARATOR) &&
+            is_file($assetFile)
+        ) {
+            $hash = hash_file('sha256', $assetFile);
+            if ($hash !== false) {
+                $version = '?v=' . substr($hash, 0, 16);
+            }
+        }
+
+        return base_url($assetsPath . ltrim($path, '/') . $version);
     }
 }
 
@@ -161,7 +177,14 @@ if (!function_exists('currentUser')) {
         if (!empty($_SESSION['user_id'])) {
             try {
                 return User::findById((int)$_SESSION['user_id']);
-            } catch (Throwable) {
+            } catch (Throwable $exception) {
+                error_log(sprintf(
+                    'currentUser lookup failed: %s: %s in %s:%d',
+                    get_class($exception),
+                    $exception->getMessage(),
+                    $exception->getFile(),
+                    $exception->getLine()
+                ));
                 return null;
             }
         }
@@ -236,14 +259,76 @@ if (!function_exists('isValidUsername')) {
     }
 }
 
+if (!function_exists('csrfToken')) {
+    function csrfToken(): string
+    {
+        if (session_status() === PHP_SESSION_NONE && !headers_sent()) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['csrf_token']) || !is_string($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+
+        return $_SESSION['csrf_token'];
+    }
+}
+
+if (!function_exists('isValidCsrfToken')) {
+    function isValidCsrfToken(mixed $token): bool
+    {
+        $expected = $_SESSION['csrf_token'] ?? null;
+
+        return is_string($expected)
+            && $expected !== ''
+            && is_string($token)
+            && hash_equals($expected, $token);
+    }
+}
+
+if (!function_exists('clientIp')) {
+    /**
+     * Ambil IP klien yang bisa dipercaya.
+     *
+     * Header forwarding hanya dipercaya saat request berjalan di Vercel, yang
+     * menetapkan X-Vercel-Forwarded-For. Di hosting lain REMOTE_ADDR adalah
+     * satu-satunya sumber yang dipercaya.
+     */
+    function clientIp(): string
+    {
+        $remote = trim((string) ($_SERVER['REMOTE_ADDR'] ?? ''));
+        $isVercel = getenv('VERCEL') !== false || isset($_SERVER['VERCEL']);
+
+        if ($isVercel) {
+            foreach (['HTTP_X_VERCEL_FORWARDED_FOR', 'HTTP_X_REAL_IP'] as $header) {
+                $value = (string) ($_SERVER[$header] ?? '');
+                foreach (explode(',', $value) as $part) {
+                    $ip = trim($part);
+                    if ($ip !== '' && filter_var($ip, FILTER_VALIDATE_IP) !== false) {
+                        return $ip;
+                    }
+                }
+            }
+        }
+
+        if ($remote !== '' && filter_var($remote, FILTER_VALIDATE_IP) !== false) {
+            return $remote;
+        }
+
+        return 'unknown';
+    }
+}
+
 if (!function_exists('senderFingerprint')) {
     /**
-     * Hash anti-spam harian per IP
+     * Hash anti-spam per pengirim (IP + tanggal), di-HMAC dengan salt server
+     * supaya hash tidak bisa di-reverse atau dipalsukan dari luar.
      */
     function senderFingerprint(): string
     {
-        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'] ?? $_SERVER['REMOTE_ADDR'] ?? 'unknown';
-        return hash('sha256', $ip . date('Y-m-d'));
+        $salt = (string) Config::get('app.fingerprint_salt', 'pseudonym-fingerprint-v1');
+
+        return hash_hmac('sha256', clientIp() . '|' . date('Y-m-d'), $salt);
     }
 }
 

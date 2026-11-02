@@ -1,0 +1,321 @@
+/* ---------- Profile page (u.php) ---------- */
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--gold);
+  background: var(--ink-3);
+}
+
+.avatar-fallback {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--ink-3);
+  border: 2px solid var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Fraunces', serif;
+  font-size: 1.3rem;
+  color: var(--gold);
+}
+
+.profile-header h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.profile-header .handle {
+  color: var(--muted);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85rem;
+}
+
+.compose-box textarea {
+  width: 100%;
+  background: var(--paper-2);
+  border: 1.5px solid var(--paper-line);
+  border-radius: 10px;
+  padding: 14px 16px;
+  font-size: 0.98rem;
+  color: #2B2620;
+  resize: vertical;
+  min-height: 90px;
+  outline: none;
+  transition: border-color .2s;
+}
+
+.compose-box textarea:focus {
+  border-color: var(--wax);
+}
+
+.compose-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.char-count {
+  font-size: 0.78rem;
+  color: var(--muted);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted-dark);
+  margin: 44px 0 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: rgba(17, 24, 39, 0.08);
+}
+
+/* ---------- Message card + wax seal signature element ---------- */
+
+.message-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.message-card {
+  background: var(--light-bg-2);
+  border: 1.5px solid var(--light-line);
+  border-radius: var(--radius);
+  padding: 20px 22px;
+  position: relative;
+  transition: border-color .2s, background .2s;
+}
+
+.message-card:hover {
+  background: var(--light-bg);
+  border-color: var(--primary);
+}
+
+.message-card.unreplied {
+  border-style: dashed;
+  border-color: rgba(204, 255, 0, 0.3);
+}
+
+.message-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.message-time {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--muted-dark);
+}
+
+/* the signature element: a wax-seal badge for replied messages,
+   a hollow ring + label for ones still waiting */
+.seal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.7rem;
+  padding: 4px 10px 4px 6px;
+  border-radius: 999px;
+}
+
+.seal-badge.replied {
+  background: rgba(51, 211, 153, 0.12);
+  color: #059669;
+}
+
+.seal-badge.replied .dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #10B981;
+  box-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+}
+
+.seal-badge.waiting {
+  background: rgba(204, 255, 0, 0.12);
+  border: 1px solid rgba(204, 255, 0, 0.3);
+  color: #9DB600;
+}
+
+.seal-badge.waiting .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid #CCFF00;
+}
+
+.seal-badge.visible {
+  background: rgba(0, 217, 126, 0.12);
+  border: 1px solid rgba(0, 217, 126, 0.3);
+  color: #059669;
+}
+
+.seal-badge.visible .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #00D97E;
+}
+
+.seal-badge.hidden {
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: #B91C1C;
+}
+
+.seal-badge.hidden .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #EF4444;
+}
+
+.message-content {
+  font-size: 0.98rem;
+  color: var(--ink-text);
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.reply-block {
+  margin-top: 14px;
+  padding: 14px 16px;
+  background: rgba(201, 162, 39, 0.06);
+  border-left: 2px solid var(--gold);
+  border-radius: 0 8px 8px 0;
+}
+
+.reply-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.reply-content {
+  font-size: 0.92rem;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.reply-form {
+  margin-top: 14px;
+  display: none;
+}
+
+.reply-form.open {
+  display: block;
+}
+
+.reply-form textarea {
+  width: 100%;
+  background: var(--ink-3);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px 12px;
+  color: var(--ink-text);
+  font-size: 0.9rem;
+  resize: vertical;
+  min-height: 60px;
+  outline: none;
+}
+
+.reply-form textarea:focus {
+  border-color: var(--gold);
+}
+
+.reply-toggle {
+  background: none;
+  border: none;
+  color: var(--gold);
+  font-size: 0.82rem;
+  cursor: pointer;
+  padding: 4px 0;
+  margin-top: 10px;
+}
+
+.reply-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.btn-small {
+  font-size: 0.82rem;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: var(--primary);
+  color: var(--dark-bg);
+  font-weight: 600;
+  transition: background .2s, transform .1s;
+}
+
+.btn-small:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+}
+
+.btn-small.ghost {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1.5px solid var(--light-line);
+}
+
+.btn-small.ghost:hover {
+  background: var(--light-bg-2);
+  color: var(--text-dark);
+}
+
+.btn-small.visibility-toggle {
+  background: transparent;
+  color: var(--primary);
+  border: 1.5px solid var(--primary);
+}
+
+.btn-small.visibility-toggle:hover {
+  background: rgba(204, 255, 0, 0.1);
+}
+
+.btn-small.visibility-toggle.active {
+  background: var(--accent-green);
+  color: var(--light-bg);
+  border-color: var(--accent-green);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 48px 20px;
+  color: var(--muted);
+  border: 1px dashed rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius);
+  font-size: 0.92rem;
+}

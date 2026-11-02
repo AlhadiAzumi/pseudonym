@@ -49,6 +49,7 @@ final class DbSessionHandler implements SessionHandlerInterface
         try {
             return getDB()->prepare('DELETE FROM php_sessions WHERE id = :id')->execute([':id' => $id]);
         } catch (Throwable $e) {
+            error_log('session destroy failed: ' . $e->getMessage());
             return false;
         }
     }
@@ -60,6 +61,7 @@ final class DbSessionHandler implements SessionHandlerInterface
             $st->execute();
             return $st->rowCount();
         } catch (Throwable $e) {
+            error_log('session garbage collection failed: ' . $e->getMessage());
             return false;
         }
     }

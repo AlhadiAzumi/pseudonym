@@ -28,6 +28,7 @@
                 <p class="contact-notice contact-notice-error" role="alert"><?= h($error) ?></p>
             <?php endif; ?>
             <form action="<?= url('/contact') ?>" method="POST" class="contact-form">
+                <input type="hidden" name="csrf_token" value="<?= h(csrfToken()) ?>">
                 <div class="form-group">
                     <label for="name">Nama Lengkap / Username</label>
                     <input type="text" id="name" name="name" maxlength="100" placeholder="Masukkan nama Anda" value="<?= h($oldInput['name'] ?? '') ?>" required>

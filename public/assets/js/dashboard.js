@@ -5,6 +5,7 @@
 (function () {
   const baseUrl = (window.App && window.App.baseUrl !== undefined) ? window.App.baseUrl : '';
   const apiUrl = (window.App && window.App.apiUrl) ? window.App.apiUrl : (baseUrl + '/api');
+  const csrfToken = window.App?.csrfToken || '';
 
   // ==========================================
   // 1. COPY SHARE URL
@@ -153,7 +154,7 @@
       try {
         const res = await fetch(apiUrl + '/toggle-visibility', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
           body: JSON.stringify({
             message_id: card.dataset.messageId,
             hidden: newHidden,
@@ -206,7 +207,7 @@
       try {
         const res = await fetch(apiUrl + '/delete-message', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
           body: JSON.stringify({ message_id: card.dataset.messageId }),
         });
         const data = await res.json();
@@ -291,7 +292,7 @@
       try {
         const res = await fetch(apiUrl + '/reply-message', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': csrfToken },
           body: JSON.stringify({
             message_id: card.dataset.messageId,
             content: content,

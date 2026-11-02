@@ -1,0 +1,806 @@
+/* FIX: Layout profile dan dashboard */
+.profile-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 340px !important;
+  gap: 40px !important;
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+  padding: 0 16px !important;
+  align-items: start !important;
+}
+
+.compose-col {
+  position: sticky !important;
+  top: 20px !important;
+  order: unset !important;
+  margin-bottom: 0 !important;
+}
+
+.profile-grid>div:not(.compose-col) {
+  order: unset !important;
+}
+
+.profile-header {
+  justify-content: flex-start !important;
+  flex-direction: row !important;
+  text-align: left !important;
+  max-width: 1100px !important;
+  margin: 0 auto 28px !important;
+  padding: 0 16px !important;
+}
+
+.section-label {
+  margin-top: 0 !important;
+  margin-bottom: 20px !important;
+}
+
+.stats-row {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 12px !important;
+  margin-bottom: 32px !important;
+}
+
+.message-list {
+  margin-bottom: 40px !important;
+}
+
+.page-wrap {
+  padding-top: 80px !important;
+  padding-bottom: 40px !important;
+}
+
+.site-footer-dark {
+  padding: 32px 24px 40px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  margin-top: 20px !important;
+}
+
+.site-footer-dark .footer-grid {
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+}
+
+@media (max-width: 780px) {
+  .page-wrap > .hero:not(.profile-grid) .hero-visual {
+    display: flex !important;
+    min-height: 310px;
+    margin: 4px 8px 0;
+  }
+
+  .profile-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  .compose-col {
+    position: static !important;
+    order: -1 !important;
+  }
+
+  .profile-header {
+    justify-content: center !important;
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .stats-row {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* =========================================
+   LIQUID GLASS MESSAGES & LAYOUT FIX
+   ========================================= */
+
+/* LAYOUT: 2 KOLOM DI DESKTOP */
+.profile-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 360px !important;
+  gap: 40px !important;
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+  padding: 0 16px !important;
+  align-items: start !important;
+}
+
+/* KOLOM KIRI: DAFTAR PESAN */
+.profile-grid>div:first-child {
+  order: 0 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+}
+
+/* KOLOM KANAN: FORM KIRIM (STICKY) */
+.compose-col {
+  order: 1 !important;
+  position: sticky !important;
+  top: 100px !important;
+  align-self: start !important;
+  width: 100% !important;
+  margin-bottom: 0 !important;
+}
+
+/* PROFILE HEADER - KIRI */
+.profile-header {
+  justify-content: flex-start !important;
+  flex-direction: row !important;
+  text-align: left !important;
+  max-width: 1100px !important;
+  margin: 0 auto 28px !important;
+  padding: 0 16px !important;
+}
+
+/* SECTION LABEL */
+.section-label {
+  margin-top: 0 !important;
+  margin-bottom: 20px !important;
+  font-size: 0.75rem !important;
+}
+
+/* =========================================
+   LIQUID GLASS MESSAGE CARDS
+   ========================================= */
+
+.message-card {
+  background: rgba(255, 255, 255, 0.25) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  border-radius: 20px !important;
+  padding: 22px 24px !important;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  margin-bottom: 16px !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Efek glass tambahan: shimmer */
+.message-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.15),
+      transparent);
+  transition: left 0.6s ease;
+  pointer-events: none;
+}
+
+.message-card:hover::before {
+  left: 100%;
+}
+
+.message-card:hover {
+  background: rgba(255, 255, 255, 0.35) !important;
+  border-color: rgba(204, 255, 0, 0.3) !important;
+  transform: translateY(-2px) !important;
+  box-shadow:
+    0 12px 48px rgba(0, 0, 0, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8) !important;
+}
+
+/* Card dengan border kiri neon */
+.message-card.unreplied {
+  border-left: 4px solid var(--primary) !important;
+  border-style: solid !important;
+}
+
+/* Badge status - glass style */
+.seal-badge {
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  background: rgba(255, 255, 255, 0.3) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  padding: 4px 12px 4px 8px !important;
+}
+
+.seal-badge.waiting {
+  background: rgba(204, 255, 0, 0.15) !important;
+  border-color: rgba(204, 255, 0, 0.3) !important;
+  color: #9DB600 !important;
+}
+
+.seal-badge.replied {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border-color: rgba(16, 185, 129, 0.3) !important;
+  color: #059669 !important;
+}
+
+.seal-badge.visible {
+  background: rgba(0, 217, 126, 0.15) !important;
+  border-color: rgba(0, 217, 126, 0.3) !important;
+  color: #059669 !important;
+}
+
+.seal-badge.hidden {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-color: rgba(239, 68, 68, 0.3) !important;
+  color: #B91C1C !important;
+}
+
+/* Glass Reply Block */
+.reply-block {
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border-left: 3px solid var(--primary) !important;
+  border-radius: 0 12px 12px 0 !important;
+  padding: 14px 18px !important;
+  margin-top: 14px !important;
+}
+
+/* Glass Compose Box */
+.envelope.compose-box {
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  border-radius: 24px !important;
+  padding: 28px !important;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+.envelope.compose-box textarea {
+  background: rgba(255, 255, 255, 0.5) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 16px !important;
+  padding: 16px 18px !important;
+  font-size: 0.98rem !important;
+  min-height: 120px !important;
+  transition: all 0.3s ease !important;
+}
+
+.envelope.compose-box textarea:focus {
+  background: rgba(255, 255, 255, 0.7) !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 4px rgba(204, 255, 0, 0.1) !important;
+}
+
+/* Glass Share Box */
+.share-box {
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 16px !important;
+  padding: 12px 16px !important;
+  margin-bottom: 28px !important;
+}
+
+.share-box input {
+  color: var(--text-dark) !important;
+  background: transparent !important;
+}
+
+/* Glass Stat Box */
+.stat-box {
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 16px !important;
+  padding: 20px !important;
+  text-align: center !important;
+  transition: all 0.3s ease !important;
+}
+
+.stat-box:hover {
+  background: rgba(255, 255, 255, 0.35) !important;
+  transform: translateY(-2px) !important;
+  border-color: rgba(204, 255, 0, 0.3) !important;
+}
+
+.stat-box .num {
+  font-size: 2rem !important;
+}
+
+/* Glass Button */
+.btn-seal {
+  background: var(--primary) !important;
+  backdrop-filter: blur(8px) !important;
+  border: none !important;
+  border-radius: 14px !important;
+  padding: 12px 28px !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 16px rgba(204, 255, 0, 0.25) !important;
+}
+
+.btn-seal:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 32px rgba(204, 255, 0, 0.35) !important;
+}
+
+/* Glass Reply Toggle */
+.reply-toggle {
+  background: rgba(204, 255, 0, 0.1) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  border: 1px solid rgba(204, 255, 0, 0.2) !important;
+  border-radius: 10px !important;
+  padding: 6px 16px !important;
+  color: var(--primary) !important;
+  font-size: 0.82rem !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+}
+
+.reply-toggle:hover {
+  background: rgba(204, 255, 0, 0.2) !important;
+  transform: translateY(-1px) !important;
+}
+
+/* =========================================
+   RESPONSIVE: MOBILE (1 KOLOM)
+   ========================================= */
+
+@media (max-width: 780px) {
+  .profile-grid {
+    grid-template-columns: 1fr !important;
+    gap: 24px !important;
+  }
+
+  .compose-col {
+    position: static !important;
+    order: -1 !important;
+    margin-bottom: 0 !important;
+  }
+
+  .profile-grid>div:first-child {
+    order: 1 !important;
+  }
+
+  .profile-header {
+    justify-content: center !important;
+    flex-direction: column !important;
+    text-align: center !important;
+  }
+
+  .message-card {
+    padding: 18px 20px !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .stats-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .envelope.compose-box {
+    padding: 20px !important;
+  }
+}
+
+/* =========================================
+   DASHBOARD SPECIFIC FIXES
+   ========================================= */
+
+/* Stats row untuk dashboard */
+.stats-row {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 12px !important;
+  margin-bottom: 32px !important;
+  margin-top: 0 !important;
+}
+
+/* Dashboard message list */
+.dashboard .message-list {
+  margin-bottom: 40px !important;
+}
+
+/* Page wrap padding */
+.page-wrap {
+  padding-top: 80px !important;
+  padding-bottom: 40px !important;
+}
+
+/* Footer */
+.site-footer-dark {
+  padding: 32px 24px 40px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+  margin-top: 20px !important;
+}
+
+.site-footer-dark .footer-grid {
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+}
+
+/* Override envelope::before yang mengganggu */
+.envelope::before {
+  display: none !important;
+}
+
+/* Hero aside untuk compose */
+.hero aside {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* =========================================
+   LIQUID GLASS - DASHBOARD SPECIFIC
+   ========================================= */
+
+/* 1. Dashboard container - glass effect */
+.dashboard .main-curved-box {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(2px) !important;
+}
+
+/* 2. Stat Box - Liquid Glass */
+.dashboard .stat-box {
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.25) !important;
+  border-radius: 20px !important;
+  padding: 24px 20px !important;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.dashboard .stat-box:hover {
+  background: rgba(255, 255, 255, 0.25) !important;
+  transform: translateY(-3px) !important;
+  border-color: rgba(204, 255, 0, 0.3) !important;
+  box-shadow:
+    0 12px 48px rgba(0, 0, 0, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+.dashboard .stat-box .num {
+  font-size: 2.4rem !important;
+  font-weight: 800 !important;
+}
+
+/* 3. Message Cards - Liquid Glass */
+.dashboard .message-card {
+  background: rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 20px !important;
+  padding: 24px 26px !important;
+  box-shadow:
+    0 8px 32px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+/* Shimmer effect */
+.dashboard .message-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg,
+      transparent,
+      rgba(255, 255, 255, 0.08),
+      transparent);
+  transition: left 0.8s ease;
+  pointer-events: none;
+}
+
+.dashboard .message-card:hover::before {
+  left: 100%;
+}
+
+.dashboard .message-card:hover {
+  background: rgba(255, 255, 255, 0.2) !important;
+  border-color: rgba(204, 255, 0, 0.25) !important;
+  transform: translateY(-3px) !important;
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.10),
+    inset 0 1px 0 rgba(255, 255, 255, 0.5) !important;
+}
+
+/* Card dengan border kiri neon */
+.dashboard .message-card.unreplied {
+  border-left: 4px solid var(--primary) !important;
+}
+
+/* 4. Badge - Liquid Glass */
+.dashboard .seal-badge {
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  padding: 4px 14px 4px 10px !important;
+  border-radius: 999px !important;
+  font-weight: 500 !important;
+}
+
+.dashboard .seal-badge.visible {
+  background: rgba(0, 217, 126, 0.15) !important;
+  border-color: rgba(0, 217, 126, 0.25) !important;
+  color: #10B981 !important;
+}
+
+.dashboard .seal-badge.visible .dot {
+  background: #10B981 !important;
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.3) !important;
+}
+
+.dashboard .seal-badge.hidden {
+  background: rgba(239, 68, 68, 0.15) !important;
+  border-color: rgba(239, 68, 68, 0.25) !important;
+  color: #EF4444 !important;
+}
+
+.dashboard .seal-badge.hidden .dot {
+  background: #EF4444 !important;
+  box-shadow: 0 0 12px rgba(239, 68, 68, 0.3) !important;
+}
+
+/* 5. Reply Block - Liquid Glass */
+.dashboard .reply-block {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border-left: 3px solid var(--primary) !important;
+  border-radius: 0 12px 12px 0 !important;
+  padding: 14px 18px !important;
+  margin-top: 14px !important;
+}
+
+.dashboard .reply-label {
+  color: var(--text-muted) !important;
+  font-size: 0.65rem !important;
+}
+
+.dashboard .reply-content {
+  color: var(--text-dark) !important;
+}
+
+/* 6. Share Box - Liquid Glass */
+.dashboard .share-box {
+  background: rgba(255, 255, 255, 0.12) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 16px !important;
+  padding: 14px 18px !important;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.04),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+.dashboard .share-box input {
+  color: var(--text-dark) !important;
+  background: transparent !important;
+}
+
+.dashboard .share-box input::selection {
+  background: rgba(204, 255, 0, 0.3) !important;
+}
+
+/* 7. Copy Button - Glass */
+.dashboard .copy-btn {
+  background: var(--primary) !important;
+  backdrop-filter: blur(4px) !important;
+  border: none !important;
+  border-radius: 10px !important;
+  padding: 8px 18px !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 16px rgba(204, 255, 0, 0.2) !important;
+}
+
+.dashboard .copy-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 32px rgba(204, 255, 0, 0.3) !important;
+}
+
+/* 8. Reply Toggle - Glass */
+.dashboard .reply-toggle {
+  background: rgba(204, 255, 0, 0.08) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  border: 1px solid rgba(204, 255, 0, 0.15) !important;
+  border-radius: 10px !important;
+  padding: 6px 18px !important;
+  color: var(--primary) !important;
+  font-weight: 600 !important;
+  transition: all 0.3s ease !important;
+}
+
+.dashboard .reply-toggle:hover {
+  background: rgba(204, 255, 0, 0.15) !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 4px 16px rgba(204, 255, 0, 0.1) !important;
+}
+
+/* 9. Reply Form - Glass */
+.dashboard .reply-form textarea {
+  background: rgba(255, 255, 255, 0.15) !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 12px !important;
+  padding: 12px 16px !important;
+  color: var(--text-dark) !important;
+  transition: all 0.3s ease !important;
+}
+
+.dashboard .reply-form textarea:focus {
+  background: rgba(255, 255, 255, 0.25) !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 4px rgba(204, 255, 0, 0.08) !important;
+}
+
+/* 10. Visibility Toggle - Glass */
+.dashboard .btn-small.visibility-toggle {
+  background: rgba(204, 255, 0, 0.08) !important;
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  border: 1px solid rgba(204, 255, 0, 0.2) !important;
+  border-radius: 10px !important;
+  padding: 8px 16px !important;
+  color: var(--primary) !important;
+  transition: all 0.3s ease !important;
+}
+
+.dashboard .btn-small.visibility-toggle:hover {
+  background: rgba(204, 255, 0, 0.15) !important;
+  transform: translateY(-2px) !important;
+}
+
+.dashboard .btn-small.visibility-toggle.active {
+  background: rgba(16, 185, 129, 0.15) !important;
+  border-color: rgba(16, 185, 129, 0.3) !important;
+  color: #10B981 !important;
+}
+
+/* 11. Send Button - Glass */
+.dashboard .btn-seal {
+  background: var(--primary) !important;
+  backdrop-filter: blur(4px) !important;
+  border: none !important;
+  border-radius: 14px !important;
+  padding: 12px 28px !important;
+  font-weight: 700 !important;
+  transition: all 0.3s ease !important;
+  box-shadow: 0 4px 20px rgba(204, 255, 0, 0.25) !important;
+}
+
+.dashboard .btn-seal:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 40px rgba(204, 255, 0, 0.35) !important;
+}
+
+/* 12. Empty State - Glass */
+.dashboard .empty-state {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  border: 1px dashed rgba(255, 255, 255, 0.2) !important;
+  border-radius: 20px !important;
+  padding: 60px 20px !important;
+}
+
+/* 13. Stats Row - Grid */
+.dashboard .stats-row {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 16px !important;
+  margin-bottom: 36px !important;
+}
+
+/* 14. Message List - spacing */
+.dashboard .message-list {
+  gap: 16px !important;
+}
+
+/* 15. Message time - glass style */
+.dashboard .message-time {
+  color: var(--text-muted) !important;
+  font-weight: 400 !important;
+}
+
+/* 16. Section Label - glass */
+.dashboard .section-label {
+  color: var(--text-muted-dark) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.12em !important;
+}
+
+.dashboard .section-label span:first-child {
+  background: rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(4px) !important;
+  padding: 4px 16px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* =========================================
+   FIX: COMPOSE BOX LAYOUT & GLASS STYLE
+   ========================================= */
+
+/* Compose box textarea - lebih rapi */
+.compose-box textarea {
+  width: 100% !important;
+  min-height: 120px !important;
+  padding: 16px 18px !important;
+  font-size: 0.98rem !important;
+  line-height: 1.6 !important;
+  resize: vertical !important;
+  outline: none !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+.compose-box textarea::placeholder {
+  color: var(--text-muted) !important;
+  opacity: 0.7 !important;
+}
+
+/* Compose footer - lebih rapi */
+.compose-footer {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  margin-top: 14px !important;
+  gap: 12px !important;
+}
+
+/* Char count dengan glass style */
+.char-count {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+  font-size: 0.78rem !important;
+  color: var(--text-muted) !important;
+  font-family: 'IBM Plex Mono', monospace !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  padding: 4px 14px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  backdrop-filter: blur(4px) !important;
+}
+
+/* Button send - lebih besar dan jelas */
+.btn-seal {
+  background: var(--primary) !important;
+  color: var(--dark-bg) !important;
+  border: none !important;
+  border-radius: 14px !important;
+  padding: 12px 32px !important;
+  font-weight: 700 !important;
+  font-size: 0.95rem !important;
+  cursor: pointer !important;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  box-shadow: 0 4px 20px rgba(204, 255, 0, 0.25) !important;
+  white-space: nowrap !important;
+}
+
+.btn-seal:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: 0 8px 40px rgba(204, 255, 0, 0.35) !important;
+}
+
+/* Avatar fallback - perbaiki font */
+.avatar-fallback {
+  font-family: 'Poppins', sans-serif !important;
+  font-weight: 700 !important;
+}

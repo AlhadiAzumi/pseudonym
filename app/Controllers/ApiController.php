@@ -38,6 +38,7 @@ class ApiController extends Controller
                 'avatar_url'   => $user['avatar_url'],
             ]);
         } catch (Throwable $e) {
+            $this->logFailure('checkUsername', $e);
             $this->json([
                 'exists' => false,
                 'error'  => 'Database belum terkoneksi atau sedang offline.',
@@ -69,13 +70,36 @@ class ApiController extends Controller
                 return;
             }
 
-            // Anti-spam per IP per hari
+            // Anti-spam per IP globally per hari
             $fingerprint = senderFingerprint();
-            $countToday = Message::countTodayBySender((int)$receiver['id'], $fingerprint);
-            if ($countToday >= 20) {
+            $maxDay = (int) Config::get('app.max_messages_per_day_per_sender', 20);
+            $countToday = Message::countTodayGloballyBySender($fingerprint);
+            if ($countToday >= $maxDay) {
                 $this->json([
                     'success' => false,
-                    'error'   => 'Kamu sudah mengirim cukup banyak pesan ke akun ini hari ini. Coba lagi besok.'
+                    'error'   => 'Kamu sudah mencapai batas pesan harian. Coba lagi besok.'
+                ], 429);
+                return;
+            }
+
+            // Anti-spam per jam per pengirim
+            $maxHour = (int) Config::get('app.max_messages_per_hour_per_sender', 10);
+            $countHour = Message::countSinceBySender($fingerprint, 1);
+            if ($countHour >= $maxHour) {
+                $this->json([
+                    'success' => false,
+                    'error'   => 'Terlalu banyak pesan dalam satu jam. Coba lagi nanti.'
+                ], 429);
+                return;
+            }
+
+            // Anti-spam per jam per tujuan (menghindari pencurian banyak akun sekaligus)
+            $maxTargetHour = (int) Config::get('app.max_messages_per_hour_per_target', 60);
+            $countTargetHour = Message::countSinceByReceiver((int)$receiver['id'], 1);
+            if ($countTargetHour >= $maxTargetHour) {
+                $this->json([
+                    'success' => false,
+                    'error'   => 'Akun ini sedang menerima terlalu banyak pesan. Coba lagi nanti.'
                 ], 429);
                 return;
             }
@@ -91,6 +115,7 @@ class ApiController extends Controller
                 ],
             ]);
         } catch (Throwable $e) {
+            $this->logFailure('sendMessage', $e);
             $this->json(['success' => false, 'error' => 'Terjadi kesalahan pada server database.'], 500);
         }
     }
@@ -141,6 +166,7 @@ class ApiController extends Controller
                 ],
             ]);
         } catch (Throwable $e) {
+            $this->logFailure('replyMessage', $e);
             $this->json(['success' => false, 'error' => 'Terjadi kesalahan pada server database.'], 500);
         }
     }
@@ -176,6 +202,7 @@ class ApiController extends Controller
                 'hidden'  => $hidden,
             ]);
         } catch (Throwable $e) {
+            $this->logFailure('toggleVisibility', $e);
             $this->json(['success' => false, 'error' => 'Terjadi kesalahan pada server database.'], 500);
         }
     }
@@ -203,6 +230,7 @@ class ApiController extends Controller
 
             $this->json(['success' => true]);
         } catch (Throwable $e) {
+            $this->logFailure('deleteMessage', $e);
             $this->json(['success' => false, 'error' => 'Terjadi kesalahan saat menghapus pesan.'], 500);
         }
     }
@@ -241,7 +269,20 @@ class ApiController extends Controller
 
             $this->json(['success' => true]);
         } catch (Throwable $e) {
+            $this->logFailure('reportMessage', $e);
             $this->json(['success' => false, 'error' => 'Laporan belum berhasil disimpan. Coba lagi nanti.'], 500);
         }
+    }
+
+    private function logFailure(string $operation, Throwable $exception): void
+    {
+        error_log(sprintf(
+            'API %s failed: %s: %s in %s:%d',
+            $operation,
+            get_class($exception),
+            $exception->getMessage(),
+            $exception->getFile(),
+            $exception->getLine()
+        ));
     }
 }

@@ -74,11 +74,13 @@ kredensial database. Gunakan password database Supabase, bukan anon key atau ser
      Samakan URL ini dengan `GOOGLE_REDIRECT_URI` di `.env`.
    - Klik **Create**.
 5. Akan muncul popup berisi **Client ID** dan **Client Secret**. Copy keduanya.
-6. Buka `config/config.php`, isi:
-   ```php
-   define('GOOGLE_CLIENT_ID', 'xxxxxxxx.apps.googleusercontent.com');
-   define('GOOGLE_CLIENT_SECRET', 'xxxxxxxx');
+6. Isi kredensial OAuth di `.env`:
+   ```dotenv
+   GOOGLE_CLIENT_ID=xxxxxxxx.apps.googleusercontent.com
+   GOOGLE_CLIENT_SECRET=xxxxxxxx
+   GOOGLE_REDIRECT_URI=https://pseudonym.site/auth/google-callback
    ```
+   Jangan simpan kredensial OAuth di file yang dikomit ke repository.
 
 Selesai! Sekarang tombol "Masuk dengan Google" di aplikasi akan berfungsi.
 
@@ -113,11 +115,24 @@ untuk membuat tabel laporan moderasi yang baru.
 | 4 | Pesan hanya dibalas oleh pemilik akun | `api/reply-message.php` cek `receiver_id === session user_id` |
 | 5 | Orang lain cuma baca pesan+balasan, tidak bisa balas | Tombol/form balas (`.reply-toggle`) hanya dirender kalau `isOwner` true |
 
+## Pengujian
+
+Jalankan `composer install`, lalu `composer test`. Pengujian validasi username, fingerprint,
+dan pemeriksaan origin berjalan tanpa database. Pengujian hitung pesan memerlukan database
+PostgreSQL khusus test dengan skema `database/schema.sql`; atur `TEST_DB_HOST`, `TEST_DB_PORT`,
+`TEST_DB_NAME`, `TEST_DB_USER`, `TEST_DB_PASS`, dan `TEST_DB_SSLMODE` sebelum menjalankan test.
+Test database harus terpisah dari database produksi karena test membuat fixture di dalam transaksi.
+
+CSS sumber dibagi ke `resources/css/modules/` dan tetap digabung dalam urutan cascade lama.
+Setelah mengubah modul, jalankan `npm install` lalu `npm run build:css` untuk membuat stylesheet
+produksi ter-minify di `public/assets/css/style.css`.
+
 ## Catatan keamanan & pengembangan lanjut
 
-- Anti-spam saat ini masih sederhana (fingerprint hash IP+tanggal, limit 20 pesan/hari per target).
-  Untuk produksi, tambahkan rate limiting yang lebih kuat (misalnya captcha).
+- Anti-spam memakai fingerprint IP harian; batas harian dan per jam berlaku global per pengirim,
+  dengan batas tambahan per penerima. Atur salt acak melalui `APP_FINGERPRINT_SALT`.
+- Semua endpoint POST memvalidasi `Origin`/`Referer` same-origin dan token CSRF sesi.
+- Aset statis menggunakan query versi berbasis hash isi file sehingga aman dicache satu tahun.
 - Semua output HTML sudah di-escape (`htmlspecialchars`) untuk mencegah XSS.
 - Query pakai prepared statement (PDO) untuk mencegah SQL injection.
-- Kalau nanti deploy ke hosting/VPS beneran, ganti `APP_URL` ke domain asli, tambahkan HTTPS,
-  dan set cookie session `secure` + `httponly`.
+- Header keamanan dipasang lewat `vercel.json` dan `.htaccess`; pastikan HTTPS aktif di hosting.

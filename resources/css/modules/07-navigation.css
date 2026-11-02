@@ -1,0 +1,659 @@
+   GAMBAR UNTUK HERO VISUAL & LATEST STORIES
+   ========================================= */
+
+/* 1. Gambar Hero Utama (Besar) */
+.hero-visual .big {
+  background-image: url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80') !important;
+  background-size: cover !important;
+  background-position: center !important;
+}
+
+/* 2. Gambar Hero Kecil (Atas) */
+.hero-visual .stack .small:nth-child(1) {
+  background-image: url('https://images.unsplash.com/photo-1611606063065-ee7946f0787a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');
+  background-size: cover;
+  background-position: center;
+}
+
+/* 3. Gambar Hero Kecil (Bawah) */
+.hero-visual .stack .small:nth-child(2) {
+  background-image: url('https://images.unsplash.com/photo-1586769852044-692d6e3703f0?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80');
+  background-size: cover;
+  background-position: center;
+}
+
+/* 4. Gambar Story Preview */
+.story-preview {
+  background-image: url('https://images.unsplash.com/photo-1455390582262-044cdead27d8?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+  background-size: cover;
+  background-position: center;
+}
+
+/* 5. Gambar Thumbnail 1 */
+.story-list .story-item:nth-child(1) .thumb {
+  background-image: url('https://images.unsplash.com/photo-1497032205916-ac775f0649ae?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80');
+  background-size: cover;
+  background-position: center;
+}
+
+/* 6. Gambar Thumbnail 2 */
+.story-list .story-item:nth-child(2) .thumb {
+  background-image: url('https://images.unsplash.com/photo-1516383274235-5f42d6c6426d?ixlib=rb-4.0.3&auto=format&fit=crop&w=200&q=80');
+  background-size: cover;
+  background-position: center;
+}
+
+/* =========================================
+   TATA LETAK HALAMAN PROFIL (MOBILE)
+   ========================================= */
+
+/* =========================================
+   PERBAIKAN TATA LETAK (DESKTOP & MOBILE)
+   ========================================= */
+
+/* 1. Ubah grid profil menjadi 1 kolom penuh di tengah */
+.profile-grid {
+  display: flex !important;
+  flex-direction: column !important;
+  max-width: 760px !important;
+  /* Melebarkan ukuran kolom secara keseluruhan */
+  margin: 0 auto !important;
+  /* Menengahkannya di layar desktop/mobile */
+  width: 100% !important;
+  padding: 0 16px !important;
+  /* Memberi jarak aman kiri-kanan agar tidak mentok layar */
+}
+
+/* 2. Pastikan Kotak Kirim Pesan selalu di atas */
+.compose-col {
+  order: -1 !important;
+  /* Paksa kotak pesan ke urutan pertama (paling atas) */
+  width: 100% !important;
+  position: static !important;
+  /* Matikan sticky di desktop agar scroll natural */
+  margin-bottom: -70px !important;
+}
+
+/* Mengurangi jarak atas pada label "Semua Pesan" */
+.section-label {
+  margin-top: 16px !important;
+}
+
+/* 3. Daftar Pesan di urutan bawah */
+.profile-grid>div:not(.compose-col) {
+  order: 1 !important;
+  width: 100% !important;
+}
+
+/* 4. Hapus styling bawaan 'aside' yang bikin padding tumpang tindih */
+.hero aside {
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+/* 5. Rapikan Kotak Tulis Pesan */
+.envelope,
+.compose-box {
+  width: 100% !important;
+  height: auto !important;
+  min-height: unset !important;
+  padding: 24px !important;
+  /* Memberikan padding yang proporsional */
+  border-radius: 20px !important;
+  background: var(--paper) !important;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.06) !important;
+  overflow: hidden !important;
+}
+
+/* 6. Hilangkan ornamen amplop atas yang menabrak textarea */
+.envelope::before {
+  display: none !important;
+}
+
+/* 7. Tengahin Profil Header sekalian biar lebih rapi dan estetik */
+.profile-header {
+  justify-content: center !important;
+  text-align: center !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  margin-bottom: 30px !important;
+}
+
+.mobile-menu {
+  left: auto !important;
+  right: 16px !important;
+  width: 240px !important;
+  /* Batasi lebar agar melayang di kanan */
+  border-radius: 20px !important;
+}
+
+.mobile-menu.open {
+  padding: 8px 18px 16px !important;
+  /* Kurangi padding dalam */
+}
+
+.mobile-menu-link {
+  font-size: 0.92rem !important;
+  /* Perkecil ukuran teks */
+  padding: 9px 0 !important;
+  /* Kurangi jarak antar menu */
+}
+
+.mobile-menu-cta {
+  padding: 10px 16px !important;
+  font-size: 0.85rem !important;
+  margin-top: 8px !important;
+}
+
+/* =========================================
+   NAVBAR SCROLL EFFECT (NGL STYLE)
+   ========================================= */
+
+/* =========================================
+   NAVBAR SLIDE-DOWN EFFECT (NGL STYLE)
+   ========================================= */
+
+/* 1. Pengaturan dasar Navbar */
+.topbar {
+  position: fixed !important;
+  top: 38px !important;
+  /* Berada tepat di bawah teks berjalan */
+  left: 12px !important;
+  /* Menyesuaikan margin kiri container */
+  right: 12px !important;
+  /* Menyesuaikan margin kanan container */
+  width: auto !important;
+  /* Lebar otomatis mengikuti left & right */
+  max-width: none !important;
+  /* Batalkan max-width:1100px bawaan biar bisa full-width pas discroll */
+  margin: 0 !important;
+  /* Batalkan margin:0 auto bawaan (penyebab navbar "nge-center" & ada celah di samping) */
+  padding: 24px 5% !important;
+  z-index: 9999 !important;
+  background-color: transparent !important;
+  border-radius: 40px 40px 0 0 !important;
+  /* Melengkung menyesuaikan container */
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+  /* Disamain sama kurva ::before biar gak ada jeda/celah putih */
+}
+
+/* 2. Ukuran logo buatanmu */
+.brand-logo {
+  height: 60px !important;
+  width: auto !important;
+  display: block !important;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1)) !important;
+}
+
+/* 3. Ini adalah 'Latar Hitam Melengkung' yang bersiap di atas layar */
+.topbar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000000;
+  border-radius: inherit;
+  /* Melengkung atau lurus mengikuti .topbar */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  z-index: -1;
+  transform: translateY(-120%);
+  /* Sembunyi jauh di atas */
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+/* 4. Saat di-scroll, tarik latar hitamnya turun (muncul dari atas) */
+.topbar.scrolled::before {
+  transform: translateY(0);
+}
+
+/* 5. Mengecilkan tinggi Navbar (jarak atas bawah) saat di-scroll */
+.topbar.scrolled {
+  top: 0 !important;
+  /* Marquee sudah disembunyikan, jadi aman naik ke paling atas */
+  left: 0 !important;
+  /* Melebar penuh ke ujung kiri */
+  right: 0 !important;
+  /* Melebar penuh ke ujung kanan */
+  border-radius: 0 0 20px 20px !important;
+  /* Sedikit melengkung di bagian bawah, bukan kotak lurus total */
+  padding: 16px 5% !important;
+  /* Mengecil agar lebih rapi */
+}
+
+/* 6. Mengubah warna tombol (Masuk/Kotak Masuk) menjadi terang saat navbar hitam */
+.topbar.scrolled .nav-link {
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.topbar.scrolled .nav-link:hover {
+  background: var(--primary) !important;
+  color: #000000 !important;
+  border-color: var(--primary) !important;
+}
+
+/* 7. Mendorong konten ke bawah agar tidak tertutup navbar yang melayang */
+.page-wrap {
+  padding-top: 100px !important;
+}
+
+/* Container Overlay */
+#intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: rgba(0, 0, 0, 0.7);
+  /* Latar gelap sedikit */
+  backdrop-filter: blur(15px);
+  /* Ini yang bikin konten index.php jadi blur */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 1s ease;
+}
+
+#intro-overlay.hidden {
+  opacity: 0;
+  pointer-events: none;
+  /* Biar overlay hilang dan bisa klik konten di bawahnya */
+}
+
+/* Container & Animasi (dibuat lebih lambat) */
+.intro-container {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-question {
+  position: absolute;
+  width: 150px;
+  /* Durasi total 2 detik */
+  animation: fadeInOut 2s ease-in-out forwards, pulse 1s infinite alternate ease-in-out;
+}
+
+.logo-text {
+  position: absolute;
+  width: 250px;
+  opacity: 0;
+  /* Mulai muncul setelah 1.5 detik, durasi 2 detik */
+  animation: revealText 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) 1.5s forwards;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  20% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  80% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
+@keyframes revealText {
+  0% {
+    opacity: 0;
+    transform: scale(0.8);
+    filter: blur(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+  }
+}
+
+/* =========================================
+   NGL STYLE: MARQUEE & CURVED CONTAINER
+   ========================================= */
+
+/* 1. Timpa Background Body Jadi Hitam Pekat */
+body {
+  background: #000000 !important;
+}
+
+body::before {
+  display: none !important;
+}
+
+/* 2. Teks Berjalan (Marquee) - Diperbaiki agar tidak putus */
+.marquee-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 10px 0;
+  z-index: 10000;
+  overflow: hidden;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Hilang begitu navbar jadi solid pas discroll */
+.marquee-container.hide {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.marquee-content {
+  display: flex;
+  width: max-content;
+  animation: marqueeScroll 25s linear infinite;
+}
+
+.marquee-content span {
+  padding-right: 30px;
+}
+
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
+
+  /* Loop mulus karena ada 4 bentang teks */
+}
+
+/* 3. Kontainer Utama (Melengkung & Mengambang) */
+.main-curved-box {
+  background: linear-gradient(135deg, #F8FAFC 0%, #E0F2FE 50%, #F0FDFA 100%);
+  position: relative;
+  z-index: 1;
+  /* Margin untuk membuat kontainer mengambang dari tepi layar */
+  margin: 48px 12px 12px 12px;
+  border-radius: 40px;
+  /* Lengkungan atas dan bawah */
+  min-height: calc(100vh - 60px);
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+.main-curved-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle at 20% 20%, rgba(204, 255, 0, 0.08), transparent 44%),
+    radial-gradient(circle at 85% 75%, rgba(59, 130, 246, 0.06), transparent 42%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* 4. Posisi Navbar Baru (Tengah & Warna Putih) */
+.nav-center {
+  flex: 2;
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  align-items: center;
+}
+
+.nav-text-link {
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+  text-decoration: none;
+  font-size: 0.95rem;
+  color: var(--text-dark);
+  /* Hitam saat belum discroll (di atas background terang) */
+  text-shadow: none;
+  position: relative;
+  /* buat naruh titik indikator halaman aktif */
+  transition: color 0.3s ease, opacity 0.2s, transform 0.2s;
+}
+
+.nav-text-link:hover {
+  opacity: 0.8;
+  transform: translateY(-2px);
+}
+
+/* Titik penanda halaman aktif (ala NGL), warnanya ngikutin warna teks di sebelahnya */
+.nav-text-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  animation: navDotIn 0.5s cubic-bezier(0.25, 1, 0.5, 1) 0.3s backwards;
+}
+
+@keyframes navDotIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) scale(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+/* Titik penanda di menu mobile juga */
+.mobile-menu-link.active {
+  position: relative;
+}
+
+.mobile-menu-link.active::after {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+  margin-left: 8px;
+  vertical-align: middle;
+}
+
+/* Saat navbar sudah discroll & background hitam muncul, teks jadi putih (ala NGL) */
+.topbar.scrolled .nav-text-link {
+  color: #ffffff;
+  text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.6);
+}
+
+/* 5. Efek Liquid Glass (Glassmorphism Trend) */
+.glass-btn {
+  background: rgba(255, 255, 255, 0.3) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.6) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1) !important;
+  color: #111827 !important;
+  /* Warna teks gelap */
+  text-shadow: none !important;
+  border-radius: 12px !important;
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1) !important;
+}
+
+.glass-btn:hover {
+  background: rgba(255, 255, 255, 0.5) !important;
+  border: 1px solid rgba(255, 255, 255, 0.9) !important;
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.15) !important;
+  transform: translateY(-3px) scale(1.02) !important;
+}
+
+/* 6. Footer di area hitam luar lengkungan */
+.site-footer-dark {
+  padding: 20px 24px 40px;
+  color: #6B7280;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+.site-footer-dark a {
+  color: #9CA3AF;
+  text-decoration: none;
+}
+
+.site-footer {
+  display: none !important;
+}
+
+/* Footer bawah: sejajar kiri-kanan kayak footer web pada umumnya, jangan numpuk ke tengah */
+.site-footer-dark .footer-grid {
+  flex-wrap: nowrap !important;
+}
+
+.site-footer-dark .footer-grid>div {
+  min-width: 0 !important;
+  white-space: nowrap;
+}
+
+.site-footer-dark .footer-grid>div:first-child {
+  text-align: left !important;
+}
+
+.site-footer-dark .footer-grid>div:last-child {
+  text-align: right !important;
+}
+
+@media (max-width: 480px) {
+  .site-footer-dark .footer-grid {
+    font-size: 0.8rem;
+  }
+}
+
+/* =========================================
+   HAMBURGER MENU MOBILE (ala NGL)
+   ========================================= */
+
+/* Tombol hamburger: disembunyikan di desktop by default */
+.hamburger-btn {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: relative;
+  z-index: 10001;
+  /* di atas navbar & marquee */
+  flex-shrink: 0;
+}
+
+.hamburger-btn span {
+  display: block;
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--text-dark);
+  /* hitam saat belum discroll */
+  transition: transform 0.3s ease, opacity 0.3s ease, background 0.3s ease;
+}
+
+.topbar.scrolled .hamburger-btn span {
+  background: #ffffff;
+}
+
+/* Animasi garis 3 -> jadi X saat menu terbuka */
+.hamburger-btn.open span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.hamburger-btn.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger-btn.open span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+/* Panel dropdown mobile, nempel di bawah topbar (anak dari .topbar yang position:fixed) */
+.mobile-menu {
+  display: none;
+  position: absolute;
+  top: calc(100% + 12px);
+  left: 0;
+  right: 0;
+  background: #000000;
+  border-radius: 24px;
+  flex-direction: column;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  padding: 0 24px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  transition: max-height 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.3s ease, padding 0.4s ease;
+}
+
+.mobile-menu.open {
+  max-height: 420px;
+  opacity: 1;
+  padding: 12px 24px 20px;
+}
+
+.mobile-menu-link {
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-decoration: none;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.mobile-menu-link:last-of-type {
+  border-bottom: none;
+}
+
+.mobile-menu-cta {
+  color: var(--dark-bg) !important;
+  background: var(--primary);
+  border-radius: 12px;
+  padding: 14px 20px !important;
+  text-align: center;
+  margin-top: 8px;
+  border-bottom: none !important;
+}
+
+@media (max-width: 780px) {
+  .nav-center {
+    display: none !important;
+  }
+
+  .desktop-only-link {
+    display: none !important;
+  }
+
+  .hamburger-btn {
+    display: flex !important;
+  }
+
+  .mobile-menu {
+    display: flex;
+  }
+}

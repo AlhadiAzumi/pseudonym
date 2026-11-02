@@ -59,6 +59,16 @@ class Router
 
         foreach ($routes as $route) {
             if (preg_match($route['regex'], $uri, $matches)) {
+                if ($method === 'POST' && !$this->hasSameOrigin()) {
+                    $this->rejectPost($uri);
+                    return;
+                }
+
+                if ($method === 'POST' && !isValidCsrfToken($_SERVER['HTTP_X_CSRF_TOKEN'] ?? $_POST['csrf_token'] ?? null)) {
+                    $this->rejectPost($uri);
+                    return;
+                }
+
                 array_shift($matches); // Hilangkan full match
                 $params = array_map('urldecode', $matches);
 
@@ -91,5 +101,52 @@ class Router
         echo '<p style="font-size:1.2rem; margin-bottom:24px; color:var(--text-muted);">Halaman yang kamu cari tidak ditemukan.</p>';
         echo '<a href="' . url('/') . '" style="background:var(--primary); color:var(--dark-bg); padding:10px 24px; border-radius:8px; text-decoration:none; font-weight:700;">Kembali ke Beranda</a>';
         echo '</div></div></body></html>';
+    }
+
+    private function hasSameOrigin(): bool
+    {
+        $source = $_SERVER['HTTP_ORIGIN'] ?? $_SERVER['HTTP_REFERER'] ?? '';
+        if ($source === '') {
+            return true;
+        }
+
+        $sourceParts = is_string($source) ? parse_url($source) : false;
+        $requestHost = (string) ($_SERVER['HTTP_HOST'] ?? '');
+        $requestParts = parse_url('//' . $requestHost);
+
+        if (
+            !is_array($sourceParts) ||
+            !isset($sourceParts['scheme'], $sourceParts['host']) ||
+            !is_array($requestParts) ||
+            !isset($requestParts['host'])
+        ) {
+            return false;
+        }
+
+        $requestScheme = (
+            (!empty($_SERVER['HTTPS']) && strtolower((string) $_SERVER['HTTPS']) !== 'off') ||
+            strtolower((string) ($_SERVER['HTTP_X_FORWARDED_PROTO'] ?? '')) === 'https' ||
+            getenv('VERCEL') !== false ||
+            isset($_SERVER['VERCEL'])
+        ) ? 'https' : 'http';
+        $sourceScheme = strtolower($sourceParts['scheme']);
+        $sourcePort = $sourceParts['port'] ?? ($sourceScheme === 'https' ? 443 : 80);
+        $requestPort = $requestParts['port'] ?? ($requestScheme === 'https' ? 443 : 80);
+
+        return in_array($sourceScheme, ['http', 'https'], true)
+            && $sourceScheme === $requestScheme
+            && strtolower($sourceParts['host']) === strtolower($requestParts['host'])
+            && $sourcePort === $requestPort;
+    }
+
+    private function rejectPost(string $uri): void
+    {
+        http_response_code(403);
+        if (str_starts_with($uri, '/api/')) {
+            jsonResponse(['success' => false, 'error' => 'Permintaan ditolak. Muat ulang halaman dan coba lagi.'], 403);
+        }
+
+        header('Content-Type: text/plain; charset=utf-8');
+        echo 'Permintaan ditolak. Muat ulang halaman dan coba lagi.';
     }
 }

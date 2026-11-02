@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= h($title ?? 'Pilih username') ?></title>
+    <meta name="csrf-token" content="<?= h(csrfToken()) ?>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap">
     <link rel="stylesheet" href="<?= asset('css/style.css') ?>">
     <link rel="icon" type="image/png" href="<?= asset('images/Pseudonym%20logo%20browser.png') ?>">
 </head>
@@ -27,6 +31,7 @@
         <?php endif; ?>
 
         <form method="POST" action="<?= url('/choose-username') ?>" class="stacked-form">
+            <input type="hidden" name="csrf_token" value="<?= h(csrfToken()) ?>">
             <div style="margin-bottom:18px;">
                 <label for="username" style="display:block; font-size:0.82rem; font-family:'IBM Plex Mono',monospace; color:var(--text-muted-dark); margin-bottom:6px; text-transform:uppercase;">Username</label>
                 <div class="input-prefix" style="display:flex; align-items:center; background:var(--paper-2); border:1.5px solid var(--paper-line); border-radius:10px; padding:0 12px;">

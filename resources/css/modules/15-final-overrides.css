@@ -1,0 +1,86 @@
+/* Bright reference balance: lavender canvas, white surfaces, purple and lime */
+:root {
+  --lavender-canvas: #F0EBFA;
+  --purple: #5A23E8;
+  --purple-deep: #4318C8;
+}
+
+body {
+  background: var(--lavender-canvas) !important;
+}
+
+.marquee-container {
+  background: var(--blue) !important;
+  color: #FFFFFF !important;
+}
+
+.main-curved-box {
+  background: #FFFFFF !important;
+}
+
+.main-curved-box::before {
+  background-image:
+    linear-gradient(rgba(90, 35, 232, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(90, 35, 232, 0.025) 1px, transparent 1px),
+    radial-gradient(ellipse at 84% 16%, rgba(210, 255, 82, 0.12), transparent 38%) !important;
+}
+
+.about-how {
+  border-color: rgba(90, 35, 232, 0.16) !important;
+  background: rgba(229, 224, 255, 0.76) !important;
+  color: var(--ink-violet) !important;
+}
+
+.about-how .about-card-label,
+.about-how h2,
+.about-how .step-content h3 {
+  color: var(--ink-violet) !important;
+}
+
+.about-how h2 em {
+  color: var(--purple) !important;
+}
+
+.about-how .step-content p {
+  color: #625A78 !important;
+}
+
+.safety-bento-grid .safety-card-dark,
+.contact-info-sidebar .info-dark {
+  border-color: rgba(255, 255, 255, 0.48) !important;
+  background: rgba(90, 35, 232, 0.92) !important;
+}
+
+.safety-card-dark .shield-badge-icon {
+  background: rgba(210, 255, 82, 0.2) !important;
+  color: var(--lime) !important;
+}
+
+.safety-card-dark h3,
+.info-dark h3 {
+  color: var(--lime) !important;
+}
+
+.safety-card-dark p,
+.info-dark p {
+  color: rgba(255, 255, 255, 0.92) !important;
+}
+
+.info-dark .info-link {
+  color: var(--lime) !important;
+}
+
+.info-icon.icon-light {
+  background: var(--lime) !important;
+  color: var(--purple) !important;
+}
+
+.site-footer-dark {
+  border-radius: 18px 18px 0 0;
+  background: var(--blue) !important;
+  color: rgba(255, 255, 255, 0.9) !important;
+}
+
+.site-footer-dark a {
+  color: var(--lime) !important;
+}
