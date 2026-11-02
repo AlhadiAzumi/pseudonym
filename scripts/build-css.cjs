@@ -19,6 +19,8 @@ const modules = [
   '13-brand-overrides.css',
   '14-palette-overrides.css',
   '15-final-overrides.css',
+  '16-username-page.css',
+  '17-dashboard-navigation.css',
 ];
 
 const source = modules
