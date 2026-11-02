@@ -1,0 +1,164 @@
+.username-page {
+  min-height: 100svh;
+  padding: 32px 20px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 12% 14%, rgba(210, 255, 82, 0.4), transparent 34%),
+    radial-gradient(ellipse at 88% 84%, rgba(128, 111, 255, 0.22), transparent 38%),
+    #f2f1ff !important;
+}
+
+.username-card {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 520px);
+  max-width: 520px;
+  padding: clamp(28px, 6vw, 48px);
+  border: 1px solid rgba(255, 255, 255, 0.88) !important;
+  border-radius: 28px !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  box-shadow: 0 28px 80px rgba(41, 38, 89, 0.14) !important;
+  color: #20243a;
+}
+
+.username-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: 0 0 18px;
+  color: #5a5f75;
+  font: 600 0.78rem/1.4 'Inter', sans-serif;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.username-eyebrow span {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #5a23e8;
+  box-shadow: 0 0 0 4px rgba(90, 35, 232, 0.1);
+}
+
+.username-title {
+  max-width: 420px;
+  margin: 0;
+  color: #20243a !important;
+  font: 700 clamp(2rem, 7vw, 2.8rem)/1.08 'Space Grotesk', 'Inter', sans-serif;
+  letter-spacing: -0.055em;
+}
+
+.username-description {
+  max-width: 410px;
+  margin: 16px 0 32px !important;
+  color: #676d80 !important;
+  font: 400 1rem/1.7 'Inter', sans-serif;
+}
+
+.username-form {
+  gap: 0;
+}
+
+.username-field {
+  margin-bottom: 22px;
+}
+
+.username-field label {
+  display: block;
+  margin-bottom: 9px;
+  color: #34394f;
+  font: 600 0.9rem/1.4 'Inter', sans-serif;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.username-input {
+  min-height: 60px;
+  margin: 0;
+  padding: 4px 17px;
+  border: 1.5px solid #e1e3ee !important;
+  border-radius: 15px !important;
+  background: #fafaff !important;
+  transition: border-color 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.username-input:focus-within {
+  border-color: #6a4bea !important;
+  background: #fff !important;
+  box-shadow: 0 0 0 4px rgba(90, 35, 232, 0.1);
+}
+
+.username-input span {
+  color: #8a8fa2;
+  font: 500 1.1rem/1 'Space Grotesk', sans-serif;
+}
+
+.username-input input {
+  min-width: 0;
+  padding: 10px 10px;
+  color: #252a40;
+  font: 500 1rem/1.4 'Inter', sans-serif;
+  letter-spacing: 0.01em;
+}
+
+.username-input input::placeholder {
+  color: #a0a4b3;
+  opacity: 1;
+}
+
+.username-hint {
+  margin: 9px 0 0;
+  color: #85899a;
+  font: 400 0.82rem/1.55 'Inter', sans-serif;
+}
+
+.username-card .username-submit {
+  display: inline-flex;
+  width: 100%;
+  min-height: 56px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 0 !important;
+  border-radius: 15px !important;
+  background: #5a23e8 !important;
+  color: #fff !important;
+  box-shadow: 0 10px 24px rgba(90, 35, 232, 0.2) !important;
+  font: 600 0.98rem/1.2 'Inter', sans-serif !important;
+  transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
+}
+
+.username-card .username-submit:hover {
+  transform: translateY(-1px);
+  background: #4318c8 !important;
+  color: #fff !important;
+  border-color: #4318c8 !important;
+  box-shadow: 0 13px 28px rgba(90, 35, 232, 0.24) !important;
+}
+
+.username-card .username-submit:focus-visible {
+  outline: 3px solid rgba(90, 35, 232, 0.35);
+  outline-offset: 3px;
+}
+
+.username-error {
+  margin-bottom: 20px;
+  border-radius: 12px;
+}
+
+@media (max-width: 520px) {
+  .username-page {
+    padding: 20px 16px;
+  }
+
+  .username-card {
+    border-radius: 22px !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .username-input,
+  .username-submit {
+    transition: none;
+  }
+}

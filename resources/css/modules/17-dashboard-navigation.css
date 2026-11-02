@@ -1,0 +1,28 @@
+.topbar .nav-link.active[aria-current="page"] {
+  border-color: #5a23e8 !important;
+  background: #5a23e8 !important;
+  color: #fff !important;
+  box-shadow: 0 7px 18px rgba(90, 35, 232, 0.2) !important;
+  font-weight: 700;
+}
+
+.topbar .nav-link.active[aria-current="page"]:hover {
+  border-color: #4318c8 !important;
+  background: #4318c8 !important;
+  color: #fff !important;
+}
+
+.topbar .mobile-menu-link.active[aria-current="page"] {
+  color: #5a23e8 !important;
+  font-weight: 700;
+}
+
+.topbar .mobile-menu-link.active[aria-current="page"]::after {
+  background: #5a23e8 !important;
+}
+
+.topbar.scrolled .nav-link.active[aria-current="page"] {
+  border-color: #d2ff52 !important;
+  background: #d2ff52 !important;
+  color: #131313 !important;
+}
