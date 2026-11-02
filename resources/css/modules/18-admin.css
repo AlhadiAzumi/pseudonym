@@ -1,0 +1,274 @@
+.admin-page {
+  max-width: 1040px;
+  padding-top: 56px;
+}
+
+.admin-heading {
+  margin-bottom: 28px;
+}
+
+.admin-heading h1,
+.admin-section-heading h2 {
+  margin: 0;
+  color: #20243a;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+}
+
+.admin-heading h1 {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+}
+
+.admin-intro {
+  margin: 10px 0 0;
+  color: #676d80;
+}
+
+.admin-eyebrow {
+  margin: 0 0 8px;
+  color: #5a23e8;
+  font: 600 0.75rem/1.4 'Inter', sans-serif;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.admin-flash {
+  margin: 0 0 20px;
+  padding: 12px 16px;
+  border: 1px solid #c9eadb;
+  border-radius: 12px;
+  background: #effaf4;
+  color: #176942;
+}
+
+.admin-flash--error {
+  border-color: #f3c5c5;
+  background: #fff3f3;
+  color: #a52929;
+}
+
+.admin-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 36px;
+}
+
+.admin-tabs a {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  padding: 10px 15px;
+  border: 1px solid #e3e3ed;
+  border-radius: 999px;
+  background: #fff;
+  color: #34394f;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.admin-tabs a:hover {
+  border-color: #5a23e8;
+  color: #5a23e8;
+}
+
+.admin-tabs span,
+.admin-count {
+  color: #777d90;
+  font-size: 0.82rem;
+}
+
+.admin-section {
+  margin-bottom: 52px;
+  scroll-margin-top: 24px;
+}
+
+.admin-section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.admin-section-heading h2 {
+  font-size: clamp(1.45rem, 4vw, 1.9rem);
+}
+
+.admin-count {
+  padding-bottom: 4px;
+}
+
+.admin-list {
+  display: grid;
+  gap: 14px;
+}
+
+.admin-card,
+.admin-empty {
+  padding: clamp(18px, 4vw, 25px);
+  border: 1px solid rgba(52, 57, 79, 0.08);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(41, 38, 89, 0.07);
+}
+
+.admin-empty {
+  color: #777d90;
+  text-align: center;
+}
+
+.admin-card-top,
+.admin-badges,
+.admin-actions,
+.admin-pagination {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.admin-card-top {
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.admin-card-top time {
+  color: #85899a;
+  font-size: 0.8rem;
+}
+
+.admin-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #f1f0f8;
+  color: #555b70;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.admin-badge--pending {
+  background: #fff4d7;
+  color: #8a5a00;
+}
+
+.admin-badge--reviewed {
+  background: #e9f1ff;
+  color: #2852a5;
+}
+
+.admin-badge--dismissed {
+  background: #efeff2;
+  color: #686d7b;
+}
+
+.admin-message,
+.admin-contact-message {
+  margin: 0;
+  color: #34394f;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.admin-message {
+  padding-left: 14px;
+  border-left: 3px solid #d2ff52;
+}
+
+.admin-card-meta {
+  margin: 13px 0 0;
+  color: #777d90;
+  font-size: 0.84rem;
+}
+
+.admin-card-meta a,
+.admin-contact-email {
+  color: #5a23e8;
+  font-weight: 600;
+}
+
+.admin-actions {
+  margin-top: 18px;
+}
+
+.admin-actions form {
+  margin: 0;
+}
+
+.admin-button {
+  min-height: 38px;
+  padding: 8px 12px;
+  border: 1px solid #d9dce7;
+  border-radius: 10px;
+  background: #fff;
+  color: #34394f;
+  cursor: pointer;
+  font: 600 0.82rem/1.2 'Inter', sans-serif;
+}
+
+.admin-button:hover {
+  border-color: #5a23e8;
+  color: #5a23e8;
+}
+
+.admin-button--danger {
+  border-color: #f0caca;
+  color: #a52929;
+}
+
+.admin-button--danger:hover,
+.admin-button--quiet:hover {
+  border-color: #c94343;
+  color: #a52929;
+}
+
+.admin-contact-name {
+  margin: 0 0 3px;
+  color: #20243a;
+  font: 700 1.08rem/1.4 'Space Grotesk', 'Inter', sans-serif;
+}
+
+.admin-contact-message {
+  margin-top: 14px;
+}
+
+.admin-pagination {
+  justify-content: space-between;
+  margin-top: 20px;
+  color: #777d90;
+  font-size: 0.86rem;
+}
+
+.admin-pagination a {
+  color: #5a23e8;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.admin-pagination a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .admin-page {
+    padding-top: 36px;
+  }
+
+  .admin-section-heading {
+    align-items: start;
+  }
+
+  .admin-card-top {
+    align-items: start;
+  }
+
+  .admin-actions form,
+  .admin-button {
+    width: 100%;
+  }
+
+  .admin-actions {
+    align-items: stretch;
+  }
+}

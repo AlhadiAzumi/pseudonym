@@ -123,6 +123,31 @@ PostgreSQL khusus test dengan skema `database/schema.sql`; atur `TEST_DB_HOST`, 
 `TEST_DB_NAME`, `TEST_DB_USER`, `TEST_DB_PASS`, dan `TEST_DB_SSLMODE` sebelum menjalankan test.
 Test database harus terpisah dari database produksi karena test membuat fixture di dalam transaksi.
 
+### Mengisi data demo
+
+Seeder berikut menambahkan lima pesan contoh (termasuk satu balasan) ke akun yang sudah ada.
+Seeder tidak membuat akun baru dan hanya menghapus/memperbarui pesan yang dibuat oleh seeder untuk
+akun tersebut. Jalankan dari PowerShell di folder proyek. Pastikan username benar; ini menulis ke
+database yang dikonfigurasi dalam `.env`.
+
+```powershell
+# Tambahkan sementara ke .env
+ALLOW_DUMMY_SEEDING=true
+
+# Jalankan dengan username akun tujuan
+php scripts/seed-demo.php --username=hadi --confirm
+```
+
+Setelah berhasil, hapus kembali `ALLOW_DUMMY_SEEDING` dari `.env`. Seeder menolak `APP_ENV=production`
+dan tidak bisa dipanggil melalui browser.
+
+### Dashboard administrasi
+
+Set `ADMIN_EMAIL` ke email Google admin pada `.env` lokal dan environment variable hosting. Hanya
+akun Google dengan email persis tersebut yang dapat membuka `/admin`. Dashboard menampilkan laporan
+pesan dan Contact Us; admin bisa meninjau/mendismiss laporan, menyembunyikan pesan terlapor, atau
+menghapus entri laporan. Pesan Contact Us saat ini hanya dapat dibaca dari dashboard.
+
 CSS sumber dibagi ke `resources/css/modules/` dan tetap digabung dalam urutan cascade lama.
 Setelah mengubah modul, jalankan `npm install` lalu `npm run build:css` untuk membuat stylesheet
 produksi ter-minify di `public/assets/css/style.css`.

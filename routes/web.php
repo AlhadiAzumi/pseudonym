@@ -11,6 +11,7 @@ use App\Controllers\DashboardController;
 use App\Controllers\ProfileController;
 use App\Controllers\AuthController;
 use App\Controllers\ApiController;
+use App\Controllers\AdminController;
 
 /** @var Router $router */
 
@@ -21,6 +22,8 @@ $router->get('/safety', [SafetyController::class, 'index']);
 $router->get('/contact', [ContactController::class, 'index']);
 $router->post('/contact', [ContactController::class, 'submit']);
 $router->get('/dashboard', [DashboardController::class, 'index']);
+$router->get('/admin', [AdminController::class, 'index']);
+$router->post('/admin/reports', [AdminController::class, 'updateReport']);
 $router->get('/u/{username}', [ProfileController::class, 'show']);
 $router->get('/u', [ProfileController::class, 'show']);
 

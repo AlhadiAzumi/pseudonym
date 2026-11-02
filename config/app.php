@@ -6,6 +6,7 @@ return [
     'name' => env('APP_NAME', 'Pseudonym'),
     'url'  => env('APP_URL', full_url()),
     'timezone' => env('APP_TIMEZONE', 'Asia/Jakarta'),
+    'admin_email' => trim((string) env('ADMIN_EMAIL', '')),
     'google' => [
         // Jangan pernah menaruh kredensial asli sebagai fallback di repo publik.
         'client_id'     => env('GOOGLE_CLIENT_ID', ''),

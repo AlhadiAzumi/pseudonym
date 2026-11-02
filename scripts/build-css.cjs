@@ -21,6 +21,7 @@ const modules = [
   '15-final-overrides.css',
   '16-username-page.css',
   '17-dashboard-navigation.css',
+  '18-admin.css',
 ];
 
 const source = modules

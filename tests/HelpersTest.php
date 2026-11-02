@@ -158,4 +158,30 @@ final class HelpersTest extends TestCase
             asset('css/style.css')
         );
     }
+
+    public function testAdminAccessIsRestrictedToConfiguredGoogleEmail(): void
+    {
+        $hadAdminEmail = array_key_exists('ADMIN_EMAIL', $_ENV);
+        $previousAdminEmail = $_ENV['ADMIN_EMAIL'] ?? null;
+
+        try {
+            $_ENV['ADMIN_EMAIL'] = 'Admin@example.com';
+            \App\Core\Config::load();
+
+            self::assertTrue(isAdminUser(['email' => 'admin@example.com']));
+            self::assertFalse(isAdminUser(['email' => 'someone-else@example.com']));
+            self::assertFalse(isAdminUser(null));
+
+            $_ENV['ADMIN_EMAIL'] = '';
+            \App\Core\Config::load();
+            self::assertFalse(isAdminUser(['email' => 'admin@example.com']));
+        } finally {
+            if ($hadAdminEmail) {
+                $_ENV['ADMIN_EMAIL'] = $previousAdminEmail;
+            } else {
+                unset($_ENV['ADMIN_EMAIL']);
+            }
+            \App\Core\Config::load();
+        }
+    }
 }

@@ -193,6 +193,19 @@ if (!function_exists('currentUser')) {
     }
 }
 
+if (!function_exists('isAdminUser')) {
+    function isAdminUser(?array $user): bool
+    {
+        $adminEmail = strtolower(trim((string) Config::get('app.admin_email', '')));
+        $userEmail = strtolower(trim((string) ($user['email'] ?? '')));
+
+        return $adminEmail !== ''
+            && filter_var($adminEmail, FILTER_VALIDATE_EMAIL) !== false
+            && $userEmail !== ''
+            && hash_equals($adminEmail, $userEmail);
+    }
+}
+
 if (!function_exists('requireLogin')) {
     /**
      * Memastikan user sudah login, redirect jika belum

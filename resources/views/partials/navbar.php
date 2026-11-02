@@ -29,6 +29,9 @@ $currentPage = $currentPage ?? '';
         <div class="nav-right" style="flex:1; display:flex; justify-content:flex-end; align-items:center; gap:12px;">
             <?php if ($currentUser): ?>
                 <a href="<?= url('/dashboard') ?>" class="nav-link glass-btn desktop-only-link <?= $currentPage === 'dashboard' ? 'active' : '' ?>" <?= $currentPage === 'dashboard' ? 'aria-current="page"' : '' ?>>Kotak Masuk</a>
+                <?php if (isAdminUser($currentUser)): ?>
+                    <a href="<?= url('/admin') ?>" class="nav-link glass-btn desktop-only-link <?= $currentPage === 'admin' ? 'active' : '' ?>" <?= $currentPage === 'admin' ? 'aria-current="page"' : '' ?>>Admin</a>
+                <?php endif; ?>
                 <a href="<?= url('/auth/logout') ?>" class="nav-text-link nav-logout desktop-only-link">Keluar</a>
             <?php else: ?>
                 <a href="<?= url('/auth/google-login') ?>" class="nav-link glass-btn desktop-only-link">Masuk</a>
@@ -48,6 +51,9 @@ $currentPage = $currentPage ?? '';
             <a href="<?= url('/contact') ?>" class="mobile-menu-link <?= $currentPage === 'contact' ? 'active' : '' ?>">Contact us</a>
             <?php if ($currentUser): ?>
                 <a href="<?= url('/dashboard') ?>" class="mobile-menu-link <?= $currentPage === 'dashboard' ? 'active' : '' ?>" <?= $currentPage === 'dashboard' ? 'aria-current="page"' : '' ?>>Kotak Masuk</a>
+                <?php if (isAdminUser($currentUser)): ?>
+                    <a href="<?= url('/admin') ?>" class="mobile-menu-link <?= $currentPage === 'admin' ? 'active' : '' ?>" <?= $currentPage === 'admin' ? 'aria-current="page"' : '' ?>>Administrasi</a>
+                <?php endif; ?>
                 <a href="<?= url('/auth/logout') ?>" class="mobile-menu-link mobile-menu-cta" style="color:#ef4444;">Keluar</a>
             <?php else: ?>
                 <a href="<?= url('/auth/google-login') ?>" class="mobile-menu-link mobile-menu-cta">Masuk dengan Google</a>
