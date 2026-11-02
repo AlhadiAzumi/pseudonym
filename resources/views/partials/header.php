@@ -11,7 +11,7 @@ $ogImageUrl = full_url('/assets/images/Pseudonym%20logo.png');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= h($pageTitle) ?></title>
     <meta name="description" content="<?= h($pageDescription) ?>">
-    <meta name="robots" content="index, follow">
+    <meta name="robots" content="<?= h($robots ?? 'index, follow') ?>">
     <meta name="theme-color" content="#0F172A">
     <meta name="csrf-token" content="<?= h(csrfToken()) ?>">
     <link rel="canonical" href="<?= h($currentUrl) ?>">

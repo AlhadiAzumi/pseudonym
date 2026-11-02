@@ -94,7 +94,12 @@ class AdminController extends Controller
 
         if (!isAdminUser($user)) {
             http_response_code(403);
-            echo 'Akses ditolak.';
+            $this->view('access-denied', [
+                'title' => 'Akses Ditolak',
+                'metaDescription' => 'Halaman ini hanya dapat diakses oleh administrator.',
+                'robots' => 'noindex, nofollow',
+                'currentPage' => '',
+            ]);
             exit;
         }
 

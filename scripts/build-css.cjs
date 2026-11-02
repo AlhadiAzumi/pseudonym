@@ -22,6 +22,7 @@ const modules = [
   '16-username-page.css',
   '17-dashboard-navigation.css',
   '18-admin.css',
+  '19-access-denied.css',
 ];
 
 const source = modules
