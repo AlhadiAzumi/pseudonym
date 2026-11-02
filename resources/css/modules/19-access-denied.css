@@ -1,0 +1,228 @@
+.access-denied-page {
+  display: grid;
+  min-height: min(720px, 78vh);
+  place-items: center;
+  padding-top: 48px;
+  padding-bottom: 64px;
+}
+
+.access-denied-card {
+  position: relative;
+  width: min(100%, 620px);
+  padding: clamp(28px, 7vw, 58px);
+  overflow: hidden;
+  border: 1px solid rgba(52, 57, 79, 0.08);
+  border-radius: 30px;
+  background:
+    radial-gradient(ellipse at 50% 12%, rgba(210, 255, 82, 0.2), transparent 40%),
+    #fff;
+  box-shadow: 0 24px 80px rgba(41, 38, 89, 0.1);
+  text-align: center;
+}
+
+.access-denied-art {
+  position: relative;
+  display: grid;
+  width: min(100%, 290px);
+  height: 190px;
+  margin: 0 auto 24px;
+  place-items: center;
+}
+
+.access-denied-orbit {
+  position: absolute;
+  width: 166px;
+  height: 166px;
+  border: 1px solid rgba(90, 35, 232, 0.14);
+  border-radius: 50%;
+}
+
+.access-denied-orbit--two {
+  width: 126px;
+  height: 126px;
+  border-style: dashed;
+  border-color: rgba(90, 35, 232, 0.24);
+}
+
+.access-denied-lock {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 82px;
+  height: 90px;
+  place-items: end center;
+}
+
+.access-denied-lock__shackle {
+  position: absolute;
+  top: 3px;
+  left: 23px;
+  width: 36px;
+  height: 43px;
+  border: 8px solid #5a23e8;
+  border-bottom: 0;
+  border-radius: 24px 24px 0 0;
+}
+
+.access-denied-lock__body {
+  position: relative;
+  display: grid;
+  width: 82px;
+  height: 59px;
+  margin-bottom: 1px;
+  place-items: center;
+  border: 5px solid #20243a;
+  border-radius: 17px;
+  background: #d2ff52;
+  box-shadow: 0 10px 22px rgba(32, 36, 58, 0.16);
+}
+
+.access-denied-lock__keyhole {
+  position: relative;
+  display: block;
+  width: 10px;
+  height: 19px;
+  border-radius: 8px;
+  background: #20243a;
+}
+
+.access-denied-lock__keyhole::before {
+  position: absolute;
+  top: -5px;
+  left: -3px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #20243a;
+  content: '';
+}
+
+.access-denied-code {
+  position: absolute;
+  right: 5px;
+  bottom: 10px;
+  color: rgba(90, 35, 232, 0.12);
+  font: 700 2.4rem/1 'Space Grotesk', sans-serif;
+  letter-spacing: -0.08em;
+}
+
+.access-denied-spark {
+  position: absolute;
+  color: #5a23e8;
+}
+
+.access-denied-spark--one {
+  top: 24px;
+  left: 30px;
+  font-size: 1.4rem;
+}
+
+.access-denied-spark--two {
+  right: 34px;
+  bottom: 35px;
+  color: #e6a900;
+  font-size: 1.25rem;
+}
+
+.access-denied-eyebrow {
+  margin: 0 0 10px;
+  color: #5a23e8;
+  font: 700 0.75rem/1.4 'Inter', sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.access-denied-card h1 {
+  margin: 0;
+  color: #20243a;
+  font-size: clamp(2rem, 6vw, 3rem);
+  line-height: 1.1;
+}
+
+.access-denied-copy {
+  max-width: 430px;
+  margin: 16px auto 0;
+  color: #676d80;
+  line-height: 1.75;
+}
+
+.access-denied-actions {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 11px;
+  margin-top: 27px;
+}
+
+.access-denied-button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 18px;
+  border: 1px solid transparent;
+  border-radius: 13px;
+  font: 600 0.9rem/1.2 'Inter', sans-serif;
+  text-decoration: none;
+  transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+}
+
+.access-denied-button:hover {
+  transform: translateY(-2px);
+}
+
+.access-denied-button--primary {
+  background: #20243a;
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(32, 36, 58, 0.16);
+}
+
+.access-denied-button--primary:hover {
+  background: #34394f;
+  box-shadow: 0 11px 22px rgba(32, 36, 58, 0.2);
+}
+
+.access-denied-button--secondary {
+  border-color: #e3e3ed;
+  background: #fff;
+  color: #34394f;
+}
+
+.access-denied-button--secondary:hover {
+  border-color: #5a23e8;
+  color: #5a23e8;
+}
+
+.access-denied-note {
+  margin: 23px 0 0;
+  color: #85899a;
+  font-size: 0.8rem;
+  line-height: 1.6;
+}
+
+@media (max-width: 480px) {
+  .access-denied-page {
+    min-height: 68vh;
+    padding-top: 30px;
+    padding-bottom: 40px;
+  }
+
+  .access-denied-card {
+    border-radius: 23px;
+  }
+
+  .access-denied-actions {
+    flex-direction: column;
+  }
+
+  .access-denied-button {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .access-denied-button {
+    transition: none;
+  }
+}
